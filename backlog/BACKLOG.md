@@ -13,7 +13,7 @@
 | qa | 14 |
 | done | 12 |
 | cancelled | 0 |
-| fase2 | 4 |
+| fase2 | 5 |
 | blocked | 0 |
 
 ## MVP — por épica
@@ -69,6 +69,7 @@
 
 ### [BEE-10](_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2)
 - [fase2] bee10-editor-generico-campos-lua — P2
+- [fase2] bee10-jokers-iniciais — P2 (depende do usuário confirmar se o campo existe no jogo)
 
 ## Ordem sugerida (dependências)
 
