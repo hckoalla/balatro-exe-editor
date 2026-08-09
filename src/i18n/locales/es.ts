@@ -26,7 +26,7 @@ export const es: Messages = {
     addedToBase: 'Se suma al valor base del juego.',
     resetField: 'Restablecer {{label}}',
     warning:
-      'Este valor no ha sido probado (rango seguro hasta ±{{limit}}) y podría hacer que el juego deje de funcionar.',
+      '{{label}}: este valor no ha sido probado (rango seguro hasta ±{{limit}}) y podría hacer que el juego deje de funcionar.',
   },
   consumables: {
     label: 'Consumibles Iniciales',

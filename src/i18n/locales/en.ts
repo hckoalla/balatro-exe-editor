@@ -28,7 +28,7 @@ export const en = {
     addedToBase: 'Added to the base game value.',
     resetField: 'Reset {{label}}',
     warning:
-      "This value hasn't been tested (safe range up to ±{{limit}}) and could make the game stop working.",
+      "{{label}}: this value hasn't been tested (safe range up to ±{{limit}}) and could make the game stop working.",
   },
   consumables: {
     label: 'Starting Consumables',

@@ -41,55 +41,65 @@ export function NumericFieldsForm({ config, onChange }: NumericFieldsFormProps) 
     onChange(next)
   }
 
+  const exceedingFields = FIELDS.filter((field) => {
+    const value = config[field.key]
+    return value !== undefined && Math.abs(value) > field.safeLimit
+  })
+
   return (
     <div className="numeric-fields-form">
-      {FIELDS.map((field) => {
-        const value = config[field.key]
-        const isSet = value !== undefined
-        const exceedsSafeLimit = isSet && Math.abs(value) > field.safeLimit
-        const label = t(field.labelKey)
-
-        return (
-          <div className="numeric-field" key={field.key}>
-            <div className="numeric-field__header">
-              <label className="numeric-field__label" htmlFor={`numeric-field-${field.key}`}>
-                {label}
-              </label>
-              {isSet && (
-                <button
-                  type="button"
-                  className="numeric-field__reset"
-                  title={t('numericFields.resetField', { label })}
-                  aria-label={t('numericFields.resetField', { label })}
-                  onClick={() => handleReset(field.key)}
-                >
-                  &#8634;
-                </button>
-              )}
+      {exceedingFields.length > 0 && (
+        <div className="numeric-fields-form__warnings">
+          {exceedingFields.map((field) => (
+            <div className="numeric-field__warning" key={field.key}>
+              {t('numericFields.warning', { label: t(field.labelKey), limit: field.safeLimit })}
             </div>
+          ))}
+        </div>
+      )}
 
-            <div className="numeric-field__input-row">
-              <div className="numeric-field__input-wrapper">
-                {isSet && value >= 0 && <span className="numeric-field__input-prefix">+</span>}
-                <input
-                  id={`numeric-field-${field.key}`}
-                  type="number"
-                  className="numeric-field__input"
-                  value={value ?? ''}
-                  onChange={(e) => handleFieldChange(field.key, e.target.value)}
-                />
+      <div className="numeric-fields-form__grid">
+        {FIELDS.map((field) => {
+          const value = config[field.key]
+          const isSet = value !== undefined
+          const label = t(field.labelKey)
+
+          return (
+            <div className="numeric-field" key={field.key}>
+              <div className="numeric-field__header">
+                <label className="numeric-field__label" htmlFor={`numeric-field-${field.key}`}>
+                  {label}
+                </label>
+                {isSet && (
+                  <button
+                    type="button"
+                    className="numeric-field__reset"
+                    title={t('numericFields.resetField', { label })}
+                    aria-label={t('numericFields.resetField', { label })}
+                    onClick={() => handleReset(field.key)}
+                  >
+                    &#8634;
+                  </button>
+                )}
               </div>
+
+              <div className="numeric-field__input-row">
+                <div className="numeric-field__input-wrapper">
+                  {isSet && value >= 0 && <span className="numeric-field__input-prefix">+</span>}
+                  <input
+                    id={`numeric-field-${field.key}`}
+                    type="number"
+                    className="numeric-field__input"
+                    value={value ?? ''}
+                    onChange={(e) => handleFieldChange(field.key, e.target.value)}
+                  />
+                </div>
+              </div>
+              <p className="numeric-field__hint">{t('numericFields.addedToBase')}</p>
             </div>
-            <p className="numeric-field__hint">{t('numericFields.addedToBase')}</p>
-
-            {exceedsSafeLimit && (
-              <div className="numeric-field__warning">
-                {t('numericFields.warning', { limit: field.safeLimit })}
-              </div>
-            )}
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
     </div>
   )
 }

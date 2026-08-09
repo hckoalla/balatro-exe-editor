@@ -62,3 +62,11 @@ Concluído em 09/ago/26:
   cada tecla (React força o `value` de volta pro prop antigo). Corrigido com um harness de teste
   com `useState` próprio, simulando como o pai de verdade se comportaria.
 - 8 testes novos (6 do formulário + 2 da tela).
+
+## Ajuste de layout pedido no smoke test (09/ago/26)
+Usuário pediu pra economizar espaço vertical: os 3 campos lado a lado (grid de 3 colunas) em vez
+de empilhados, com os avisos de limite seguro concentrados numa área só ACIMA do grid (em vez de
+um aviso embaixo de cada campo individualmente). Como o aviso deixou de ficar colado no campo,
+precisou passar a nomear explicitamente qual campo é (`"{{label}}: this value hasn't been
+tested..."`) — senão ficaria ambíguo com mais de um campo por perto. 2 testes novos cobrindo
+isso (nome do campo no aviso, múltiplos avisos simultâneos).

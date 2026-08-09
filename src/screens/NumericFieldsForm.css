@@ -1,6 +1,18 @@
 .numeric-fields-form {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+}
+
+.numeric-fields-form__warnings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.numeric-fields-form__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
@@ -47,6 +59,7 @@
 
 .numeric-field__input-wrapper {
   position: relative;
+  flex: 1;
 }
 
 .numeric-field__input-prefix {
@@ -62,7 +75,8 @@
 }
 
 .numeric-field__input {
-  width: 90px;
+  width: 100%;
+  box-sizing: border-box;
   text-align: center;
   font-family: var(--font-mono);
   font-size: 20px;
@@ -81,13 +95,10 @@
 }
 
 .numeric-field__warning {
-  margin-top: 10px;
   background: rgba(240, 162, 60, 0.12);
   border: 1px solid rgba(240, 162, 60, 0.4);
   border-radius: 10px;
   padding: 10px 12px;
-  display: flex;
-  gap: 8px;
   font-size: 12px;
   line-height: 1.5;
   color: #f7cf9a;

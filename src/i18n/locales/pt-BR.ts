@@ -26,7 +26,7 @@ export const ptBR: Messages = {
     addedToBase: 'Somado ao valor base do jogo.',
     resetField: 'Restaurar {{label}}',
     warning:
-      'Esse valor ainda não foi testado (faixa segura até ±{{limit}}) e pode fazer o jogo parar de funcionar.',
+      '{{label}}: esse valor ainda não foi testado (faixa segura até ±{{limit}}) e pode fazer o jogo parar de funcionar.',
   },
   consumables: {
     label: 'Consumíveis Iniciais',

@@ -71,6 +71,25 @@ describe('NumericFieldsForm', () => {
     expect(screen.getByText(/hasn't been tested/i)).toBeInTheDocument()
   })
 
+  it('names which field a warning is about, since warnings live above the fields, not next to them', async () => {
+    const user = userEvent.setup()
+    renderForm({})
+
+    await user.type(screen.getByLabelText(/^starting money$/i), '300')
+
+    expect(screen.getByText(/starting money.*hasn't been tested/i)).toBeInTheDocument()
+  })
+
+  it('shows one warning per field when more than one field exceeds its limit at once', async () => {
+    const user = userEvent.setup()
+    renderForm({})
+
+    await user.type(screen.getByLabelText(/^starting money$/i), '300')
+    await user.type(screen.getByLabelText(/^joker slots$/i), '200')
+
+    expect(screen.getAllByText(/hasn't been tested/i)).toHaveLength(2)
+  })
+
   it('clearing a field removes its key from the config', async () => {
     const user = userEvent.setup()
     const { onChange } = renderForm({ dollars: 10 })
