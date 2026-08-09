@@ -60,9 +60,10 @@ Ciclo por história:
 3. Implementar até cobrir todos os critérios de aceitação do `item.md`.
 4. Rodar a suíte de testes localmente.
 5. Mover pra `qa/` — é o máximo que o desenvolvimento sozinho pode declarar (ver
-   [`backlog/README.md`](../backlog/README.md)) — e **mergear a branch no `main` local** nesse
-   mesmo momento (sem PR/push — projeto solo, sem remoto colaborativo por trás). O usuário sempre
-   testa a partir do `main`, nunca precisa fazer checkout manual de branch de história.
+   [`backlog/README.md`](../backlog/README.md)) — e **mergear a branch no `main` local, e dar
+   `git push origin main`** nesse mesmo momento (sem PR — projeto solo, mas com push direto,
+   pedido explícito do usuário). O usuário sempre testa a partir do `main`, nunca precisa fazer
+   checkout manual de branch de história.
 6. Passar pro usuário validar com **smoke test manual**, a partir do `main` — usando um
    `balatro.exe` real (backup antes de testar!). Só depois da aprovação o item vai pra `done/`.
 
@@ -74,10 +75,17 @@ Regras:
 - Nenhuma história chega a `done` sem smoke test aprovado pelo usuário.
 - Nenhum teste do repositório depende do `game.lua`/`.exe` real do jogo — só fixtures sintéticas
   versionadas.
-- Nada é dado `push` pro remoto (`origin`) sem pedido explícito do usuário.
+- `git push origin main` acontece a cada história que chega em `qa/` (pedido explícito do
+  usuário) — não é preciso pedir de novo a cada vez.
 
 ## Gotchas conhecidos
 
+- **`git push`/`git fetch` travando (timeout, sem erro)**: o Git Credential Manager tem mais de
+  uma conta GitHub associada e fica esperando o usuário escolher qual usar — só que esse prompt
+  não aparece em terminais não-interativos, então o comando trava até estourar o timeout, sem
+  nenhuma mensagem de erro. Resolvido fixando a conta pra este repo (config local, não global):
+  `git config --local credential.https://github.com.username hckoalla`. Se voltar a travar, checar
+  se essa config ainda está setada (`git config --local --get credential.https://github.com.username`).
 - **`ELECTRON_RUN_AS_NODE=1` vazando pro shell** (comum dentro do Claude Code/VSCode, cujo próprio
   host é Electron): faz qualquer `electron.exe` filho rodar como Node puro, sem `app`/
   `BrowserWindow` — `npm run dev` quebra com `Cannot read properties of undefined (reading
