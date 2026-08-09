@@ -7,6 +7,7 @@ import { createSettingsService } from './settings/settings-service'
 import { registerSettingsHandlers } from './settings/register-settings-handlers'
 import { registerExeHandlers } from './exe-engine/register-exe-handlers'
 import { registerDeckHandlers } from './deck-config/register-deck-handlers'
+import { registerConsumableCatalogHandlers } from './consumable-catalog/register-consumable-catalog-handlers'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -49,6 +50,7 @@ app.whenReady().then(() => {
     readFile: (filePath) => readFile(filePath),
   })
   registerDeckHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })
+  registerConsumableCatalogHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })
   createWindow()
 })
 

@@ -2,7 +2,7 @@
 id: bee5-editor-consumiveis-iniciais
 title: "Editor de consumíveis iniciais do baralho"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| qa | P0 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Depende de [bee5-tela-selecao-baralho](../bee5-tela-selecao-baralho/item.md) e
 > [bee4-catalogo-consumiveis](../bee4-catalogo-consumiveis/item.md).
@@ -38,3 +38,18 @@ pra mostrar nomes amigáveis em vez de IDs internos.
 - Botão de **reset da lista inteira** (ícone de rollback), visível só quando a lista atual difere
   da lista padrão do baralho (que pode não ser vazia — ex: Magic Deck já vem com 2x "The Fool" de
   fábrica) — clicar volta a lista pro estado padrão daquele baralho específico.
+
+## Progresso
+Concluído em 09/ago/26:
+- Movi `ConsumableCategory`/`ConsumableCatalogEntry` de `electron/` pra `src/shared/
+  consumable-catalog-schema.ts` (mesmo motivo do `deck-schema.ts` em
+  `bee5-tela-selecao-baralho`).
+- `getConsumableCatalogFromExe` (main) + canal IPC `consumable-catalog:get-all`.
+- `ConsumablesEditor`: busca/filtra por nome (só mostra resultados com texto digitado — não
+  despeja o catálogo inteiro), adiciona por clique (duplicata permitida), remove por índice
+  específico (não por id — duas ocorrências do mesmo consumível são removíveis independentemente),
+  soft-warning acima de 30 itens, reset pra lista padrão do baralho (que pode não ser vazia).
+- `DeckEditorScreen` ganhou a prop `exePath` (precisa pra buscar o catálogo) e agora renderiza
+  `ConsumablesEditor` junto do `NumericFieldsForm`, convertendo lista vazia → chave `consumables`
+  removida do `config` (mesma regra do formulário numérico).
+- 9 testes novos (6 do editor + 1 de integração na tela).

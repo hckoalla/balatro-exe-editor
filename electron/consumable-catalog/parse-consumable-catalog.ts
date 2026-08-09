@@ -1,10 +1,13 @@
-export type ConsumableCategory = 'Tarot' | 'Planet' | 'Spectral'
-
-export interface ConsumableCatalogEntry {
-  id: string
-  name: string
-  category: ConsumableCategory
-}
+// ConsumableCategory/ConsumableCatalogEntry vivem em src/shared (o renderer também precisa
+// deles pro contrato de IPC).
+export type {
+  ConsumableCategory,
+  ConsumableCatalogEntry,
+} from '../../src/shared/consumable-catalog-schema'
+import type {
+  ConsumableCategory,
+  ConsumableCatalogEntry,
+} from '../../src/shared/consumable-catalog-schema'
 
 const ENTRY_LINE = /^\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(\{.*\})\s*,?\s*$/
 const CATEGORY_MARKER = /set\s*=\s*['"](Tarot|Planet|Spectral)['"]/

@@ -13,7 +13,13 @@ function App() {
   }
 
   if (selectedDeck) {
-    return <DeckEditorScreen deck={selectedDeck} onBack={() => setSelectedDeck(null)} />
+    return (
+      <DeckEditorScreen
+        deck={selectedDeck}
+        exePath={exePath}
+        onBack={() => setSelectedDeck(null)}
+      />
+    )
   }
 
   return <DecksScreen exePath={exePath} onSelectDeck={setSelectedDeck} />

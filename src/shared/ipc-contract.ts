@@ -4,6 +4,7 @@
 
 import type { AppSettings } from './settings-schema'
 import type { ParsedDeck } from './deck-schema'
+import type { ConsumableCatalogEntry } from './consumable-catalog-schema'
 
 export const IPC_CHANNELS = {
   getAppVersion: 'app:get-version',
@@ -12,6 +13,7 @@ export const IPC_CHANNELS = {
   selectExeFile: 'exe:select-file',
   validateExeFile: 'exe:validate-file',
   getDecks: 'deck:get-all',
+  getConsumableCatalog: 'consumable-catalog:get-all',
 } as const
 
 export interface SelectExeFileResult {
@@ -31,4 +33,5 @@ export interface BalatroApi {
   selectExeFile: () => Promise<SelectExeFileResult>
   validateExeFile: (filePath: string) => Promise<ValidateExeFileResult>
   getDecks: (filePath: string) => Promise<ParsedDeck[]>
+  getConsumableCatalog: (filePath: string) => Promise<ConsumableCatalogEntry[]>
 }
