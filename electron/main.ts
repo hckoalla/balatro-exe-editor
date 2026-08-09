@@ -1,5 +1,6 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu } from 'electron'
 import path from 'node:path'
+import { registerAppHandlers } from './ipc/register-app-handlers'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -26,6 +27,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
   Menu.setApplicationMenu(null)
+  registerAppHandlers(ipcMain, app)
   createWindow()
 })
 

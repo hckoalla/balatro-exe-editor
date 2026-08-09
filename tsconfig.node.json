@@ -11,5 +11,5 @@
     "types": ["node"],
     "outDir": "./.tsc-out/node"
   },
-  "include": ["vite.config.ts", "vitest.config.mts", "electron", "test"]
+  "include": ["vite.config.ts", "vitest.config.mts", "electron", "test", "src/shared"]
 }
