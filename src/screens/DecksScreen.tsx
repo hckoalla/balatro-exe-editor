@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedDeck } from '../shared/deck-schema'
 import { RestoreDefaultButton } from './RestoreDefaultButton'
+import { SettingsPanel } from './SettingsPanel'
 import './DecksScreen.css'
 
 export interface DecksScreenProps {
@@ -32,7 +33,10 @@ export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
           <h1 className="decks-screen__title">{t('decks.title')}</h1>
           <p className="decks-screen__subtitle">{t('decks.subtitle')}</p>
         </div>
-        <RestoreDefaultButton exePath={exePath} onRestored={loadDecks} />
+        <div className="decks-screen__header-actions">
+          <RestoreDefaultButton exePath={exePath} onRestored={loadDecks} />
+          <SettingsPanel />
+        </div>
       </div>
 
       <div className="decks-screen__grid">

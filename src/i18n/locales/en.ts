@@ -53,4 +53,8 @@ export const en = {
     confirmYes: 'Yes, restore',
     cancel: 'Cancel',
   },
+  settings: {
+    button: 'Settings',
+    language: 'Language',
+  },
 } as const

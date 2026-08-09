@@ -51,4 +51,8 @@ export const ptBR: Messages = {
     confirmYes: 'Sim, restaurar',
     cancel: 'Cancelar',
   },
+  settings: {
+    button: 'Configurações',
+    language: 'Idioma',
+  },
 }

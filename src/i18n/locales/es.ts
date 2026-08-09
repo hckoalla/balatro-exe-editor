@@ -51,4 +51,8 @@ export const es: Messages = {
     confirmYes: 'Sí, restaurar',
     cancel: 'Cancelar',
   },
+  settings: {
+    button: 'Configuración',
+    language: 'Idioma',
+  },
 }
