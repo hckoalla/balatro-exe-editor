@@ -10,7 +10,7 @@ domain_title: "Editor de Baralhos (UI)"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee5-editor-consumiveis-iniciais · Editor de consumíveis iniciais
 
@@ -35,3 +35,6 @@ pra mostrar nomes amigáveis em vez de IDs internos.
 - Ao ultrapassar ~30 itens na lista, mostra aviso (soft warning) de que passou do limite testado
   — sem bloquear.
 - Lista vazia remove a chave `consumables` do `config` do baralho.
+- Botão de **reset da lista inteira** (ícone de rollback), visível só quando a lista atual difere
+  da lista padrão do baralho (que pode não ser vazia — ex: Magic Deck já vem com 2x "The Fool" de
+  fábrica) — clicar volta a lista pro estado padrão daquele baralho específico.

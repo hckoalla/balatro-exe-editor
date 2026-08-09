@@ -10,7 +10,7 @@ domain_title: "Editor de Baralhos (UI)"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee5-formulario-valores-numericos · Formulário de valores numéricos
 
@@ -38,3 +38,7 @@ domínio), não valores absolutos. A UI precisa deixar isso claro (ex: "+10 dól
 - Aceita valores negativos (reduzir em vez de aumentar), já que o jogo também usa deltas
   negativos (ex: Painted Deck tem `joker_slot = -1`).
 - Campo vazio/zerado remove a chave do `config` do baralho (volta ao padrão do jogo).
+- Cada campo tem um botão de **reset individual** (ícone de rollback ao lado do campo), visível
+  só quando o valor atual difere do padrão do jogo — clicar limpa aquele campo específico, sem
+  afetar os outros campos do mesmo baralho. Equivalente a esvaziar o campo, só que com affordance
+  visual explícita em vez de o usuário precisar apagar manualmente.
