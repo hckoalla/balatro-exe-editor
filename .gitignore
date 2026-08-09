@@ -7,6 +7,7 @@ fixtures/real/
 node_modules/
 dist/
 dist-electron/
+release/
 .tsc-out/
 *.tsbuildinfo
 

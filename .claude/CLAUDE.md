@@ -74,6 +74,11 @@ Regras:
 
 ## Gotchas conhecidos
 
+- **`ELECTRON_RUN_AS_NODE=1` vazando pro shell** (comum dentro do Claude Code/VSCode, cujo próprio
+  host é Electron): faz qualquer `electron.exe` filho rodar como Node puro, sem `app`/
+  `BrowserWindow` — `npm run dev` quebra com `Cannot read properties of undefined (reading
+  'whenReady')`. Não é bug do projeto. Rodar com a variável removida pro processo filho
+  (`env -u ELECTRON_RUN_AS_NODE npm run dev`) resolve.
 - **`game.lua` na raiz do projeto é conteúdo proprietário do jogo, local e fora do git**
   (`.gitignore`) — só serve de referência pra entender a estrutura real durante o
   desenvolvimento. Nunca commitar. Fixtures de teste são sintéticas, versionadas em
