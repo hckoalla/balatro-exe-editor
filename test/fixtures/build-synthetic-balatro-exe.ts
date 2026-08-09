@@ -10,13 +10,21 @@ const DETERMINISTIC_DATE = new Date(0)
 
 /**
  * Monta um `.exe` sintético no mesmo formato do balatro.exe real: um stub binário seguido de um
- * ZIP concatenado contendo `game.lua`. Determinístico — o mesmo `gameLua` sempre produz o mesmo
- * buffer, byte a byte.
+ * ZIP concatenado contendo `game.lua` (mais qualquer arquivo extra em `extraFiles`, pra testar
+ * que o motor não mexe em outras entradas do ZIP). Determinístico — as mesmas entradas sempre
+ * produzem o mesmo buffer, byte a byte.
  */
-export function buildSyntheticBalatroExe(gameLua: string): Buffer {
+export function buildSyntheticBalatroExe(
+  gameLua: string,
+  extraFiles: Record<string, string> = {},
+): Buffer {
   const zip = new AdmZip()
-  zip.addFile('game.lua', Buffer.from(gameLua, 'utf-8'))
-  zip.getEntry('game.lua')!.header.time = DETERMINISTIC_DATE
+  const allFiles = { 'game.lua': gameLua, ...extraFiles }
+
+  for (const [entryName, content] of Object.entries(allFiles)) {
+    zip.addFile(entryName, Buffer.from(content, 'utf-8'))
+    zip.getEntry(entryName)!.header.time = DETERMINISTIC_DATE
+  }
 
   return Buffer.concat([FIXTURE_STUB, zip.toBuffer()])
 }
