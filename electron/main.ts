@@ -11,6 +11,7 @@ import { registerConsumableCatalogHandlers } from './consumable-catalog/register
 import { createBackupService } from './backup/backup-service'
 import { createFileBackupStore } from './backup/file-backup-store'
 import { registerBackupHandlers } from './backup/register-backup-handlers'
+import { registerSaveDeckHandlers } from './deck-config/register-save-deck-handlers'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -58,6 +59,11 @@ app.whenReady().then(() => {
     createFileBackupStore(path.join(app.getPath('userData'), 'backups')),
   )
   registerBackupHandlers(ipcMain, {
+    backupService,
+    readFile: (filePath) => readFile(filePath),
+    writeFile: (filePath, data) => writeFile(filePath, data),
+  })
+  registerSaveDeckHandlers(ipcMain, {
     backupService,
     readFile: (filePath) => readFile(filePath),
     writeFile: (filePath, data) => writeFile(filePath, data),

@@ -16,6 +16,7 @@ export const IPC_CHANNELS = {
   getConsumableCatalog: 'consumable-catalog:get-all',
   hasBackup: 'backup:has',
   restoreDefault: 'backup:restore',
+  saveDeck: 'deck:save',
 } as const
 
 export interface SelectExeFileResult {
@@ -38,4 +39,5 @@ export interface BalatroApi {
   getConsumableCatalog: (filePath: string) => Promise<ConsumableCatalogEntry[]>
   hasBackup: (filePath: string) => Promise<boolean>
   restoreDefault: (filePath: string) => Promise<void>
+  saveDeck: (filePath: string, deck: ParsedDeck) => Promise<void>
 }

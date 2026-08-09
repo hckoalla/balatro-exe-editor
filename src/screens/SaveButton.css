@@ -1,0 +1,78 @@
+.save-button__trigger {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-body);
+  margin-top: 20px;
+}
+
+.save-button__trigger:hover {
+  background: var(--color-accent-hover);
+}
+
+.save-button__confirm {
+  margin-top: 12px;
+  background: var(--color-panel-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  max-width: 360px;
+}
+
+.save-button__confirm-body {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.save-button__confirm-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.save-button__confirm-yes {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.save-button__confirm-cancel {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text-tertiary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.save-button__success {
+  margin-top: 10px;
+  color: var(--color-success-text);
+  font-size: 13px;
+}
+
+.save-button__error {
+  margin-top: 10px;
+  background: rgba(229, 72, 77, 0.1);
+  border: 1px solid rgba(229, 72, 77, 0.4);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-error-text);
+}

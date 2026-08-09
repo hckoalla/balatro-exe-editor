@@ -19,6 +19,7 @@ if (typeof window !== 'undefined') {
       getConsumableCatalog: vi.fn().mockResolvedValue([]),
       hasBackup: vi.fn().mockResolvedValue(false),
       restoreDefault: vi.fn().mockResolvedValue(undefined),
+      saveDeck: vi.fn().mockResolvedValue(undefined),
     }
   }
 

@@ -2,7 +2,7 @@
 id: bee5-salvar-alteracoes
 title: "Salvar alterações no balatro.exe"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -10,13 +10,13 @@ domain_title: "Editor de Baralhos (UI)"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee5-salvar-alteracoes · Salvar alterações no balatro.exe
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| qa | P0 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Depende de [bee4-serializar-bloco-baralhos](../bee4-serializar-bloco-baralhos/item.md),
 > [bee3-reinjetar-game-lua-no-exe](../bee3-reinjetar-game-lua-no-exe/item.md),
@@ -39,3 +39,18 @@ Ponto onde tudo se conecta: pega os baralhos editados na UI, serializa (BEE-4) e
 - Sucesso mostra feedback claro de que a gravação funcionou.
 - Erro (arquivo travado por outro processo, permissão negada, etc.) mostra mensagem específica e
   acionável — não trava o app nem perde as edições não salvas do formulário.
+
+## Progresso
+Concluído em 09/ago/26 — **fecha o loop completo do MVP** (selecionar `.exe` → escolher baralho
+→ editar → salvar de verdade em disco):
+- `saveDeckToExe` (main): lê o `.exe`, extrai `game.lua`, garante backup (`ensureBackup` —
+  `bee6-backup-automatico-primeira-edicao`, primeira gravação real acontece aqui), serializa só o
+  baralho editado (`serializeDeckBlock` — BEE-4), reinjeta e grava (`updateGameLuaInExe` +
+  `writeExeToDisk` — BEE-3). Literalmente amarra as 3 épicas anteriores numa função só.
+- Canal IPC `deck:save`.
+- `SaveButton`: confirmação em dois passos, mas com tom "normal" (acento dourado), não
+  "destrutivo" como o `RestoreDefaultButton` — mesmo padrão de dois níveis de confirmação pedido
+  no prompt do Claude Design. Erro mostra `error.message` direto (já vem legível do
+  `FileInUseError`), sem apagar as edições do formulário — o usuário só clica "Save" de novo.
+- `DeckEditorScreen` ganhou o `SaveButton` no final.
+- 8 testes novos (3 main de `saveDeckToExe`, 1 dos handlers IPC, 4 do componente).

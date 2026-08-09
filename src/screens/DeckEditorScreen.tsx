@@ -3,6 +3,7 @@ import type { ParsedDeck } from '../shared/deck-schema'
 import type { ConsumableCatalogEntry } from '../shared/consumable-catalog-schema'
 import { NumericFieldsForm } from './NumericFieldsForm'
 import { ConsumablesEditor } from './ConsumablesEditor'
+import { SaveButton } from './SaveButton'
 import './DeckEditorScreen.css'
 
 export interface DeckEditorScreenProps {
@@ -53,6 +54,8 @@ export function DeckEditorScreen({ deck, exePath, onBack }: DeckEditorScreenProp
         consumables={config.consumables ?? []}
         onChange={handleConsumablesChange}
       />
+
+      <SaveButton exePath={exePath} deck={deck} config={config} />
     </div>
   )
 }
