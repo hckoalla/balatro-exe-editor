@@ -10,8 +10,8 @@
 | refining | 14 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 1 |
-| done | 8 |
+| qa | 0 |
+| done | 9 |
 | cancelled | 0 |
 | fase2 | 4 |
 | blocked | 0 |
@@ -31,7 +31,7 @@
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [done] bee3-localizar-zip-embutido-no-exe — P0
 - [done] bee3-extrair-game-lua-do-exe — P0
-- [qa] bee3-reinjetar-game-lua-no-exe — P0
+- [done] bee3-reinjetar-game-lua-no-exe — P0
 - [refining] bee3-selecionar-arquivo-exe — P0
 
 ### [BEE-4](_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos
