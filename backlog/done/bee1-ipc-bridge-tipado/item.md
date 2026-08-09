@@ -2,7 +2,7 @@
 id: bee1-ipc-bridge-tipado
 title: "IPC tipado e seguro entre renderer e main"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: infra
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| done | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
 
 > Depende de [bee1-setup-electron-react-vite](../bee1-setup-electron-react-vite/item.md).
 
