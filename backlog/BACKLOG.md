@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 23 |
+| refining | 20 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 0 |
+| qa | 3 |
 | done | 0 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -19,14 +19,14 @@
 ## MVP — por épica
 
 ### [BEE-1](_epicas/BEE-1.md) · Setup & Fundação do Projeto
-- [refining] bee1-setup-electron-react-vite — P0
+- [qa] bee1-setup-electron-react-vite — P0
 - [refining] bee1-ipc-bridge-tipado — P0
 - [refining] bee1-electron-store-config — P0
 - [refining] bee1-setup-testes-tdd — P0
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
-- [refining] bee2-prompt-sintese-claude-design — P0
-- [refining] bee2-aplicar-design-system — P0
+- [qa] bee2-prompt-sintese-claude-design — P0
+- [qa] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [refining] bee3-localizar-zip-embutido-no-exe — P0
@@ -74,6 +74,7 @@
 2. **BEE-3** (motor do `.exe`) → **BEE-4** (parsing dos baralhos) → **BEE-5** (UI do editor).
 3. **BEE-6** (backup/restauração) entra assim que `bee3-reinjetar-game-lua-no-exe` existir —
    antes de `bee5-salvar-alteracoes`, que depende dela.
-4. **bee2-aplicar-design-system** entra quando o protótipo do Claude Design chegar (pode ser em
-   qualquer ponto depois de existir alguma tela pra restilizar).
+4. ~~**bee2-aplicar-design-system** entra quando o protótipo chegar~~ — protótipo já chegou e a
+   fundação de tema já está em `qa/`; cada tela nova (BEE-3/4/5) nasce estilizada direto a partir
+   do protótipo em `design/Balatro EXE Editor.dc.html`, sem passada de restilo separada.
 5. **BEE-7** (i18n) corre em paralelo, mas cada tela nova já deveria nascer sem string hardcoded.
