@@ -10,8 +10,8 @@
 | refining | 11 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 1 |
-| done | 11 |
+| qa | 0 |
+| done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
 | blocked | 0 |
@@ -36,7 +36,7 @@
 
 ### [BEE-4](_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos
 - [done] bee4-parser-bloco-baralhos — P0
-- [qa] bee4-serializar-bloco-baralhos — P0
+- [done] bee4-serializar-bloco-baralhos — P0
 - [refining] bee4-catalogo-consumiveis — P0
 
 ### [BEE-5](_epicas/BEE-5.md) · Editor de Baralhos (UI)

@@ -2,7 +2,7 @@
 id: bee4-serializar-bloco-baralhos
 title: "Serializar alterações de volta no bloco de baralhos"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: main
 domain: BEE-4
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-4](../../_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos | main |
+| done | P0 | [BEE-4](../../_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos | main |
 
 > Depende de [bee4-parser-bloco-baralhos](../bee4-parser-bloco-baralhos/item.md).
 
