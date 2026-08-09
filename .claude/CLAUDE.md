@@ -92,7 +92,11 @@ Regras:
   'whenReady')`. Não é bug do projeto. Rodar com a variável removida pro processo filho
   (`env -u ELECTRON_RUN_AS_NODE npm run dev`) resolve.
 - **`game.lua` na raiz do projeto é conteúdo proprietário do jogo, local e fora do git**
-  (`.gitignore`) — só serve de referência pra entender a estrutura real durante o
+  (`.gitignore`, regra `/game.lua` **com barra inicial** — sem a barra, o padrão casa em
+  qualquer profundidade e acaba excluindo `test/fixtures/game.lua` também, que É pra ser
+  versionado. Isso já aconteceu: a fixture ficou sem commit por 4 histórias inteiras, testes
+  passavam local mas quebrariam num clone limpo. Se `git ls-files | grep fixtures/game.lua` vier
+  vazio, é esse bug de novo). Só serve de referência pra entender a estrutura real durante o
   desenvolvimento. Nunca commitar. Fixtures de teste são sintéticas, versionadas em
   `test/fixtures/`.
 - **Steam "Verificar integridade dos arquivos do jogo"** pode reverter o `.exe` modificado
