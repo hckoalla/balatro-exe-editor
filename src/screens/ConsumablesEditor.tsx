@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ConsumableCatalogEntry } from '../shared/consumable-catalog-schema'
 import './ConsumablesEditor.css'
 
@@ -17,6 +18,7 @@ export function ConsumablesEditor({
   consumables,
   onChange,
 }: ConsumablesEditorProps) {
+  const { t } = useTranslation()
   const [search, setSearch] = useState('')
 
   const nameById = useMemo(() => new Map(catalog.map((c) => [c.id, c.name])), [catalog])
@@ -45,13 +47,13 @@ export function ConsumablesEditor({
   return (
     <div className="consumables-editor">
       <div className="consumables-editor__header">
-        <span className="consumables-editor__label">Starting Consumables</span>
+        <span className="consumables-editor__label">{t('consumables.label')}</span>
         {hasChanged && (
           <button
             type="button"
             className="consumables-editor__reset"
-            title="Reset Starting Consumables"
-            aria-label="Reset Starting Consumables"
+            title={t('consumables.resetLabel')}
+            aria-label={t('consumables.resetLabel')}
             onClick={handleReset}
           >
             &#8634;
@@ -62,7 +64,7 @@ export function ConsumablesEditor({
       <input
         type="text"
         className="consumables-editor__search"
-        placeholder="Search Tarots, Planets, Spectrals…"
+        placeholder={t('consumables.searchPlaceholder')}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -92,7 +94,7 @@ export function ConsumablesEditor({
               <button
                 type="button"
                 className="consumables-editor__chip-remove"
-                aria-label={`Remove ${name}`}
+                aria-label={t('consumables.removeLabel', { name })}
                 onClick={() => handleRemoveAt(index)}
               >
                 &#10005;
@@ -104,8 +106,7 @@ export function ConsumablesEditor({
 
       {exceedsSafeLimit && (
         <div className="consumables-editor__warning">
-          This list hasn&apos;t been tested past {SAFE_LIMIT} items and could make the game stop
-          working.
+          {t('consumables.warning', { limit: SAFE_LIMIT })}
         </div>
       )}
     </div>

@@ -35,6 +35,17 @@ Prompt de síntese pro Claude Design é a primeira entrega do projeto
 (`bee2-prompt-sintese-claude-design`) — vai em `design/prompt-claude-design.md`. O protótipo
 gerado a partir dele volta pra `design/*.dc.html`, no mesmo padrão dos projetos irmãos.
 
+## Internacionalização
+
+`i18next` + `react-i18next`, inglês como idioma padrão e fallback (`src/i18n/locales/en.ts`).
+**Convenção obrigatória**: nenhuma string de UI hardcoded em JSX — sempre `t('namespace.chave')`.
+Chaves organizadas por componente (`selectExe.*`, `decks.*`, `numericFields.*`, `save.*`, etc,
+ver `src/i18n/locales/en.ts`). Sem plugin de ESLint pra forçar isso automaticamente (decisão
+consciente — ver `bee7-infra-i18n`); é convenção de review, não checagem automática. `src/i18n`
+precisa ser importado (side-effect) antes do primeiro render — já está em `src/main.tsx` e em
+`vitest.setup.ts` (senão `useTranslation()` nos testes de componente devolve a chave crua em vez
+do texto traduzido).
+
 ## Backlog
 
 O backlog do projeto vive em `backlog/`, versionado em git (sem Jira/Linear — projeto solo).

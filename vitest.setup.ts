@@ -6,6 +6,7 @@ import { DEFAULT_SETTINGS } from './src/shared/settings-schema'
 // jsdom`) precisam do mock de `window.balatro` e do jest-dom.
 if (typeof window !== 'undefined') {
   await import('@testing-library/jest-dom/vitest')
+  await import('./src/i18n')
   const { cleanup } = await import('@testing-library/react')
 
   function createDefaultApiMock(): typeof window.balatro {

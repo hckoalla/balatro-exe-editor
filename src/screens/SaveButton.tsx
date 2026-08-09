@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ParsedDeck, DeckConfig } from '../shared/deck-schema'
 import './SaveButton.css'
 
@@ -11,6 +12,7 @@ export interface SaveButtonProps {
 type Status = 'idle' | 'confirming' | 'saving' | 'success' | 'error'
 
 export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
+  const { t } = useTranslation()
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -20,7 +22,7 @@ export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
       await window.balatro.saveDeck(exePath, { id: deck.id, name: deck.name, config })
       setStatus('success')
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Could not save — try again.')
+      setErrorMessage(error instanceof Error ? error.message : t('save.genericError'))
       setStatus('error')
     }
   }
@@ -33,34 +35,28 @@ export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
         onClick={() => setStatus('confirming')}
         disabled={status === 'saving'}
       >
-        Save
+        {t('save.button')}
       </button>
 
       {status === 'confirming' && (
         <div className="save-button__confirm">
-          <p className="save-button__confirm-body">
-            This will write directly to your balatro.exe. Close Balatro before continuing.
-          </p>
+          <p className="save-button__confirm-body">{t('save.confirmBody')}</p>
           <div className="save-button__confirm-actions">
-            <button
-              type="button"
-              className="save-button__confirm-yes"
-              onClick={handleConfirm}
-            >
-              Yes, save
+            <button type="button" className="save-button__confirm-yes" onClick={handleConfirm}>
+              {t('save.confirmYes')}
             </button>
             <button
               type="button"
               className="save-button__confirm-cancel"
               onClick={() => setStatus('idle')}
             >
-              Cancel
+              {t('save.cancel')}
             </button>
           </div>
         </div>
       )}
 
-      {status === 'success' && <p className="save-button__success">Saved successfully.</p>}
+      {status === 'success' && <p className="save-button__success">{t('save.success')}</p>}
 
       {status === 'error' && <div className="save-button__error">{errorMessage}</div>}
     </div>

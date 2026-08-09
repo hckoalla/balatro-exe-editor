@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './SelectExeScreen.css'
 
 export interface SelectExeScreenProps {
@@ -6,6 +7,7 @@ export interface SelectExeScreenProps {
 }
 
 export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
+  const { t } = useTranslation()
   const [suggestedPath, setSuggestedPath] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isBusy, setIsBusy] = useState(false)
@@ -36,7 +38,7 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
     try {
       const result = await window.balatro.validateExeFile(filePath)
       if (!result.valid) {
-        setError(result.reason ?? 'This does not look like a valid balatro.exe.')
+        setError(result.reason ?? t('selectExe.genericInvalid'))
         return
       }
       await window.balatro.updateSettings({ lastExePath: filePath })
@@ -62,10 +64,8 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
         </div>
       </div>
 
-      <h1 className="select-exe-screen__title">Let&apos;s find your game</h1>
-      <p className="select-exe-screen__subtitle">
-        Point me to your balatro.exe and I&apos;ll take it from there.
-      </p>
+      <h1 className="select-exe-screen__title">{t('selectExe.title')}</h1>
+      <p className="select-exe-screen__subtitle">{t('selectExe.subtitle')}</p>
 
       <div className="select-exe-screen__actions">
         {suggestedPath && (
@@ -75,7 +75,7 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
             onClick={() => handleUseExe(suggestedPath)}
             disabled={isBusy}
           >
-            Continue with {suggestedPath}
+            {t('selectExe.continueWith', { path: suggestedPath })}
           </button>
         )}
 
@@ -85,13 +85,13 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
           onClick={handleBrowse}
           disabled={isBusy}
         >
-          Browse for balatro.exe
+          {t('selectExe.browse')}
         </button>
       </div>
 
       {error && (
         <div className="select-exe-screen__error" role="alert">
-          <p className="select-exe-screen__error-title">Not a valid Balatro executable</p>
+          <p className="select-exe-screen__error-title">{t('selectExe.invalidTitle')}</p>
           <p className="select-exe-screen__error-body">{error}</p>
         </div>
       )}

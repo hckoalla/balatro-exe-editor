@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './RestoreDefaultButton.css'
 
 export interface RestoreDefaultButtonProps {
@@ -7,6 +8,7 @@ export interface RestoreDefaultButtonProps {
 }
 
 export function RestoreDefaultButton({ exePath, onRestored }: RestoreDefaultButtonProps) {
+  const { t } = useTranslation()
   const [hasBackup, setHasBackup] = useState(false)
   const [confirming, setConfirming] = useState(false)
 
@@ -35,29 +37,26 @@ export function RestoreDefaultButton({ exePath, onRestored }: RestoreDefaultButt
         className="restore-default-button__trigger"
         onClick={() => setConfirming(true)}
       >
-        Restore Default
+        {t('restore.button')}
       </button>
 
       {confirming && (
         <div className="restore-default-button__confirm">
-          <p className="restore-default-button__confirm-body">
-            This will undo every customization on this game — all decks go back to their default
-            values. Close Balatro before continuing.
-          </p>
+          <p className="restore-default-button__confirm-body">{t('restore.confirmBody')}</p>
           <div className="restore-default-button__confirm-actions">
             <button
               type="button"
               className="restore-default-button__confirm-yes"
               onClick={handleConfirm}
             >
-              Yes, restore
+              {t('restore.confirmYes')}
             </button>
             <button
               type="button"
               className="restore-default-button__confirm-cancel"
               onClick={() => setConfirming(false)}
             >
-              Cancel
+              {t('restore.cancel')}
             </button>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ParsedDeck } from '../shared/deck-schema'
 import { RestoreDefaultButton } from './RestoreDefaultButton'
 import './DecksScreen.css'
@@ -9,6 +10,7 @@ export interface DecksScreenProps {
 }
 
 export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
+  const { t } = useTranslation()
   const [decks, setDecks] = useState<ParsedDeck[] | null>(null)
 
   const loadDecks = useCallback(() => {
@@ -20,15 +22,15 @@ export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
   }, [loadDecks])
 
   if (!decks) {
-    return <p>Loading decks…</p>
+    return <p>{t('decks.loading')}</p>
   }
 
   return (
     <div className="decks-screen">
       <div className="decks-screen__header">
         <div>
-          <h1 className="decks-screen__title">Choose a deck</h1>
-          <p className="decks-screen__subtitle">Pick a deck to customize its starting rules.</p>
+          <h1 className="decks-screen__title">{t('decks.title')}</h1>
+          <p className="decks-screen__subtitle">{t('decks.subtitle')}</p>
         </div>
         <RestoreDefaultButton exePath={exePath} onRestored={loadDecks} />
       </div>
@@ -47,7 +49,9 @@ export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
               <div className="deck-card__accent" />
               <div className="deck-card__body">
                 <div className="deck-card__name">{deck.name}</div>
-                <div className="deck-card__badge">{isCustomized ? 'Customized' : 'Default'}</div>
+                <div className="deck-card__badge">
+                  {isCustomized ? t('decks.customized') : t('decks.default')}
+                </div>
               </div>
             </button>
           )

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ParsedDeck } from '../shared/deck-schema'
 import type { ConsumableCatalogEntry } from '../shared/consumable-catalog-schema'
 import { NumericFieldsForm } from './NumericFieldsForm'
@@ -13,7 +14,7 @@ export interface DeckEditorScreenProps {
 }
 
 export function DeckEditorScreen({ deck, exePath, onBack }: DeckEditorScreenProps) {
-  // Botão de salvar (bee5-salvar-alteracoes) se junta a esse estado na próxima história.
+  const { t } = useTranslation()
   const [config, setConfig] = useState(deck.config)
   const [catalog, setCatalog] = useState<ConsumableCatalogEntry[]>([])
 
@@ -42,7 +43,7 @@ export function DeckEditorScreen({ deck, exePath, onBack }: DeckEditorScreenProp
   return (
     <div className="deck-editor-screen">
       <button type="button" className="deck-editor-screen__back" onClick={onBack}>
-        &#8592; Back
+        &#8592; {t('deckEditor.back')}
       </button>
       <h1 className="deck-editor-screen__title">{deck.name}</h1>
 

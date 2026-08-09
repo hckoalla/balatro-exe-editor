@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { DeckConfig } from '../shared/deck-schema'
 import './NumericFieldsForm.css'
 
@@ -10,18 +11,20 @@ type NumericKey = 'dollars' | 'joker_slot' | 'consumable_slot'
 
 interface FieldDef {
   key: NumericKey
-  label: string
+  labelKey: string
   safeLimit: number
 }
 
 // Limites testados empiricamente pelo usuário — ver backlog/README.md (contexto de domínio).
 const FIELDS: FieldDef[] = [
-  { key: 'dollars', label: 'Starting Money', safeLimit: 230 },
-  { key: 'joker_slot', label: 'Joker Slots', safeLimit: 145 },
-  { key: 'consumable_slot', label: 'Consumable Slots', safeLimit: 90 },
+  { key: 'dollars', labelKey: 'numericFields.dollars', safeLimit: 230 },
+  { key: 'joker_slot', labelKey: 'numericFields.jokerSlot', safeLimit: 145 },
+  { key: 'consumable_slot', labelKey: 'numericFields.consumableSlot', safeLimit: 90 },
 ]
 
 export function NumericFieldsForm({ config, onChange }: NumericFieldsFormProps) {
+  const { t } = useTranslation()
+
   function handleFieldChange(key: NumericKey, rawValue: string) {
     const next = { ...config }
     if (rawValue.trim() === '') {
@@ -44,19 +47,20 @@ export function NumericFieldsForm({ config, onChange }: NumericFieldsFormProps) 
         const value = config[field.key]
         const isSet = value !== undefined
         const exceedsSafeLimit = isSet && Math.abs(value) > field.safeLimit
+        const label = t(field.labelKey)
 
         return (
           <div className="numeric-field" key={field.key}>
             <div className="numeric-field__header">
               <label className="numeric-field__label" htmlFor={`numeric-field-${field.key}`}>
-                {field.label}
+                {label}
               </label>
               {isSet && (
                 <button
                   type="button"
                   className="numeric-field__reset"
-                  title={`Reset ${field.label}`}
-                  aria-label={`Reset ${field.label}`}
+                  title={t('numericFields.resetField', { label })}
+                  aria-label={t('numericFields.resetField', { label })}
                   onClick={() => handleReset(field.key)}
                 >
                   &#8634;
@@ -76,12 +80,11 @@ export function NumericFieldsForm({ config, onChange }: NumericFieldsFormProps) 
                 />
               </div>
             </div>
-            <p className="numeric-field__hint">Added to the base game value.</p>
+            <p className="numeric-field__hint">{t('numericFields.addedToBase')}</p>
 
             {exceedsSafeLimit && (
               <div className="numeric-field__warning">
-                This value hasn&apos;t been tested (safe range up to ±{field.safeLimit}) and
-                could make the game stop working.
+                {t('numericFields.warning', { limit: field.safeLimit })}
               </div>
             )}
           </div>
