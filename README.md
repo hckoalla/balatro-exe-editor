@@ -26,3 +26,8 @@ de desenvolvimento.
 npm install
 npm run dev
 ```
+
+## Links
+
+- [Nexus Mod](https://www.nexusmods.com/balatro/mods/913);
+- [Steam discussions](https://steamcommunity.com/app/2379780/discussions/2/583930834798697183/).
