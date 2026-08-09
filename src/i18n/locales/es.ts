@@ -57,4 +57,7 @@ export const es: Messages = {
     button: 'Configuración',
     language: 'Idioma',
   },
+  footer: {
+    credit: 'Hecho por hckoalla',
+  },
 }

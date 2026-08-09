@@ -57,4 +57,7 @@ export const ptBR: Messages = {
     button: 'Configurações',
     language: 'Idioma',
   },
+  footer: {
+    credit: 'Feito por hckoalla',
+  },
 }
