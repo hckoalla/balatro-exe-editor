@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 9 |
+| refining | 8 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 2 |
+| qa | 3 |
 | done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -41,7 +41,7 @@
 
 ### [BEE-5](_epicas/BEE-5.md) · Editor de Baralhos (UI)
 - [qa] bee5-tela-selecao-baralho — P0
-- [refining] bee5-formulario-valores-numericos — P0
+- [qa] bee5-formulario-valores-numericos — P0
 - [refining] bee5-editor-consumiveis-iniciais — P0
 - [refining] bee5-salvar-alteracoes — P0
 
