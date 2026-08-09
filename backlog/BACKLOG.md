@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 8 |
+| refining | 7 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 3 |
+| qa | 4 |
 | done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -42,7 +42,7 @@
 ### [BEE-5](_epicas/BEE-5.md) · Editor de Baralhos (UI)
 - [qa] bee5-tela-selecao-baralho — P0
 - [qa] bee5-formulario-valores-numericos — P0
-- [refining] bee5-editor-consumiveis-iniciais — P0
+- [qa] bee5-editor-consumiveis-iniciais — P0
 - [refining] bee5-salvar-alteracoes — P0
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
