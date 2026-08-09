@@ -2,7 +2,7 @@
 id: bee2-aplicar-design-system
 title: "Fundação de tema do design system (cores, fontes)"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: design
 domain: BEE-2
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
+| done | P0 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
 
 > Depende de [bee2-prompt-sintese-claude-design](../bee2-prompt-sintese-claude-design/item.md) —
 > e do protótipo gerado pelo Claude Design já estar em `design/`.

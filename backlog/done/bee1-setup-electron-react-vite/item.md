@@ -2,7 +2,7 @@
 id: bee1-setup-electron-react-vite
 title: "Scaffold do projeto: Electron + React + Vite + TypeScript"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: infra
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| done | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
 
 > Como desenvolvedor, quero um projeto Electron + React + Vite + TypeScript rodando localmente,
 > para ter uma base sobre a qual construir o resto do app.

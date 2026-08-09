@@ -10,8 +10,8 @@
 | refining | 20 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 3 |
-| done | 0 |
+| qa | 0 |
+| done | 3 |
 | cancelled | 0 |
 | fase2 | 4 |
 | blocked | 0 |
@@ -19,14 +19,14 @@
 ## MVP — por épica
 
 ### [BEE-1](_epicas/BEE-1.md) · Setup & Fundação do Projeto
-- [qa] bee1-setup-electron-react-vite — P0
+- [done] bee1-setup-electron-react-vite — P0
 - [refining] bee1-ipc-bridge-tipado — P0
 - [refining] bee1-electron-store-config — P0
 - [refining] bee1-setup-testes-tdd — P0
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
-- [qa] bee2-prompt-sintese-claude-design — P0
-- [qa] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
+- [done] bee2-prompt-sintese-claude-design — P0
+- [done] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [refining] bee3-localizar-zip-embutido-no-exe — P0
