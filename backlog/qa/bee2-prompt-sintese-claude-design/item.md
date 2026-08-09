@@ -2,7 +2,7 @@
 id: bee2-prompt-sintese-claude-design
 title: "Prompt de síntese para o Claude Design"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: design
 domain: BEE-2
@@ -10,13 +10,13 @@ domain_title: "Design (Claude Design)"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee2-prompt-sintese-claude-design · Prompt de síntese pro Claude Design
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
+| qa | P0 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
 
 > Como usuário, quero um prompt pronto que sintetize tudo que descrevi sobre o editor, para levar
 > ao Claude Design e gerar o protótipo visual com a identidade do Balatro — sem eu precisar
