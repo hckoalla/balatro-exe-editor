@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 4 |
+| refining | 3 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 7 |
+| qa | 8 |
 | done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -50,7 +50,7 @@
 - [qa] bee6-restaurar-padrao — P0
 
 ### [BEE-7](_epicas/BEE-7.md) · Internacionalização
-- [refining] bee7-infra-i18n — P0
+- [qa] bee7-infra-i18n — P0
 - [refining] bee7-traducao-pt-br — P1
 - [refining] bee7-traducao-es — P1
 - [refining] bee7-seletor-idioma — P1
