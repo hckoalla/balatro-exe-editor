@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 13 |
+| refining | 12 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 0 |
+| qa | 1 |
 | done | 10 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -35,7 +35,7 @@
 - [done] bee3-selecionar-arquivo-exe — P0
 
 ### [BEE-4](_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos
-- [refining] bee4-parser-bloco-baralhos — P0
+- [qa] bee4-parser-bloco-baralhos — P0
 - [refining] bee4-serializar-bloco-baralhos — P0
 - [refining] bee4-catalogo-consumiveis — P0
 
