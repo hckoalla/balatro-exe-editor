@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 17 |
+| refining | 16 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 0 |
+| qa | 1 |
 | done | 6 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -29,7 +29,7 @@
 - [done] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
-- [refining] bee3-localizar-zip-embutido-no-exe — P0
+- [qa] bee3-localizar-zip-embutido-no-exe — P0
 - [refining] bee3-extrair-game-lua-do-exe — P0
 - [refining] bee3-reinjetar-game-lua-no-exe — P0
 - [refining] bee3-selecionar-arquivo-exe — P0
