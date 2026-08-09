@@ -2,7 +2,7 @@
 id: bee5-formulario-valores-numericos
 title: "Formulário de edição: dollars, joker_slot, consumable_slot"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| qa | P0 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Depende de [bee5-tela-selecao-baralho](../bee5-tela-selecao-baralho/item.md).
 
@@ -42,3 +42,23 @@ domínio), não valores absolutos. A UI precisa deixar isso claro (ex: "+10 dól
   só quando o valor atual difere do padrão do jogo — clicar limpa aquele campo específico, sem
   afetar os outros campos do mesmo baralho. Equivalente a esvaziar o campo, só que com affordance
   visual explícita em vez de o usuário precisar apagar manualmente.
+
+## Decisão registrada (sem o usuário disponível pra confirmar)
+O aviso de limite seguro dispara em `Math.abs(valor) > limite` — ou seja, também em deltas
+MUITO negativos (ex: `dollars = -500`), não só em excessos positivos. O usuário só descreveu
+limites testados como "até +230" etc., mas nada garante que um delta muito negativo seja mais
+seguro — tratar os dois lados do mesmo jeito pareceu a leitura mais conservadora. Fácil de
+ajustar se ele preferir só avisar no lado positivo.
+
+## Progresso
+Concluído em 09/ago/26:
+- `NumericFieldsForm` (componente controlado puro): 3 campos, prefixo "+" quando positivo, hint
+  "Added to the base game value.", warning laranja (soft, não bloqueia) acima do limite seguro,
+  botão de reset por campo (só aparece quando o campo tem valor).
+- `DeckEditorScreen`: hospeda o formulário + título do baralho + botão "Back"; dona do estado
+  `config` local (editor de consumíveis e botão salvar entram nas próximas 2 histórias).
+  `App.tsx` liga `DecksScreen` → `DeckEditorScreen`.
+- **Gotcha de teste**: componente controlado testado com `render()` estático "reseta" o campo a
+  cada tecla (React força o `value` de volta pro prop antigo). Corrigido com um harness de teste
+  com `useState` próprio, simulando como o pai de verdade se comportaria.
+- 8 testes novos (6 do formulário + 2 da tela).

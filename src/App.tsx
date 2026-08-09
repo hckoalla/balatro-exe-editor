@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { SelectExeScreen } from './screens/SelectExeScreen'
 import { DecksScreen } from './screens/DecksScreen'
+import { DeckEditorScreen } from './screens/DeckEditorScreen'
 import type { ParsedDeck } from './shared/deck-schema'
 
 function App() {
@@ -12,13 +13,7 @@ function App() {
   }
 
   if (selectedDeck) {
-    // Editor de verdade (campos numéricos + consumíveis) chega em
-    // bee5-formulario-valores-numericos / bee5-editor-consumiveis-iniciais.
-    return (
-      <main>
-        <p>Editing: {selectedDeck.name}</p>
-      </main>
-    )
+    return <DeckEditorScreen deck={selectedDeck} onBack={() => setSelectedDeck(null)} />
   }
 
   return <DecksScreen exePath={exePath} onSelectDeck={setSelectedDeck} />
