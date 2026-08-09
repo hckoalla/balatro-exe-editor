@@ -15,6 +15,7 @@ if (typeof window !== 'undefined') {
       updateSettings: vi.fn().mockResolvedValue(DEFAULT_SETTINGS),
       selectExeFile: vi.fn().mockResolvedValue({ canceled: true, filePath: null }),
       validateExeFile: vi.fn().mockResolvedValue({ valid: false, reason: null }),
+      getDecks: vi.fn().mockResolvedValue([]),
     }
   }
 

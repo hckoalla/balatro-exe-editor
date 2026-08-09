@@ -3,6 +3,7 @@
 // divergirem silenciosamente.
 
 import type { AppSettings } from './settings-schema'
+import type { ParsedDeck } from './deck-schema'
 
 export const IPC_CHANNELS = {
   getAppVersion: 'app:get-version',
@@ -10,6 +11,7 @@ export const IPC_CHANNELS = {
   updateSettings: 'settings:update',
   selectExeFile: 'exe:select-file',
   validateExeFile: 'exe:validate-file',
+  getDecks: 'deck:get-all',
 } as const
 
 export interface SelectExeFileResult {
@@ -28,4 +30,5 @@ export interface BalatroApi {
   updateSettings: (partial: Partial<AppSettings>) => Promise<AppSettings>
   selectExeFile: () => Promise<SelectExeFileResult>
   validateExeFile: (filePath: string) => Promise<ValidateExeFileResult>
+  getDecks: (filePath: string) => Promise<ParsedDeck[]>
 }

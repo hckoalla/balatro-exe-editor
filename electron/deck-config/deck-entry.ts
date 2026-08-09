@@ -1,20 +1,9 @@
 // Compartilhado entre parse-deck-block e serialize-deck-block — os dois precisam reconhecer uma
 // entrada de baralho da mesma forma exata, senão um consegue achar uma linha que o outro não.
 
-export interface DeckConfig {
-  dollars?: number
-  hands?: number
-  discards?: number
-  joker_slot?: number
-  consumable_slot?: number
-  consumables?: string[]
-}
-
-export interface ParsedDeck {
-  id: string
-  name: string
-  config: DeckConfig
-}
+// DeckConfig/ParsedDeck vivem em src/shared (não aqui) porque o renderer também precisa deles
+// pro contrato de IPC — main e renderer importam do mesmo lugar.
+export type { DeckConfig, ParsedDeck } from '../../src/shared/deck-schema'
 
 // Cada baralho é uma tabela Lua contida numa única linha, marcada por `set = "Back"` — não
 // precisamos rastrear a estrutura do arquivo inteiro, só reconhecer esse formato por linha (ver
