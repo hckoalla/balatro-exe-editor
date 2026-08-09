@@ -2,7 +2,7 @@
 id: bee1-loading-inicial
 title: "Feedback visual de carregamento inicial"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P2 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| qa | P2 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | ui |
 
 > Depende de [bee1-setup-electron-react-vite](../../done/bee1-setup-electron-react-vite/item.md).
 
@@ -37,3 +37,15 @@ Pedido pelo usuário — às vezes a janela demora um pouco pra aparecer com con
 ## Fora de escopo
 - Barra de progresso "de verdade" (com percentual) — não existe uma métrica real de progresso
   pra medir no carregamento de um app Electron já empacotado localmente.
+
+## Progresso
+Concluído em 09/ago/26:
+- Loader estático direto no `<head>`/`<body>` do `index.html` (CSS inline, não depende de
+  `index.css` nem de nenhum módulo JS) — barra fina animada (cor de acento `#f3b542`), dentro de
+  `#root`. Como o React substitui todo o conteúdo de `#root` ao montar (`createRoot(...).render`),
+  o loader some sozinho no primeiro render — sem JS extra, sem race condition.
+- Sem teste automatizado — é HTML/CSS estático fora da árvore React, não há comportamento pra
+  testar com Vitest/RTL. Validado conferindo que o `dist/index.html` do build cresceu (0.42kB →
+  1.73kB) e contém o markup esperado.
+- **Não consegui verificar visualmente** (sem browser/Electron rodando neste ambiente) — vale
+  conferir ao abrir o app de verdade, especialmente se o timing do "sumiço" fica suave.
