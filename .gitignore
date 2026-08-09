@@ -1,0 +1,22 @@
+# Proprietário / local — nunca versionar
+game.lua
+*.exe
+fixtures/real/
+
+# Node
+node_modules/
+dist/
+dist-electron/
+.tsc-out/
+*.tsbuildinfo
+
+# Vite
+.vite/
+
+# Env
+.env
+.env.local
+
+# Editor / OS
+.DS_Store
+Thumbs.db
