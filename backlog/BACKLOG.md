@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 6 |
+| refining | 5 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 5 |
+| qa | 6 |
 | done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -47,7 +47,7 @@
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [qa] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
-- [refining] bee6-restaurar-padrao — P0
+- [qa] bee6-restaurar-padrao — P0
 
 ### [BEE-7](_epicas/BEE-7.md) · Internacionalização
 - [refining] bee7-infra-i18n — P0
