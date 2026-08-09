@@ -1,7 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
 :root {
   color-scheme: dark;
+
+  /* Fontes — ver design/Balatro EXE Editor.dc.html */
+  --font-display: 'Bungee', cursive;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Fundo */
+  --color-bg: #0a0710;
+  --color-panel-1: #16111c;
+  --color-panel-2: #1a1420;
+  --color-panel-3: #1c1522;
+  --color-panel-4: #211a29;
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  /* Texto */
+  --color-text: #f4eee2;
+  --color-text-secondary: #a9a0b5;
+  --color-text-muted: #736a80;
+  --color-text-tertiary: #c9c0d4;
+
+  /* Acento (ações primárias) */
+  --color-accent: #f3b542;
+  --color-accent-hover: #ffc766;
+  --color-accent-contrast: #1c1522;
+
+  /* Estados */
+  --color-error: #e5484d;
+  --color-error-text: #ff8388;
+  --color-success: #3fb87f;
+  --color-success-text: #6fe3ab;
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
 }
 
 body {
   margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
 }

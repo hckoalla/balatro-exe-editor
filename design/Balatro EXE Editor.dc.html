@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap">
+  <style>
+    body{margin:0;background:#0a0710;}
+    a{color:#f3b542;text-decoration:none;}
+    a:hover{color:#ffc766;}
+    input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes toastIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(circle at 50% -10%,#1c1424 0%,#0a0710 65%);display:flex;align-items:center;justify-content:center;padding:36px;font-family:'Manrope',sans-serif;">
+  <div style="width:1440px;height:900px;background:#16111c;border-radius:20px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);display:flex;flex-direction:column;position:relative;">
+
+    <div style="height:56px;flex-shrink:0;display:flex;align-items:center;gap:12px;padding:0 20px;background:#1c1522;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#f3b542,#e5484d);display:flex;align-items:center;justify-content:center;color:#1c1522;font-size:16px;font-weight:700;">&#9824;</div>
+      <div style="font-family:'Bungee',cursive;font-size:13px;letter-spacing:1px;color:#f4eee2;">BALATRO EXE EDITOR</div>
+      <div style="font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:#a9a0b5;background:rgba(255,255,255,0.06);padding:4px 9px;border-radius:20px;">unofficial fan tool</div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;gap:6px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);"></div>
+      </div>
+    </div>
+
+    <div style="flex:1;display:flex;overflow:hidden;position:relative;">
+
+      <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ true }}">
+        <div style="width:210px;flex-shrink:0;background:#1a1420;border-right:1px solid rgba(255,255,255,0.07);padding:16px 10px;display:flex;flex-direction:column;">
+          <div onClick="{{ goDecks }}" style="height:38px;display:flex;align-items:center;padding:0 14px;border-radius:9px;cursor:pointer;margin-bottom:4px;font-size:13px;font-weight:600;background:{{ navDecksBg }};color:{{ navDecksColor }};">{{ t.navDecks }}</div>
+          <div onClick="{{ goSettings }}" style="height:38px;display:flex;align-items:center;padding:0 14px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;background:{{ navSettingsBg }};color:{{ navSettingsColor }};">{{ t.navSettings }}</div>
+          <div style="flex:1;"></div>
+          <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:12px;">
+            <div style="font-size:9px;letter-spacing:0.5px;text-transform:uppercase;color:#736a80;margin-bottom:5px;">{{ t.gameFileLabel }}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#a9a0b5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ filePath }}</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:8px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#3fb87f;"></div>
+              <div style="font-size:10px;color:#6fe3ab;">Connected</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="flex:1;overflow-y:auto;position:relative;">
+
+        <sc-if value="{{ isSelectScreen }}" hint-placeholder-val="{{ true }}">
+          <div style="max-width:460px;margin:110px auto 0;text-align:center;padding:0 20px;">
+            <div style="display:flex;justify-content:center;margin-bottom:28px;">
+              <div style="position:relative;width:110px;height:70px;">
+                <div style="position:absolute;left:20px;top:6px;width:60px;height:82px;background:#241d2c;border:1px solid rgba(255,255,255,0.1);border-radius:10px;transform:rotate(-10deg);"></div>
+                <div style="position:absolute;left:25px;top:2px;width:60px;height:82px;background:#2c2334;border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:rotate(4deg);"></div>
+                <div style="position:absolute;left:22px;top:0;width:60px;height:82px;background:#332a3d;border:1px solid rgba(243,181,66,0.4);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#f3b542;font-size:22px;">&#9824;</div>
+              </div>
+            </div>
+            <div style="font-family:'Bungee',cursive;font-size:28px;color:#f4eee2;margin-bottom:10px;">{{ t.selectTitle }}</div>
+            <div style="font-size:15px;color:#a9a0b5;line-height:1.5;margin-bottom:28px;">{{ t.selectSubtitle }}</div>
+            <button onClick="{{ triggerBrowse }}" style="background:#f3b542;color:#1c1522;border:none;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;" style-hover="background:#ffc766;">{{ t.browseButton }}</button>
+            <input type="file" accept=".exe" ref="{{ fileInputRef }}" onChange="{{ handleFileChange }}" style="display:none;">
+            <sc-if value="{{ hasFileError }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:24px;background:rgba(229,72,77,0.1);border:1px solid rgba(229,72,77,0.4);border-radius:12px;padding:18px;text-align:left;">
+                <div style="color:#ff8388;font-weight:700;font-size:14px;margin-bottom:6px;">{{ t.invalidFileTitle }}</div>
+                <div style="color:#e3b7b8;font-size:13px;line-height:1.5;">{{ t.invalidFileBody }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDecksScreen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:36px 40px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;">
+              <div>
+                <div style="font-family:'Bungee',cursive;font-size:24px;color:#f4eee2;margin-bottom:6px;">{{ t.decksTitle }}</div>
+                <div style="font-size:14px;color:#a9a0b5;">{{ t.decksSubtitle }}</div>
+              </div>
+              <button onClick="{{ goRestore }}" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:#c9c0d4;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;" style-hover="background:rgba(255,255,255,0.09);">{{ t.restoreLink }}</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+              <sc-for list="{{ deckCards }}" as="card" hint-placeholder-count="16">
+                <div onClick="{{ card.onSelect }}" style="position:relative;background:#211a29;border-radius:16px;overflow:hidden;cursor:pointer;height:148px;display:flex;flex-direction:column;border:{{ card.cardBorder }};" style-hover="transform:translateY(-3px);">
+                  <div style="height:7px;flex-shrink:0;background:{{ card.accentBg }};"></div>
+                  <sc-if value="{{ card.special }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:absolute;top:12px;right:12px;background:rgba(243,181,66,0.18);color:#f3b542;font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:3px 8px;border-radius:10px;">Special</div>
+                  </sc-if>
+                  <div style="flex:1;padding:16px;display:flex;flex-direction:column;justify-content:space-between;">
+                    <div style="font-family:'Bungee',cursive;font-size:14px;color:#f4eee2;">{{ card.name }}</div>
+                    <div style="display:inline-flex;align-self:flex-start;background:{{ card.badgeBg }};color:{{ card.badgeColor }};font-size:11px;font-weight:600;padding:5px 10px;border-radius:20px;">{{ card.badgeText }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isEditorScreen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:32px 40px;">
+            <div onClick="{{ backToDecks }}" style="display:inline-flex;align-items:center;gap:6px;color:#a9a0b5;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;">&#8592; {{ t.back }}</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+              <div style="width:14px;height:14px;border-radius:4px;background:{{ editor.accentBg }};"></div>
+              <div style="font-family:'Bungee',cursive;font-size:22px;color:#f4eee2;">{{ editor.deckName }}</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start;">
+              <div>
+                <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;margin-bottom:16px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="font-size:14px;font-weight:700;color:#f4eee2;">{{ t.startingMoney }}</div>
+                    <sc-if value="{{ editor.moneyChanged }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ editor.resetMoney }}" title="{{ t.resetField }}" style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;cursor:pointer;font-size:13px;" style-hover="color:#f3b542;">&#8634;</button>
+                    </sc-if>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+                    <button onClick="{{ editor.decMoney }}" style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:none;color:#f4eee2;font-size:18px;cursor:pointer;">&#8722;</button>
+                    <div style="position:relative;">
+                      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#f3b542;pointer-events:none;">+</span>
+                      <input type="number" value="{{ editor.moneyRaw }}" onChange="{{ editor.setMoney }}" style="width:80px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#f3b542;background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:8px 4px 8px 20px;">
+                    </div>
+                    <button onClick="{{ editor.incMoney }}" style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:none;color:#f4eee2;font-size:18px;cursor:pointer;">&#43;</button>
+                  </div>
+                  <div style="font-size:11px;color:#736a80;margin-top:10px;">{{ t.addedToBaseMoney }}</div>
+                  <sc-if value="{{ editor.moneyExceeds }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:10px;background:rgba(240,162,60,0.12);border:1px solid rgba(240,162,60,0.4);border-radius:10px;padding:10px 12px;display:flex;gap:8px;">
+                      <div style="color:#f0a23c;font-weight:700;font-size:13px;">&#9888;</div>
+                      <div style="color:#f7cf9a;font-size:12px;line-height:1.5;">{{ t.warnMoney }}</div>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;margin-bottom:16px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="font-size:14px;font-weight:700;color:#f4eee2;">{{ t.jokerSlots }}</div>
+                    <sc-if value="{{ editor.jokerChanged }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ editor.resetJoker }}" title="{{ t.resetField }}" style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;cursor:pointer;font-size:13px;" style-hover="color:#f3b542;">&#8634;</button>
+                    </sc-if>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+                    <button onClick="{{ editor.decJoker }}" style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:none;color:#f4eee2;font-size:18px;cursor:pointer;">&#8722;</button>
+                    <div style="position:relative;">
+                      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#f3b542;pointer-events:none;">+</span>
+                      <input type="number" value="{{ editor.jokerRaw }}" onChange="{{ editor.setJoker }}" style="width:80px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#f3b542;background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:8px 4px 8px 20px;">
+                    </div>
+                    <button onClick="{{ editor.incJoker }}" style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:none;color:#f4eee2;font-size:18px;cursor:pointer;">&#43;</button>
+                  </div>
+                  <div style="font-size:11px;color:#736a80;margin-top:10px;">{{ t.addedToBaseJoker }}</div>
+                  <sc-if value="{{ editor.jokerExceeds }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:10px;background:rgba(240,162,60,0.12);border:1px solid rgba(240,162,60,0.4);border-radius:10px;padding:10px 12px;display:flex;gap:8px;">
+                      <div style="color:#f0a23c;font-weight:700;font-size:13px;">&#9888;</div>
+                      <div style="color:#f7cf9a;font-size:12px;line-height:1.5;">{{ t.warnJoker }}</div>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="font-size:14px;font-weight:700;color:#f4eee2;">{{ t.consumableSlots }}</div>
+                    <sc-if value="{{ editor.consSlotsChanged }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ editor.resetConsSlots }}" title="{{ t.resetField }}" style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;cursor:pointer;font-size:13px;" style-hover="color:#f3b542;">&#8634;</button>
+                    </sc-if>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+                    <button onClick="{{ editor.decConsSlots }}" style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:none;color:#f4eee2;font-size:18px;cursor:pointer;">&#8722;</button>
+                    <div style="position:relative;">
+                      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#f3b542;pointer-events:none;">+</span>
+                      <input type="number" value="{{ editor.consSlotsRaw }}" onChange="{{ editor.setConsSlots }}" style="width:80px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#f3b542;background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:8px 4px 8px 20px;">
+                    </div>
+                    <button onClick="{{ editor.incConsSlots }}" style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:none;color:#f4eee2;font-size:18px;cursor:pointer;">&#43;</button>
+                  </div>
+                  <div style="font-size:11px;color:#736a80;margin-top:10px;">{{ t.addedToBaseConsumable }}</div>
+                  <sc-if value="{{ editor.consSlotsExceeds }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:10px;background:rgba(240,162,60,0.12);border:1px solid rgba(240,162,60,0.4);border-radius:10px;padding:10px 12px;display:flex;gap:8px;">
+                      <div style="color:#f0a23c;font-weight:700;font-size:13px;">&#9888;</div>
+                      <div style="color:#f7cf9a;font-size:12px;line-height:1.5;">{{ t.warnConsumableSlots }}</div>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+
+              <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="font-size:14px;font-weight:700;color:#f4eee2;">{{ t.consumablesTitle }}</div>
+                  <sc-if value="{{ editor.consumablesChanged }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ editor.resetConsumables }}" title="{{ t.resetField }}" style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;cursor:pointer;font-size:13px;" style-hover="color:#f3b542;">&#8634;</button>
+                  </sc-if>
+                </div>
+                <div style="font-size:11px;color:#736a80;margin-top:4px;margin-bottom:14px;">{{ t.consumablesSubtitle }}</div>
+
+                <div style="position:relative;">
+                  <input type="text" placeholder="{{ t.searchPlaceholder }}" value="{{ editor.searchQuery }}" onChange="{{ editor.onSearchInput }}" style="width:100%;box-sizing:border-box;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:11px 14px;color:#f4eee2;font-size:13px;font-family:'Manrope',sans-serif;">
+                  <sc-if value="{{ editor.searchOpen }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:absolute;top:calc(100% + 6px);left:0;right:0;background:#241d2c;border:1px solid rgba(255,255,255,0.12);border-radius:10px;max-height:230px;overflow-y:auto;box-shadow:0 12px 30px rgba(0,0,0,0.4);z-index:10;">
+                      <sc-for list="{{ editor.searchResults }}" as="res" hint-placeholder-count="4">
+                        <div onClick="{{ res.onPick }}" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
+                          <div style="color:#f4eee2;font-size:13px;">{{ res.name }}</div>
+                          <div style="font-size:10px;color:{{ res.categoryColor }};">{{ res.category }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <sc-if value="{{ editor.noConsumables }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:16px;font-size:13px;color:#736a80;">{{ t.consumablesEmpty }}</div>
+                </sc-if>
+                <sc-if value="{{ editor.hasConsumables }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+                    <sc-for list="{{ editor.consumableChips }}" as="chip" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 6px 6px 12px;font-size:12px;color:#f4eee2;">
+                        <div style="width:7px;height:7px;border-radius:50%;background:{{ chip.categoryColor }};"></div>
+                        <div>{{ chip.name }}</div>
+                        <button onClick="{{ chip.onRemove }}" style="width:17px;height:17px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#a9a0b5;font-size:11px;cursor:pointer;line-height:1;">&#215;</button>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ editor.consListExceeds }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:14px;background:rgba(240,162,60,0.12);border:1px solid rgba(240,162,60,0.4);border-radius:10px;padding:10px 12px;display:flex;gap:8px;">
+                    <div style="color:#f0a23c;font-weight:700;font-size:13px;">&#9888;</div>
+                    <div style="color:#f7cf9a;font-size:12px;line-height:1.5;">{{ t.warnConsumablesList }}</div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;margin-top:24px;">
+              <button onClick="{{ openSaveDialog }}" style="background:#f3b542;color:#1c1522;border:none;padding:13px 26px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;" style-hover="background:#ffc766;">{{ t.save }}</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSettingsScreen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:36px 40px;max-width:560px;">
+            <div style="font-family:'Bungee',cursive;font-size:24px;color:#f4eee2;margin-bottom:24px;">{{ t.settingsTitle }}</div>
+
+            <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:700;color:#f4eee2;margin-bottom:12px;">{{ t.languageLabel }}</div>
+              <div style="display:flex;gap:8px;">
+                <button onClick="{{ setLangEn }}" style="flex:1;padding:10px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;background:{{ langEnBg }};color:{{ langEnColor }};border:1px solid rgba(255,255,255,0.1);">English</button>
+                <button onClick="{{ setLangPt }}" style="flex:1;padding:10px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;background:{{ langPtBg }};color:{{ langPtColor }};border:1px solid rgba(255,255,255,0.1);">Português</button>
+                <button onClick="{{ setLangEs }}" style="flex:1;padding:10px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;background:{{ langEsBg }};color:{{ langEsColor }};border:1px solid rgba(255,255,255,0.1);">Español</button>
+              </div>
+            </div>
+
+            <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:700;color:#f4eee2;margin-bottom:10px;">{{ t.gameFileLabel }}</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="flex:1;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a9a0b5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(255,255,255,0.04);padding:10px 12px;border-radius:8px;">{{ filePath }}</div>
+                <button onClick="{{ changeFile }}" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#c9c0d4;padding:10px 16px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.change }}</button>
+              </div>
+            </div>
+
+            <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:700;color:#f4eee2;margin-bottom:6px;">{{ t.restoreTitle }}</div>
+              <div style="font-size:12px;color:#a9a0b5;margin-bottom:12px;line-height:1.5;">{{ t.restoreBody }}</div>
+              <button onClick="{{ goRestore }}" style="background:rgba(229,72,77,0.1);border:2px solid #e5484d;color:#ff8388;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.restoreButton }}</button>
+            </div>
+
+            <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:#f4eee2;">{{ t.simulateLabel }}</div>
+                  <div style="font-size:11px;color:#736a80;margin-top:4px;max-width:380px;line-height:1.4;">{{ t.simulateHint }}</div>
+                </div>
+                <div onClick="{{ toggleSimulate }}" style="width:44px;height:26px;border-radius:14px;flex-shrink:0;cursor:pointer;background:{{ simToggleBg }};position:relative;">
+                  <div style="width:20px;height:20px;border-radius:50%;background:#f4eee2;position:absolute;top:3px;left:{{ simToggleLeft }};transition:left .15s;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isRestoreScreen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:36px 40px;max-width:560px;">
+            <div style="font-family:'Bungee',cursive;font-size:24px;color:#f4eee2;margin-bottom:20px;">{{ t.restoreTitle }}</div>
+            <div style="background:#211a29;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:22px;">
+              <div style="font-size:14px;color:#c9c0d4;line-height:1.6;margin-bottom:18px;">{{ t.restoreBody }}</div>
+              <button onClick="{{ openRestoreDialog }}" style="background:rgba(229,72,77,0.12);border:2px solid #e5484d;color:#ff8388;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.restoreButton }}</button>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+
+    <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:60;animation:toastIn .2s ease;">
+        <div style="display:flex;align-items:center;gap:12px;background:{{ toastBg }};border:1px solid {{ toastBorder }};border-radius:12px;padding:13px 16px;box-shadow:0 12px 30px rgba(0,0,0,0.4);">
+          <div style="color:{{ toastColor }};font-size:13px;font-weight:600;">{{ toastMessage }}</div>
+          <button onClick="{{ dismissToast }}" style="background:none;border:none;color:{{ toastColor }};font-size:13px;cursor:pointer;opacity:0.7;">&#215;</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ saveDialogOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;z-index:50;">
+        <div style="width:420px;background:#211a29;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:26px;animation:fadeInUp .18s ease;">
+          <sc-if value="{{ saveIdle }}" hint-placeholder-val="{{ true }}">
+            <div style="font-family:'Bungee',cursive;font-size:17px;color:#f4eee2;margin-bottom:10px;">{{ t.saveDialogTitle }}</div>
+            <div style="font-size:13px;color:#a9a0b5;line-height:1.6;margin-bottom:22px;">{{ t.saveDialogBody }}</div>
+            <div style="display:flex;justify-content:flex-end;gap:10px;">
+              <button onClick="{{ closeSaveDialog }}" style="background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;padding:11px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.cancel }}</button>
+              <button onClick="{{ confirmSave }}" style="background:#f3b542;border:none;color:#1c1522;padding:11px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.saveConfirm }}</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ saveSaving }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;padding:20px 0;gap:14px;">
+              <div style="width:30px;height:30px;border-radius:50%;border:3px solid rgba(243,181,66,0.25);border-top-color:#f3b542;animation:spin 0.8s linear infinite;"></div>
+              <div style="font-size:13px;color:#c9c0d4;">{{ t.saving }}</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ saveSuccess }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:12px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:rgba(63,184,127,0.15);color:#3fb87f;display:flex;align-items:center;justify-content:center;font-size:20px;">&#10003;</div>
+              <div style="font-size:13px;color:#c9c0d4;text-align:center;">{{ t.saveSuccessToast }}</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ saveError }}" hint-placeholder-val="{{ false }}">
+            <div style="font-family:'Bungee',cursive;font-size:16px;color:#ff8388;margin-bottom:8px;">{{ t.saveErrorTitle }}</div>
+            <div style="font-size:13px;color:#e3b7b8;line-height:1.6;margin-bottom:20px;">{{ t.saveErrorBody }}</div>
+            <div style="display:flex;justify-content:flex-end;gap:10px;">
+              <button onClick="{{ closeSaveDialog }}" style="background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;padding:11px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.cancel }}</button>
+              <button onClick="{{ confirmSave }}" style="background:#e5484d;border:none;color:#fff;padding:11px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.retry }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ restoreDialogOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:50;">
+        <div style="width:440px;background:#211a29;border:2px solid #e5484d;border-radius:16px;padding:0;overflow:hidden;animation:fadeInUp .18s ease;">
+          <div style="background:rgba(229,72,77,0.15);padding:20px 26px;display:flex;align-items:center;gap:14px;">
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(229,72,77,0.25);color:#ff8388;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">&#9888;</div>
+            <div style="font-family:'Bungee',cursive;font-size:17px;color:#ff8388;">{{ t.restoreDialogTitle }}</div>
+          </div>
+          <div style="padding:22px 26px 26px;">
+            <sc-if value="{{ restoreIdle }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:13px;color:#c9c0d4;line-height:1.6;margin-bottom:22px;">{{ t.restoreDialogBody }}</div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;">
+                <button onClick="{{ closeRestoreDialog }}" style="background:rgba(255,255,255,0.06);border:none;color:#c9c0d4;padding:11px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.cancel }}</button>
+                <button onClick="{{ confirmRestore }}" style="background:#e5484d;border:none;color:#fff;padding:11px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;">{{ t.restoreConfirm }}</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ restoreRestoring }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:14px;">
+                <div style="width:30px;height:30px;border-radius:50%;border:3px solid rgba(229,72,77,0.25);border-top-color:#e5484d;animation:spin 0.8s linear infinite;"></div>
+                <div style="font-size:13px;color:#c9c0d4;">{{ t.saving }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1512, &quot;height&quot;: 972}, &quot;seedDemoData&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}, &quot;defaultLanguage&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;en&quot;, &quot;options&quot;: [&quot;en&quot;, &quot;pt&quot;, &quot;es&quot;], &quot;tsType&quot;: &quot;string&quot;}}">
+const CEILINGS = { money: 230, joker: 145, consumableSlots: 90, consumablesList: 30 };
+
+const DECK_DEFS = [
+  { id: 'red', name: 'Red Deck', accent: '#e5484d' },
+  { id: 'blue', name: 'Blue Deck', accent: '#4f8ff7' },
+  { id: 'yellow', name: 'Yellow Deck', accent: '#f0c93c' },
+  { id: 'green', name: 'Green Deck', accent: '#4caf7d' },
+  { id: 'black', name: 'Black Deck', accent: '#8a8494' },
+  { id: 'magic', name: 'Magic Deck', accent: '#b06cf0' },
+  { id: 'nebula', name: 'Nebula Deck', accent: '#7c6cf0' },
+  { id: 'ghost', name: 'Ghost Deck', accent: '#cfd6e0' },
+  { id: 'abandoned', name: 'Abandoned Deck', accent: '#a3835f' },
+  { id: 'checkered', name: 'Checkered Deck', accent: '#d8d2c0' },
+  { id: 'zodiac', name: 'Zodiac Deck', accent: '#f3b542' },
+  { id: 'painted', name: 'Painted Deck', accent: '#f2789a' },
+  { id: 'anaglyph', name: 'Anaglyph Deck', accent: 'linear-gradient(90deg,#e5484d,#4fd1e5)' },
+  { id: 'plasma', name: 'Plasma Deck', accent: 'linear-gradient(135deg,#ff5c9e,#7c6cf0)' },
+  { id: 'erratic', name: 'Erratic Deck', accent: '#56e0b0' },
+  { id: 'challenge', name: 'Challenge Deck', accent: '#f3b542', special: true },
+];
+
+const TAROT = ['The Fool','The Magician','The High Priestess','The Empress','The Emperor','The Hierophant','The Lovers','The Chariot','Justice','The Hermit','The Wheel of Fortune','Strength','The Hanged Man','Death','Temperance','The Devil','The Tower','The Star','The Moon','The Sun','Judgement','The World'];
+const PLANET = ['Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Planet X','Ceres','Eris'];
+const SPECTRAL = ['Familiar','Grim','Incantation','Talisman','Aura','Wraith','Sigil','Ouija','Immolate','Ankh','Deja Vu','Hex','Trance','Medium','Cryptid','Soul','Black Hole'];
+const CONSUMABLES = [
+  ...TAROT.map(name => ({ name, category: 'Tarot' })),
+  ...PLANET.map(name => ({ name, category: 'Planet' })),
+  ...SPECTRAL.map(name => ({ name, category: 'Spectral' })),
+];
+const CATEGORY_COLOR = { Tarot: '#b06cf0', Planet: '#4f8ff7', Spectral: '#3fcbb0' };
+
+const TR = {
+  en: {
+    navDecks: 'Decks', navSettings: 'Settings', gameFileLabel: 'Game File',
+    selectTitle: "Let's find your game", selectSubtitle: "Point me to your balatro.exe and I'll take it from there.",
+    browseButton: 'Browse for balatro.exe',
+    invalidFileTitle: "That doesn't look like Balatro",
+    invalidFileBody: "Pick the balatro.exe file inside your game's install folder \u2014 usually in Program Files\\Balatro or your Steam library.",
+    decksTitle: 'Your Decks', decksSubtitle: 'Pick a deck to tune its starting rules.', restoreLink: 'Restore Backup',
+    customizedBadge: 'Customized', defaultBadge: 'Untouched', back: 'Back to Decks',
+    startingMoney: 'Starting Money', jokerSlots: 'Joker Slots', consumableSlots: 'Consumable Slots',
+    addedToBaseMoney: 'Added to the base $4 starting money', addedToBaseJoker: 'Added to the base 5 joker slots', addedToBaseConsumable: 'Added to the base 2 consumable slots',
+    warnMoney: "That's above the tested-safe limit (+230). The game might not run correctly.",
+    warnJoker: "That's above the tested-safe limit (+145). The game might not run correctly.",
+    warnConsumableSlots: "That's above the tested-safe limit (+90). The game might not run correctly.",
+    warnConsumablesList: "That's a lot of consumables \u2014 past ~30, this hasn't been tested.",
+    resetField: 'Reset to default', consumablesTitle: 'Starting Consumables', consumablesSubtitle: 'Tarot, Planet, and Spectral cards this deck starts with.',
+    searchPlaceholder: 'Search for a card, e.g. "The Fool"', consumablesEmpty: 'No starting consumables added yet.',
+    save: 'Save Changes', saveDialogTitle: 'Save to balatro.exe?', saveDialogBody: "This writes your changes into the real game file. Close Balatro first if it's running.",
+    saveConfirm: 'Save Changes', cancel: 'Cancel', saving: 'Writing changes\u2026', saveSuccessToast: 'Saved! Your changes are live in balatro.exe.',
+    saveErrorTitle: 'balatro.exe is in use', saveErrorBody: 'Close Balatro completely, then try saving again.', retry: 'Try Again',
+    restoreTitle: 'Restore Backup', restoreBody: 'Every time you save, the original game.lua stays safely backed up. Restoring puts every deck back to its out-of-the-box state \u2014 all customizations across every deck will be lost.',
+    restoreButton: 'Restore Default', restoreDialogTitle: 'Restore the original game?', restoreDialogBody: "This undoes every customization on every deck, right now. There's no undo \u2014 you'd have to redo your edits from scratch.",
+    restoreConfirm: 'Yes, restore everything', restoreSuccessToast: 'Restored. All decks are back to default.',
+    settingsTitle: 'Settings', languageLabel: 'Language', change: 'Change',
+    simulateLabel: 'Simulate: Balatro is running', simulateHint: "For testing \u2014 makes the next Save fail with a 'file in use' error.",
+  },
+  pt: {
+    navDecks: 'Baralhos', navSettings: 'Configurações', gameFileLabel: 'Arquivo do Jogo',
+    selectTitle: 'Vamos achar seu jogo', selectSubtitle: 'Indique o balatro.exe e eu cuido do resto.',
+    browseButton: 'Procurar balatro.exe',
+    invalidFileTitle: 'Isso não parece ser o Balatro',
+    invalidFileBody: 'Selecione o arquivo balatro.exe na pasta de instalação do jogo \u2014 geralmente em Program Files\\Balatro ou na sua biblioteca da Steam.',
+    decksTitle: 'Seus Baralhos', decksSubtitle: 'Escolha um baralho para ajustar suas regras iniciais.', restoreLink: 'Restaurar Backup',
+    customizedBadge: 'Personalizado', defaultBadge: 'Intocado', back: 'Voltar aos Baralhos',
+    startingMoney: 'Dinheiro Inicial', jokerSlots: 'Espaços de Joker', consumableSlots: 'Espaços de Consumíveis',
+    addedToBaseMoney: 'Somado aos $4 iniciais base', addedToBaseJoker: 'Somado aos 5 espaços de joker base', addedToBaseConsumable: 'Somado aos 2 espaços de consumíveis base',
+    warnMoney: 'Isso está acima do limite testado (+230). O jogo pode não funcionar corretamente.',
+    warnJoker: 'Isso está acima do limite testado (+145). O jogo pode não funcionar corretamente.',
+    warnConsumableSlots: 'Isso está acima do limite testado (+90). O jogo pode não funcionar corretamente.',
+    warnConsumablesList: 'São muitos consumíveis \u2014 acima de ~30, isso não foi testado.',
+    resetField: 'Restaurar padrão', consumablesTitle: 'Consumíveis Iniciais', consumablesSubtitle: 'Cartas de Tarot, Planeta e Espectrais que este baralho já traz.',
+    searchPlaceholder: 'Buscar uma carta, ex. "O Louco"', consumablesEmpty: 'Nenhum consumível inicial adicionado ainda.',
+    save: 'Salvar Alterações', saveDialogTitle: 'Salvar no balatro.exe?', saveDialogBody: 'Isso grava suas alterações no arquivo real do jogo. Feche o Balatro antes, se estiver aberto.',
+    saveConfirm: 'Salvar Alterações', cancel: 'Cancelar', saving: 'Gravando alterações\u2026', saveSuccessToast: 'Salvo! Suas alterações já estão no balatro.exe.',
+    saveErrorTitle: 'balatro.exe está em uso', saveErrorBody: 'Feche o Balatro completamente e tente salvar novamente.', retry: 'Tentar de Novo',
+    restoreTitle: 'Restaurar Backup', restoreBody: 'A cada salvamento, o game.lua original permanece em backup. Restaurar devolve todos os baralhos ao estado original \u2014 todas as personalizações serão perdidas.',
+    restoreButton: 'Restaurar Padrão', restoreDialogTitle: 'Restaurar o jogo original?', restoreDialogBody: 'Isso desfaz toda personalização em todos os baralhos agora. Não há como desfazer \u2014 você teria que refazer tudo do zero.',
+    restoreConfirm: 'Sim, restaurar tudo', restoreSuccessToast: 'Restaurado. Todos os baralhos voltaram ao padrão.',
+    settingsTitle: 'Configurações', languageLabel: 'Idioma', change: 'Alterar',
+    simulateLabel: 'Simular: Balatro está aberto', simulateHint: 'Para testes \u2014 faz o próximo salvamento falhar com erro de "arquivo em uso".',
+  },
+  es: {
+    navDecks: 'Mazos', navSettings: 'Ajustes', gameFileLabel: 'Archivo del Juego',
+    selectTitle: 'Busquemos tu juego', selectSubtitle: 'Indícame tu balatro.exe y yo me encargo del resto.',
+    browseButton: 'Buscar balatro.exe',
+    invalidFileTitle: 'Esto no parece ser Balatro',
+    invalidFileBody: 'Elige el archivo balatro.exe dentro de la carpeta de instalación del juego \u2014 normalmente en Program Files\\Balatro o tu biblioteca de Steam.',
+    decksTitle: 'Tus Mazos', decksSubtitle: 'Elige un mazo para ajustar sus reglas iniciales.', restoreLink: 'Restaurar Copia',
+    customizedBadge: 'Personalizado', defaultBadge: 'Intacto', back: 'Volver a Mazos',
+    startingMoney: 'Dinero Inicial', jokerSlots: 'Espacios de Joker', consumableSlots: 'Espacios de Consumibles',
+    addedToBaseMoney: 'Sumado a los $4 base iniciales', addedToBaseJoker: 'Sumado a los 5 espacios de joker base', addedToBaseConsumable: 'Sumado a los 2 espacios de consumibles base',
+    warnMoney: 'Esto supera el límite probado (+230). El juego podría no funcionar bien.',
+    warnJoker: 'Esto supera el límite probado (+145). El juego podría no funcionar bien.',
+    warnConsumableSlots: 'Esto supera el límite probado (+90). El juego podría no funcionar bien.',
+    warnConsumablesList: 'Son muchos consumibles \u2014 más de ~30 no se ha probado.',
+    resetField: 'Restablecer', consumablesTitle: 'Consumibles Iniciales', consumablesSubtitle: 'Cartas de Tarot, Planeta y Espectrales con las que empieza este mazo.',
+    searchPlaceholder: 'Busca una carta, ej. "El Loco"', consumablesEmpty: 'Aún no se agregaron consumibles iniciales.',
+    save: 'Guardar Cambios', saveDialogTitle: '¿Guardar en balatro.exe?', saveDialogBody: 'Esto escribe tus cambios en el archivo real del juego. Cierra Balatro primero si está abierto.',
+    saveConfirm: 'Guardar Cambios', cancel: 'Cancelar', saving: 'Escribiendo cambios\u2026', saveSuccessToast: '¡Guardado! Tus cambios ya están en balatro.exe.',
+    saveErrorTitle: 'balatro.exe está en uso', saveErrorBody: 'Cierra Balatro por completo y vuelve a intentar guardar.', retry: 'Reintentar',
+    restoreTitle: 'Restaurar Copia', restoreBody: 'Cada vez que guardas, el game.lua original queda respaldado. Restaurar devuelve todos los mazos a su estado original \u2014 se perderán todas las personalizaciones.',
+    restoreButton: 'Restaurar Original', restoreDialogTitle: '¿Restaurar el juego original?', restoreDialogBody: 'Esto deshace toda personalización en todos los mazos, ahora mismo. No hay forma de deshacerlo \u2014 tendrías que rehacer tus cambios desde cero.',
+    restoreConfirm: 'Sí, restaurar todo', restoreSuccessToast: 'Restaurado. Todos los mazos volvieron al valor original.',
+    settingsTitle: 'Ajustes', languageLabel: 'Idioma', change: 'Cambiar',
+    simulateLabel: 'Simular: Balatro está abierto', simulateHint: "Para pruebas \u2014 hace que el próximo guardado falle con error de 'archivo en uso'.",
+  },
+};
+
+function blankState() { return { moneyBonus: 0, jokerBonus: 0, consumableBonus: 0, consumables: [] }; }
+
+class Component extends DCLogic {
+  fileInputRef = React.createRef();
+  toastTimer = null;
+
+  state = {
+    screen: 'select', filePath: null, fileError: '', language: 'en', decks: [],
+    selectedDeckId: null, simulateFileInUse: false,
+    saveDialogOpen: false, saveState: 'idle', restoreDialogOpen: false, restoreState: 'idle',
+    toast: null, searchQuery: '', searchOpen: false,
+  };
+
+  componentDidMount() {
+    let decks = null;
+    try { decks = JSON.parse(localStorage.getItem('balatro-exe:decks') || 'null'); } catch (e) { decks = null; }
+    if (!decks) {
+      decks = DECK_DEFS.map(d => ({ ...d, default: blankState(), current: blankState() }));
+      if (this.props.seedDemoData !== false) {
+        const byId = {}; decks.forEach(d => { byId[d.id] = d; });
+        byId.red.current = { moneyBonus: 20, jokerBonus: 0, consumableBonus: 0, consumables: [] };
+        byId.checkered.current = { moneyBonus: 0, jokerBonus: 0, consumableBonus: 0, consumables: ['The Fool', 'The Fool', 'Jupiter'] };
+        byId.erratic.current = { moneyBonus: 250, jokerBonus: 10, consumableBonus: 0, consumables: [] };
+      }
+    }
+    const path = localStorage.getItem('balatro-exe:path');
+    const lang = localStorage.getItem('balatro-exe:lang') || this.props.defaultLanguage || 'en';
+    this.setState({ decks, filePath: path || null, screen: path ? 'decks' : 'select', language: lang });
+  }
+
+  persistDecks(decks) { localStorage.setItem('balatro-exe:decks', JSON.stringify(decks)); }
+
+  triggerBrowse = () => { if (this.fileInputRef.current) this.fileInputRef.current.click(); };
+
+  handleFileChange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const ok = /balatro/i.test(file.name) && /\.exe$/i.test(file.name);
+    if (!ok) { this.setState({ fileError: 'invalid' }); e.target.value = ''; return; }
+    const fakePath = 'C:\\Program Files\\Balatro\\' + file.name;
+    localStorage.setItem('balatro-exe:path', fakePath);
+    this.setState({ filePath: fakePath, fileError: '', screen: 'decks' });
+    e.target.value = '';
+  };
+
+  changeFile = () => { localStorage.removeItem('balatro-exe:path'); this.setState({ filePath: null, screen: 'select', fileError: '' }); };
+  selectDeck = (id) => { this.setState({ selectedDeckId: id, screen: 'editor', searchQuery: '', searchOpen: false }); };
+  backToDecks = () => { this.setState({ screen: 'decks', selectedDeckId: null }); };
+  goSettings = () => { this.setState({ screen: 'settings' }); };
+  goRestore = () => { this.setState({ screen: 'restore' }); };
+  goDecks = () => { this.setState({ screen: 'decks' }); };
+
+  updateDeck(id, updater) {
+    const decks = this.state.decks.map(d => d.id === id ? { ...d, current: updater(d.current) } : d);
+    this.setState({ decks });
+    this.persistDecks(decks);
+  }
+
+  setNumberField = (deckId, field, value) => {
+    let v = parseInt(value, 10);
+    if (isNaN(v) || v < 0) v = 0;
+    this.updateDeck(deckId, cur => ({ ...cur, [field]: v }));
+  };
+  stepField = (deckId, field, delta) => {
+    const deck = this.state.decks.find(d => d.id === deckId);
+    const next = Math.max(0, (deck.current[field] || 0) + delta);
+    this.updateDeck(deckId, cur => ({ ...cur, [field]: next }));
+  };
+  resetField = (deckId, field) => { this.updateDeck(deckId, cur => ({ ...cur, [field]: 0 })); };
+  addConsumable = (deckId, name) => { this.updateDeck(deckId, cur => ({ ...cur, consumables: [...cur.consumables, name] })); this.setState({ searchQuery: '', searchOpen: false }); };
+  removeConsumable = (deckId, index) => { this.updateDeck(deckId, cur => ({ ...cur, consumables: cur.consumables.filter((_, i) => i !== index) })); };
+  resetConsumables = (deckId) => { this.updateDeck(deckId, cur => ({ ...cur, consumables: [] })); };
+  setSearchQuery = (v) => { this.setState({ searchQuery: v, searchOpen: v.length > 0 }); };
+
+  openSaveDialog = () => { this.setState({ saveDialogOpen: true, saveState: 'idle' }); };
+  closeSaveDialog = () => { this.setState({ saveDialogOpen: false, saveState: 'idle' }); };
+  confirmSave = () => {
+    this.setState({ saveState: 'saving' });
+    setTimeout(() => {
+      if (this.state.simulateFileInUse) { this.setState({ saveState: 'error' }); }
+      else {
+        this.setState({ saveState: 'success' });
+        setTimeout(() => {
+          this.setState({ saveDialogOpen: false, saveState: 'idle', screen: 'decks', selectedDeckId: null });
+          this.showToast('success', TR[this.state.language].saveSuccessToast);
+        }, 900);
+      }
+    }, 1100);
+  };
+
+  openRestoreDialog = () => { this.setState({ restoreDialogOpen: true, restoreState: 'idle' }); };
+  closeRestoreDialog = () => { this.setState({ restoreDialogOpen: false, restoreState: 'idle' }); };
+  confirmRestore = () => {
+    this.setState({ restoreState: 'restoring' });
+    setTimeout(() => {
+      const decks = this.state.decks.map(d => ({ ...d, current: blankState() }));
+      this.persistDecks(decks);
+      this.setState({ decks, restoreState: 'idle', restoreDialogOpen: false, screen: 'decks' });
+      this.showToast('success', TR[this.state.language].restoreSuccessToast);
+    }, 1100);
+  };
+
+  setLanguage = (lang) => { localStorage.setItem('balatro-exe:lang', lang); this.setState({ language: lang }); };
+  toggleSimulate = () => { this.setState(s => ({ simulateFileInUse: !s.simulateFileInUse })); };
+
+  showToast(type, message) {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.setState({ toast: { type, message } });
+    this.toastTimer = setTimeout(() => this.setState({ toast: null }), 3600);
+  }
+  dismissToast = () => { this.setState({ toast: null }); };
+
+  renderVals() {
+    const s = this.state;
+    const t = TR[s.language] || TR.en;
+    const decks = s.decks || [];
+    const isCustom = (d) => d.current.moneyBonus !== 0 || d.current.jokerBonus !== 0 || d.current.consumableBonus !== 0 || d.current.consumables.length !== 0;
+
+    const deckCards = decks.map(d => {
+      const customized = isCustom(d);
+      return {
+        id: d.id, name: d.name, accentBg: d.accent, special: !!d.special,
+        cardBorder: d.special ? '2px dashed rgba(243,181,66,0.5)' : '1px solid rgba(255,255,255,0.08)',
+        badgeBg: customized ? 'rgba(63,184,127,0.15)' : 'rgba(255,255,255,0.06)',
+        badgeColor: customized ? '#6fe3ab' : '#8f869c',
+        badgeText: customized ? t.customizedBadge : t.defaultBadge,
+        onSelect: () => this.selectDeck(d.id),
+      };
+    });
+
+    let editor = null;
+    const selDeck = decks.find(d => d.id === s.selectedDeckId);
+    if (selDeck) {
+      const cur = selDeck.current;
+      const filtered = s.searchQuery ? CONSUMABLES.filter(c => c.name.toLowerCase().includes(s.searchQuery.toLowerCase())).slice(0, 8) : [];
+      editor = {
+        deckId: selDeck.id, deckName: selDeck.name, accentBg: selDeck.accent,
+        moneyRaw: cur.moneyBonus, moneyChanged: cur.moneyBonus !== 0, moneyExceeds: cur.moneyBonus > CEILINGS.money,
+        jokerRaw: cur.jokerBonus, jokerChanged: cur.jokerBonus !== 0, jokerExceeds: cur.jokerBonus > CEILINGS.joker,
+        consSlotsRaw: cur.consumableBonus, consSlotsChanged: cur.consumableBonus !== 0, consSlotsExceeds: cur.consumableBonus > CEILINGS.consumableSlots,
+        consumablesChanged: cur.consumables.length !== 0, consListExceeds: cur.consumables.length > CEILINGS.consumablesList,
+        hasConsumables: cur.consumables.length > 0, noConsumables: cur.consumables.length === 0,
+        consumableChips: cur.consumables.map((name, i) => {
+          const cat = (CONSUMABLES.find(c => c.name === name) || {}).category || 'Tarot';
+          return { key: selDeck.id + '-' + i, name, categoryColor: CATEGORY_COLOR[cat], onRemove: () => this.removeConsumable(selDeck.id, i) };
+        }),
+        searchQuery: s.searchQuery, searchOpen: s.searchOpen && filtered.length > 0,
+        searchResults: filtered.map(c => ({ key: c.name, name: c.name, category: c.category, categoryColor: CATEGORY_COLOR[c.category], onPick: () => this.addConsumable(selDeck.id, c.name) })),
+        decMoney: () => this.stepField(selDeck.id, 'moneyBonus', -1), incMoney: () => this.stepField(selDeck.id, 'moneyBonus', 1),
+        setMoney: (e) => this.setNumberField(selDeck.id, 'moneyBonus', e.target.value), resetMoney: () => this.resetField(selDeck.id, 'moneyBonus'),
+        decJoker: () => this.stepField(selDeck.id, 'jokerBonus', -1), incJoker: () => this.stepField(selDeck.id, 'jokerBonus', 1),
+        setJoker: (e) => this.setNumberField(selDeck.id, 'jokerBonus', e.target.value), resetJoker: () => this.resetField(selDeck.id, 'jokerBonus'),
+        decConsSlots: () => this.stepField(selDeck.id, 'consumableBonus', -1), incConsSlots: () => this.stepField(selDeck.id, 'consumableBonus', 1),
+        setConsSlots: (e) => this.setNumberField(selDeck.id, 'consumableBonus', e.target.value), resetConsSlots: () => this.resetField(selDeck.id, 'consumableBonus'),
+        resetConsumables: () => this.resetConsumables(selDeck.id),
+        onSearchInput: (e) => this.setSearchQuery(e.target.value),
+      };
+    }
+
+    const toast = s.toast;
+    const toastIsError = toast && toast.type === 'error';
+
+    return {
+      t, screen: s.screen, filePath: s.filePath, fileError: s.fileError, hasFileError: !!s.fileError, hasFile: !!s.filePath,
+      fileInputRef: this.fileInputRef, triggerBrowse: this.triggerBrowse, handleFileChange: this.handleFileChange, changeFile: this.changeFile,
+      goDecks: this.goDecks, goSettings: this.goSettings, goRestore: this.goRestore, backToDecks: this.backToDecks,
+      isDecksScreen: s.screen === 'decks', isSettingsScreen: s.screen === 'settings', isEditorScreen: s.screen === 'editor',
+      isRestoreScreen: s.screen === 'restore', isSelectScreen: s.screen === 'select',
+      navDecksBg: (s.screen === 'decks' || s.screen === 'editor') ? 'rgba(243,181,66,0.14)' : 'transparent',
+      navDecksColor: (s.screen === 'decks' || s.screen === 'editor') ? '#f3b542' : '#a9a0b5',
+      navSettingsBg: (s.screen === 'settings' || s.screen === 'restore') ? 'rgba(243,181,66,0.14)' : 'transparent',
+      navSettingsColor: (s.screen === 'settings' || s.screen === 'restore') ? '#f3b542' : '#a9a0b5',
+      deckCards, editor,
+      saveDialogOpen: s.saveDialogOpen, saveState: s.saveState,
+      saveIdle: s.saveState === 'idle', saveSaving: s.saveState === 'saving', saveSuccess: s.saveState === 'success', saveError: s.saveState === 'error',
+      openSaveDialog: this.openSaveDialog, closeSaveDialog: this.closeSaveDialog, confirmSave: this.confirmSave,
+      restoreDialogOpen: s.restoreDialogOpen,
+      restoreIdle: s.restoreState === 'idle', restoreRestoring: s.restoreState === 'restoring',
+      openRestoreDialog: this.openRestoreDialog, closeRestoreDialog: this.closeRestoreDialog, confirmRestore: this.confirmRestore,
+      setLangEn: () => this.setLanguage('en'), setLangPt: () => this.setLanguage('pt'), setLangEs: () => this.setLanguage('es'),
+      langEnBg: s.language === 'en' ? 'rgba(243,181,66,0.16)' : 'rgba(255,255,255,0.04)', langEnColor: s.language === 'en' ? '#f3b542' : '#c9c0d4',
+      langPtBg: s.language === 'pt' ? 'rgba(243,181,66,0.16)' : 'rgba(255,255,255,0.04)', langPtColor: s.language === 'pt' ? '#f3b542' : '#c9c0d4',
+      langEsBg: s.language === 'es' ? 'rgba(243,181,66,0.16)' : 'rgba(255,255,255,0.04)', langEsColor: s.language === 'es' ? '#f3b542' : '#c9c0d4',
+      simToggleBg: s.simulateFileInUse ? '#e5484d' : 'rgba(255,255,255,0.12)', simToggleLeft: s.simulateFileInUse ? '21px' : '3px',
+      toast, toastMessage: toast ? toast.message : '',
+      toastBg: toastIsError ? '#3a1c1f' : '#1c3a2c', toastBorder: toastIsError ? 'rgba(229,72,77,0.5)' : 'rgba(63,184,127,0.4)', toastColor: toastIsError ? '#ffb3b5' : '#8ff0c0',
+      dismissToast: this.dismissToast, toggleSimulate: this.toggleSimulate,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
