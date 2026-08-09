@@ -1,6 +1,9 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron'
 import path from 'node:path'
 import { registerAppHandlers } from './ipc/register-app-handlers'
+import { createElectronSettingsStore } from './settings/electron-store-adapter'
+import { createSettingsService } from './settings/settings-service'
+import { registerSettingsHandlers } from './settings/register-settings-handlers'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -27,7 +30,9 @@ function createWindow() {
 
 app.whenReady().then(() => {
   Menu.setApplicationMenu(null)
+  const settingsService = createSettingsService(createElectronSettingsStore())
   registerAppHandlers(ipcMain, app)
+  registerSettingsHandlers(ipcMain, settingsService)
   createWindow()
 })
 

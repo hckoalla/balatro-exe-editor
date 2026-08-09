@@ -2,7 +2,7 @@
 id: bee1-electron-store-config
 title: "Persistência local de configurações (electron-store)"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: infra
 domain: BEE-1
@@ -10,13 +10,13 @@ domain_title: "Setup & Fundação do Projeto"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee1-electron-store-config · Persistência local de configurações
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| qa | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
 
 > Depende de [bee1-ipc-bridge-tipado](../bee1-ipc-bridge-tipado/item.md).
 
@@ -34,3 +34,21 @@ fora de qualquer versionamento.
 - Configurações sobrevivem a reinícios do app.
 - Se o caminho salvo não existir mais (arquivo movido/deletado), o app não quebra — volta pro
   fluxo de seleção manual.
+
+## Fora de escopo
+- Checar se `lastExePath` ainda existe no disco e decidir se volta pro fluxo manual — essa
+  história só garante que persistir/ler o valor nunca quebra o app (é só uma string). A
+  validação de existência do arquivo acontece quando o valor é consumido, em
+  `bee3-selecionar-arquivo-exe`.
+- Aplicar o idioma salvo na UI — é `bee7-seletor-idioma`. Esta história só persiste o valor.
+
+## Progresso
+Concluído em 09/ago/26:
+- `src/shared/settings-schema.ts`: `AppSettings` (`lastExePath`, `language`) + `DEFAULT_SETTINGS`.
+- `electron/settings/settings-service.ts` (`KeyValueStore<T>` abstrato, testado com fake — sem
+  `electron-store` real) + `electron-store-adapter.ts` (implementação real, `electron-store@8`
+  por compatibilidade CJS com o resto do processo main).
+- `electron/settings/register-settings-handlers.ts` + teste (canais `settings:get` /
+  `settings:update`, mesmo padrão TDD com fake `ipcMain`).
+- `getSettings`/`updateSettings` expostos em `window.balatro` via preload; `main.ts` registra os
+  handlers em `whenReady`.
