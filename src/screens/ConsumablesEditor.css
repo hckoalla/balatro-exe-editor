@@ -3,6 +3,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 20px;
+  margin-top: 16px;
 }
 
 .consumables-editor__header {

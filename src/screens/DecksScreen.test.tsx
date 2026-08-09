@@ -20,7 +20,7 @@ describe('DecksScreen', () => {
     expect(screen.getByText('Fixture Deck Bravo')).toBeInTheDocument()
   })
 
-  it('marks a deck as customized only when its config is non-empty', async () => {
+  it('marks an unknown deck as customized only when its config is non-empty', async () => {
     vi.mocked(window.balatro.getDecks).mockResolvedValue(DECKS)
 
     render(<DecksScreen exePath="C:/balatro.exe" onSelectDeck={vi.fn()} />)
@@ -30,6 +30,28 @@ describe('DecksScreen', () => {
     const bravoCard = screen.getByTestId('deck-card-deck_bravo')
     expect(alphaCard).not.toHaveTextContent(/customized/i)
     expect(bravoCard).toHaveTextContent(/customized/i)
+  })
+
+  it('does not mark a known deck as customized when it only matches its own game default', async () => {
+    // Red Deck vem com `config = {discards = 1}` de fábrica — não é edição do usuário.
+    const redDeck: ParsedDeck = { id: 'b_red', name: 'Red Deck', config: { discards: 1 } }
+    vi.mocked(window.balatro.getDecks).mockResolvedValue([redDeck])
+
+    render(<DecksScreen exePath="C:/balatro.exe" onSelectDeck={vi.fn()} />)
+
+    const card = await screen.findByTestId('deck-card-b_red')
+    expect(card).not.toHaveTextContent(/customized/i)
+    expect(card).toHaveTextContent(/default/i)
+  })
+
+  it('marks a known deck as customized when it genuinely deviates from its game default', async () => {
+    const redDeck: ParsedDeck = { id: 'b_red', name: 'Red Deck', config: { dollars: 999 } }
+    vi.mocked(window.balatro.getDecks).mockResolvedValue([redDeck])
+
+    render(<DecksScreen exePath="C:/balatro.exe" onSelectDeck={vi.fn()} />)
+
+    const card = await screen.findByTestId('deck-card-b_red')
+    expect(card).toHaveTextContent(/customized/i)
   })
 
   it('calls onSelectDeck with the chosen deck', async () => {

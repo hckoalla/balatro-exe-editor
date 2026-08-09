@@ -41,7 +41,20 @@ Concluído em 09/ago/26:
   fonte única compartilhada (main reexporta de lá).
 - `getDecksFromExe` (main) + canal IPC `deck:get-all`: lê o `.exe`, extrai `game.lua`, parseia o
   bloco de baralhos — reaproveita tudo do BEE-4 sem duplicar lógica.
-- `DecksScreen`: grid de 16 cards (nome do baralho + badge "Default"/"Customized" conforme
-  `config` tá vazio ou não), com estilo do protótipo. `App.tsx` liga `SelectExeScreen` →
-  `DecksScreen` → placeholder de edição (tela real vem em `bee5-formulario-valores-numericos`).
+- `DecksScreen`: grid de 16 cards (nome do baralho + badge "Default"/"Customized"), com estilo do
+  protótipo. `App.tsx` liga `SelectExeScreen` → `DecksScreen` → placeholder de edição (tela real
+  vem em `bee5-formulario-valores-numericos`).
 - 5 testes novos (2 main + 3 componente).
+
+## Bug encontrado no smoke test (09/ago/26) — corrigido
+O usuário reportou Red/Blue/Yellow/Black/Magic/Nebula/Ghost/Painted todos aparecendo
+"Customized" sem ter editado nada. Causa: o badge comparava `config` vazio vs. não-vazio, mas
+vários baralhos JÁ vêm com `config` não-vazio de fábrica (ex: Red Deck tem `discards = 1` por
+padrão — é o que torna cada baralho único). O critério de aceite já dizia "diferente do padrão
+do jogo", não "config vazio" — a implementação é que estava errada.
+
+Corrigido reaproveitando `KNOWN_DEFAULT_DECKS` (criado em `bee6-detectar-edicao-preexistente`):
+movido pra `src/shared/known-default-decks.ts` (precisa ser visível tanto pro main quanto pro
+renderer agora), com uma função `isDeckCustomized(deck)` que compara contra o default real
+conhecido — baralhos sem default conhecido (versão diferente do jogo) caem na heurística antiga
+(config não-vazio) como melhor esforço. 2 testes novos cobrindo o caso que estava quebrado.

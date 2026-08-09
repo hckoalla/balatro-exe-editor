@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedDeck } from '../shared/deck-schema'
+import { isDeckCustomized } from '../shared/known-default-decks'
 import { RestoreDefaultButton } from './RestoreDefaultButton'
 import { SettingsPanel } from './SettingsPanel'
 import './DecksScreen.css'
@@ -41,7 +42,7 @@ export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
 
       <div className="decks-screen__grid">
         {decks.map((deck) => {
-          const isCustomized = Object.keys(deck.config).length > 0
+          const isCustomized = isDeckCustomized(deck)
           return (
             <button
               key={deck.id}

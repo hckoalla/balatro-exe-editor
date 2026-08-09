@@ -53,3 +53,10 @@ Concluído em 09/ago/26:
   `ConsumablesEditor` junto do `NumericFieldsForm`, convertendo lista vazia → chave `consumables`
   removida do `config` (mesma regra do formulário numérico).
 - 9 testes novos (6 do editor + 1 de integração na tela).
+
+## Bug encontrado no smoke test (09/ago/26) — corrigido
+Espaçamento quase inexistente entre o painel "Consumable Slots" (`NumericFieldsForm`) e
+"Starting Consumables" (`ConsumablesEditor`) — os dois componentes são irmãos em
+`DeckEditorScreen`, e nenhum dos dois tinha `margin-top` entre si (o `gap: 16px` do
+`NumericFieldsForm` só vale entre os campos DELE mesmo). Corrigido com `margin-top: 16px` em
+`.consumables-editor`, mesmo valor do gap interno, pra ficar visualmente consistente.
