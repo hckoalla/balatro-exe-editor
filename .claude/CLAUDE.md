@@ -60,17 +60,21 @@ Ciclo por história:
 3. Implementar até cobrir todos os critérios de aceitação do `item.md`.
 4. Rodar a suíte de testes localmente.
 5. Mover pra `qa/` — é o máximo que o desenvolvimento sozinho pode declarar (ver
-   [`backlog/README.md`](../backlog/README.md)).
-6. Passar pro usuário validar com **smoke test manual** — usando um `balatro.exe` real (backup
-   antes de testar!). Só depois da aprovação o item vai pra `done/`.
+   [`backlog/README.md`](../backlog/README.md)) — e **mergear a branch no `main` local** nesse
+   mesmo momento (sem PR/push — projeto solo, sem remoto colaborativo por trás). O usuário sempre
+   testa a partir do `main`, nunca precisa fazer checkout manual de branch de história.
+6. Passar pro usuário validar com **smoke test manual**, a partir do `main` — usando um
+   `balatro.exe` real (backup antes de testar!). Só depois da aprovação o item vai pra `done/`.
 
 Regras:
 
-- 1 história = 1 branch = 1 PR. Não acumular histórias diferentes na mesma branch.
+- 1 história = 1 branch, criada a partir do `main`. A branch é mergeada no `main` assim que a
+  história chega em `qa/` — não se espera o `done/` pra integrar.
 - TDD é o padrão, não opcional, sempre que a história permitir teste automatizado.
 - Nenhuma história chega a `done` sem smoke test aprovado pelo usuário.
 - Nenhum teste do repositório depende do `game.lua`/`.exe` real do jogo — só fixtures sintéticas
   versionadas.
+- Nada é dado `push` pro remoto (`origin`) sem pedido explícito do usuário.
 
 ## Gotchas conhecidos
 
