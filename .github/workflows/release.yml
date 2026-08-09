@@ -1,0 +1,50 @@
+name: Release
+
+# Dispara ao dar push numa tag (ex.: v0.1.0). Builda o instalador Windows e anexa como asset na
+# Release correspondente, criada automaticamente se ainda não existir.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    env:
+      # Sem certificado de assinatura configurado — sem isso, o electron-builder tenta
+      # baixar/extrair o winCodeSign à toa (mesmo gotcha documentado em .claude/CLAUDE.md pro
+      # build local).
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Type-check
+        run: npx tsc -b
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Testes
+        run: npx vitest run
+
+      - name: Empacotar instalador
+        run: npm run package
+
+      - name: Publicar release com o instalador
+        uses: softprops/action-gh-release@v3
+        with:
+          files: release/*.exe
+          generate_release_notes: true

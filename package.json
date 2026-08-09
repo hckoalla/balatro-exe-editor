@@ -3,11 +3,13 @@
   "private": true,
   "version": "0.0.1",
   "description": "Editor desktop para o balatro.exe — troca o fluxo manual (7-Zip + bloco de notas) por uma interface amigável.",
+  "author": "hckoalla",
   "main": "dist-electron/main.js",
   "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "package": "tsc -b && vite build && electron-builder",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run"

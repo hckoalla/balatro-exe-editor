@@ -2,7 +2,7 @@
 id: bee1-pipeline-release
 title: "Pipeline de release (GitHub Actions)"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: infra
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P2 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| qa | P2 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
 
 > Depende de [bee1-setup-electron-react-vite](../../done/bee1-setup-electron-react-vite/item.md).
 
@@ -46,3 +46,19 @@ como fora de escopo — essa história fecha essa pendência.
   tool, mesma decisão do `dark-generator`).
 - Build pra macOS/Linux — isso é [BEE-9](../../_epicas/BEE-9.md), fase 2, e depende do spike de
   viabilidade que ainda não rodou.
+
+## Progresso
+Concluído em 09/ago/26:
+- `.github/workflows/release.yml`: dispara em push de tag `v*`, roda `tsc -b` + `eslint .` +
+  `vitest run` antes de empacotar (falha em qualquer um cancela o resto), depois `npm run
+  package` e publica os artefatos via `softprops/action-gh-release`. `CSC_IDENTITY_AUTO_DISCOVERY:
+  false` evita o electron-builder tentar baixar o `winCodeSign` à toa (mesmo gotcha do
+  `dark-generator`).
+- `package.json`: novo script `package` (`tsc -b && vite build && electron-builder`), separado do
+  `build` normal — `npm run build` continua rápido pro dia a dia.
+- Adicionei o campo `author` no `package.json` (faltava, o electron-builder avisava).
+- **Testado localmente de verdade**: `npm run package` rodou e gerou o instalador
+  (`release/Balatro EXE Editor Setup 0.0.1.exe`, ~81MB) sem cair no gotcha do symlink do Windows
+  documentado no `dark-generator` — não precisou de privilégio elevado nesse caso.
+- Sem teste automatizado novo — é workflow YAML + config de empacotamento, não código de
+  aplicação; validado rodando o empacotamento de verdade em vez de TDD.
