@@ -21,26 +21,31 @@ updated: "09/ago/26"
 > Depende de [bee1-rodape-creditos](../../qa/bee1-rodape-creditos/item.md) e
 > [bee1-pipeline-release](../../qa/bee1-pipeline-release/item.md).
 
-> Como usuário, quero ver a versão do app no rodapé e no título da janela, vindo direto da tag de
-> release que eu publicar, sem precisar atualizar esse número em mais de um lugar.
+> Como usuário, quero ver a versão do app no rodapé e no título da janela, lida do `package.json`,
+> sem duplicar esse número em mais de um lugar do código.
 
 ## Contexto
 Pedido pelo usuário depois de aprovar `bee1-rodape-creditos`. `app.getVersion()` (Electron) já lê
-o campo `version` do `package.json` do app empacotado — a única peça que falta é o workflow de
-release (`bee1-pipeline-release`) escrever a versão da TAG git nesse campo antes de empacotar,
-pra `app.getVersion()` em runtime bater com a tag publicada. Sem isso, o `package.json` do repo
-(`0.0.1` fixo) nunca mudaria sozinho.
+o campo `version` do `package.json` do app empacotado.
+
+Tentativa inicial: o workflow de release escrevia a versão da tag git no `package.json` antes de
+empacotar (`npm version` a partir da tag), automatizando esse passo. Na prática, o
+`electron-builder` detecta CI + tag e tenta se auto-publicar no GitHub Releases (mecanismo próprio,
+que roda *além* do step de publish do workflow) — e falha sem `GH_TOKEN` configurado. Resolvido
+desligando esse auto-publish (`--publish never`), mas isso reabriu a questão de simplicidade: o
+usuário decidiu que sincronizar a versão via tag automaticamente não vale a complexidade extra —
+prefere digitar a versão direto no `package.json` antes de criar a tag. Trade-off aceito
+explicitamente pelo usuário.
 
 ## Critérios de aceitação
 - Rodapé mostra `by hckoalla - v<versão>`.
 - Título da janela do Electron mostra `Balatro EXE Editor - by hckoalla - v<versão>`.
 - A versão vem de `app.getVersion()` (main process) — sem duplicar o número em código, um único
   lugar de verdade (`package.json`).
-- O workflow de release (`.github/workflows/release.yml`) escreve a versão da tag git publicada
-  (`v0.1.0` → `0.1.0`) no `package.json` antes de rodar `electron-builder`, pra `app.getVersion()`
-  do app empacotado bater com a tag real.
-- Em desenvolvimento local (`npm run dev`), sem tag nenhuma envolvida, mostra a versão que já
-  está no `package.json` do repo — comportamento normal, não é bug.
+- Versão do `package.json` é hardcoded/manual — o usuário atualiza esse campo antes de criar a
+  tag de release. O workflow (`.github/workflows/release.yml`) não escreve/sincroniza versão.
+- O step de empacotamento roda com `--publish never`, pra evitar o auto-publish do
+  `electron-builder` (que exige `GH_TOKEN` e conflita com o step de publish do workflow).
 
 ## Progresso
 - `Footer` agora busca a versão via IPC (`window.balatro.getAppVersion()`) no mount e mostra
@@ -50,7 +55,8 @@ pra `app.getVersion()` em runtime bater com a tag publicada. Sem isso, o `packag
   Electron real; usada em `createWindow()` (`electron/main.ts`) via `title: buildWindowTitle(app.getVersion())`.
 - Adicionado handler `page-title-updated` com `preventDefault()` — sem isso, o Electron sobrescreve
   o título customizado pelo `<title>` do `index.html` assim que a página termina de carregar.
-- `.github/workflows/release.yml`: novo step "Sincronizar versão do package.json com a tag"
-  (`npm version "${GITHUB_REF_NAME#v}" --no-git-tag-version --allow-same-version`) entre os
-  testes e o empacotamento, pra `app.getVersion()` do instalador bater com a tag publicada.
+- Step de sincronizar versão via tag foi adicionado, testado e depois **removido** — o
+  `electron-builder` tentava se auto-publicar em CI+tag e falhava sem `GH_TOKEN`. Resolvido com
+  `--publish never` no step de empacotamento; a sincronização automática de versão foi
+  descartada por decisão do usuário (custo/benefício não compensava).
 - Suíte completa (120 testes), build e lint passando.

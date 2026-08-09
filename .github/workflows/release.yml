@@ -40,15 +40,11 @@ jobs:
       - name: Testes
         run: npx vitest run
 
-      - name: Sincronizar versão do package.json com a tag
-        # A tag "v0.1.0" vira versão "0.1.0" no package.json — é dali que app.getVersion()
-        # (usado no rodapé e no título da janela, ver bee1-versao-na-ui) lê em runtime, e é
-        # também o número que o electron-builder usa no nome do instalador.
-        shell: bash
-        run: npm version "${GITHUB_REF_NAME#v}" --no-git-tag-version --allow-same-version
-
       - name: Empacotar instalador
-        run: npm run package
+        # --publish never desliga o auto-publish do electron-builder (ele tenta publicar
+        # sozinho no GitHub Releases se detectar CI + tag, e falha sem GH_TOKEN) — quem
+        # publica é o step abaixo, com o instalador já pronto.
+        run: npm run package -- --publish never
 
       - name: Publicar release com o instalador
         uses: softprops/action-gh-release@v3
