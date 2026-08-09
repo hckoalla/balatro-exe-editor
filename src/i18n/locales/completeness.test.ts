@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { en } from './en'
 import { ptBR } from './pt-BR'
+import { es } from './es'
 
 function collectKeys(obj: object, prefix = ''): string[] {
   return Object.entries(obj).flatMap(([key, value]) => {
@@ -9,19 +10,22 @@ function collectKeys(obj: object, prefix = ''): string[] {
   })
 }
 
+function valueAt(obj: object, path: string): unknown {
+  return path.split('.').reduce((o: never, k) => o[k], obj as never)
+}
+
 const enKeys = collectKeys(en).sort()
 
-describe('translation completeness', () => {
-  it('pt-BR has every key that en has, no more, no less', () => {
-    expect(collectKeys(ptBR).sort()).toEqual(enKeys)
+describe.each([
+  ['pt-BR', ptBR],
+  ['es', es],
+])('translation completeness — %s', (_name, locale) => {
+  it('has every key that en has, no more, no less', () => {
+    expect(collectKeys(locale).sort()).toEqual(enKeys)
   })
 
-  it('pt-BR does not have any value left untranslated (identical to en)', () => {
-    const untranslated = collectKeys(en).filter((path) => {
-      const enValue = path.split('.').reduce((o: never, k) => o[k], en as never)
-      const ptValue = path.split('.').reduce((o: never, k) => o[k], ptBR as never)
-      return enValue === ptValue
-    })
+  it('does not have any value left untranslated (identical to en)', () => {
+    const untranslated = enKeys.filter((path) => valueAt(en, path) === valueAt(locale, path))
 
     expect(untranslated).toEqual([])
   })
