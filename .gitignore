@@ -1,5 +1,6 @@
-# Proprietário / local — nunca versionar
-game.lua
+# Proprietário / local — nunca versionar. Barra inicial: só a raiz, NÃO
+# test/fixtures/game.lua (esse é sintético e precisa ser versionado).
+/game.lua
 *.exe
 fixtures/real/
 
