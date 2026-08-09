@@ -2,7 +2,7 @@
 id: bee3-localizar-zip-embutido-no-exe
 title: "Localizar o ZIP embutido dentro do balatro.exe"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: main
 domain: BEE-3
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-3](../../_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe | main |
+| done | P0 | [BEE-3](../../_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe | main |
 
 > Depende de [bee1-setup-testes-tdd](../bee1-setup-testes-tdd/item.md).
 
