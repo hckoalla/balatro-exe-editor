@@ -60,20 +60,29 @@ Ciclo por história:
 3. Implementar até cobrir todos os critérios de aceitação do `item.md`.
 4. Rodar a suíte de testes localmente.
 5. Mover pra `qa/` — é o máximo que o desenvolvimento sozinho pode declarar (ver
-   [`backlog/README.md`](../backlog/README.md)).
-6. Passar pro usuário validar com **smoke test manual** — usando um `balatro.exe` real (backup
-   antes de testar!). Só depois da aprovação o item vai pra `done/`.
+   [`backlog/README.md`](../backlog/README.md)) — e **mergear a branch no `main` local** nesse
+   mesmo momento (sem PR/push — projeto solo, sem remoto colaborativo por trás). O usuário sempre
+   testa a partir do `main`, nunca precisa fazer checkout manual de branch de história.
+6. Passar pro usuário validar com **smoke test manual**, a partir do `main` — usando um
+   `balatro.exe` real (backup antes de testar!). Só depois da aprovação o item vai pra `done/`.
 
 Regras:
 
-- 1 história = 1 branch = 1 PR. Não acumular histórias diferentes na mesma branch.
+- 1 história = 1 branch, criada a partir do `main`. A branch é mergeada no `main` assim que a
+  história chega em `qa/` — não se espera o `done/` pra integrar.
 - TDD é o padrão, não opcional, sempre que a história permitir teste automatizado.
 - Nenhuma história chega a `done` sem smoke test aprovado pelo usuário.
 - Nenhum teste do repositório depende do `game.lua`/`.exe` real do jogo — só fixtures sintéticas
   versionadas.
+- Nada é dado `push` pro remoto (`origin`) sem pedido explícito do usuário.
 
 ## Gotchas conhecidos
 
+- **`ELECTRON_RUN_AS_NODE=1` vazando pro shell** (comum dentro do Claude Code/VSCode, cujo próprio
+  host é Electron): faz qualquer `electron.exe` filho rodar como Node puro, sem `app`/
+  `BrowserWindow` — `npm run dev` quebra com `Cannot read properties of undefined (reading
+  'whenReady')`. Não é bug do projeto. Rodar com a variável removida pro processo filho
+  (`env -u ELECTRON_RUN_AS_NODE npm run dev`) resolve.
 - **`game.lua` na raiz do projeto é conteúdo proprietário do jogo, local e fora do git**
   (`.gitignore`) — só serve de referência pra entender a estrutura real durante o
   desenvolvimento. Nunca commitar. Fixtures de teste são sintéticas, versionadas em
