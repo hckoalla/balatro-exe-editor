@@ -1,3 +1,7 @@
+// Forma de `en`, mas com folhas `string` genéricas — outros idiomas não devem ter o MESMO texto
+// literal do inglês (`typeof en` com `as const` forçaria isso), só a mesma estrutura de chaves.
+export type Messages<T = typeof en> = { [K in keyof T]: T[K] extends string ? string : Messages<T[K]> }
+
 export const en = {
   selectExe: {
     title: "Let's find your game",
