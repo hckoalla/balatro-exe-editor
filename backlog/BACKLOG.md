@@ -7,7 +7,7 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 0 |
+| refining | 1 |
 | ready | 0 |
 | in-progress | 0 |
 | qa | 12 |
@@ -24,6 +24,7 @@
 - [done] bee1-electron-store-config — P0
 - [done] bee1-setup-testes-tdd — P0 (furou a fila, saiu antes da IPC — ver seu item.md)
 - [qa] bee1-pipeline-release — P2 (pós-MVP, pedida pelo usuário)
+- [refining] bee1-loading-inicial — P2 (pós-MVP, pedida pelo usuário)
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0
