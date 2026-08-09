@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 2 |
+| refining | 1 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 9 |
+| qa | 10 |
 | done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -52,7 +52,7 @@
 ### [BEE-7](_epicas/BEE-7.md) · Internacionalização
 - [qa] bee7-infra-i18n — P0
 - [qa] bee7-traducao-pt-br — P1
-- [refining] bee7-traducao-es — P1
+- [qa] bee7-traducao-es — P1
 - [refining] bee7-seletor-idioma — P1
 
 ## Fase 2 — por épica
