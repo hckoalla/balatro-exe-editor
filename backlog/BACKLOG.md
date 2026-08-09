@@ -10,8 +10,8 @@
 | refining | 17 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 1 |
-| done | 5 |
+| qa | 0 |
+| done | 6 |
 | cancelled | 0 |
 | fase2 | 4 |
 | blocked | 0 |
@@ -21,7 +21,7 @@
 ### [BEE-1](_epicas/BEE-1.md) · Setup & Fundação do Projeto
 - [done] bee1-setup-electron-react-vite — P0
 - [done] bee1-ipc-bridge-tipado — P0
-- [qa] bee1-electron-store-config — P0
+- [done] bee1-electron-store-config — P0
 - [done] bee1-setup-testes-tdd — P0 (furou a fila, saiu antes da IPC — ver seu item.md)
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)

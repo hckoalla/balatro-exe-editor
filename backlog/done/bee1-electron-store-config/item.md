@@ -2,7 +2,7 @@
 id: bee1-electron-store-config
 title: "Persistência local de configurações (electron-store)"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: infra
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| done | P0 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
 
 > Depende de [bee1-ipc-bridge-tipado](../bee1-ipc-bridge-tipado/item.md).
 
