@@ -2,7 +2,7 @@
 id: bee3-extrair-game-lua-do-exe
 title: "Extrair o game.lua do balatro.exe"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: main
 domain: BEE-3
@@ -10,13 +10,13 @@ domain_title: "Motor de Leitura/Escrita do balatro.exe"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee3-extrair-game-lua-do-exe · Extrair o game.lua
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-3](../../_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe | main |
+| qa | P0 | [BEE-3](../../_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe | main |
 
 > Depende de [bee3-localizar-zip-embutido-no-exe](../bee3-localizar-zip-embutido-no-exe/item.md).
 
@@ -31,3 +31,10 @@ Equivalente automatizado do passo manual "abrir o `.exe` no 7-Zip e extrair o `g
 - Se `game.lua` não existir dentro do ZIP (não é o Balatro, ou é uma versão muito diferente),
   retorna um erro claro.
 - Testado contra o `.exe` sintético de `bee1-setup-testes-tdd`.
+
+## Progresso
+Concluído em 09/ago/26:
+- `electron/exe-engine/extract-game-lua.ts`: usa `locateEmbeddedZip` (bee3-localizar-...) +
+  `adm-zip` pra ler a entrada `game.lua` de dentro do ZIP embutido, retorna como texto UTF-8.
+- 2 testes: extração correta contra o `.exe` sintético, erro claro quando o ZIP não tem
+  `game.lua` dentro.
