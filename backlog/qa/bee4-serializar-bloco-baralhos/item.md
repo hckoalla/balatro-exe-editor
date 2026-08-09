@@ -2,7 +2,7 @@
 id: bee4-serializar-bloco-baralhos
 title: "Serializar alterações de volta no bloco de baralhos"
 type: story
-status: refining
+status: qa
 owner: ""
 sistema: main
 domain: BEE-4
@@ -10,13 +10,13 @@ domain_title: "Parsing da Configuração dos Baralhos"
 priority: P0
 labels: [mvp]
 created: "08/ago/26"
-updated: "08/ago/26"
+updated: "09/ago/26"
 ---
 # bee4-serializar-bloco-baralhos · Serializar alterações no bloco de baralhos
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P0 | [BEE-4](../../_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos | main |
+| qa | P0 | [BEE-4](../../_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos | main |
 
 > Depende de [bee4-parser-bloco-baralhos](../bee4-parser-bloco-baralhos/item.md).
 
@@ -40,3 +40,17 @@ campo no `config`), remover chaves zeradas pelo usuário, e não tocar em mais n
   original.
 - Testado contra o `game.lua` sintético, cobrindo adicionar chave nova, alterar chave existente,
   e remover chave.
+
+## Progresso
+Concluído em 09/ago/26:
+- Refatorei `parse-deck-block.ts`, extraindo o reconhecimento de entrada de baralho (regex de
+  linha, marcador `set = "Back"`, extração de bloco balanceado) pra `electron/deck-config/
+  deck-entry.ts`, compartilhado com o serializador — sem duplicar a lógica de "o que é uma
+  entrada de baralho" entre os dois lados.
+- `serialize-deck-block.ts` edita **campo a campo** dentro do `config`, não substitui o bloco
+  inteiro: separa os segmentos de nível superior (respeitando o array aninhado de
+  `consumables`), atualiza/insere/remove só os 6 campos conhecidos, e preserva qualquer chave
+  desconhecida (`voucher`, `ante_scaling`, etc.) exatamente como estava — essencial pro
+  round-trip não perder dado de baralhos que o parser não entende totalmente.
+- 7 testes, incluindo o round-trip byte-a-byte (parse → sem mudança → serialize == original) e um
+  teste específico confirmando que só a linha do baralho editado muda no arquivo inteiro.

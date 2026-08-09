@@ -1,25 +1,13 @@
-export interface DeckConfig {
-  dollars?: number
-  hands?: number
-  discards?: number
-  joker_slot?: number
-  consumable_slot?: number
-  consumables?: string[]
-}
+import {
+  DECK_ENTRY_LINE,
+  findConfigBlock,
+  NUMERIC_CONFIG_KEYS,
+  SET_BACK,
+  type DeckConfig,
+  type ParsedDeck,
+} from './deck-entry'
 
-export interface ParsedDeck {
-  id: string
-  name: string
-  config: DeckConfig
-}
-
-// Cada baralho é uma tabela Lua contida numa única linha, marcada por `set = "Back"` — não
-// precisamos rastrear a estrutura do arquivo inteiro, só reconhecer esse formato por linha (ver
-// Contexto do item.md).
-const DECK_ENTRY_LINE = /^\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(\{.*\})\s*,?\s*$/
-const SET_BACK = /set\s*=\s*['"]Back['"]/
-
-const NUMERIC_CONFIG_KEYS = ['dollars', 'hands', 'discards', 'joker_slot', 'consumable_slot'] as const
+export type { DeckConfig, ParsedDeck } from './deck-entry'
 
 export function parseDeckBlock(gameLuaSource: string): ParsedDeck[] {
   const decks: ParsedDeck[] = []
@@ -42,7 +30,7 @@ export function parseDeckBlock(gameLuaSource: string): ParsedDeck[] {
 }
 
 function extractConfig(entryBody: string): DeckConfig {
-  const configBlock = extractConfigBlock(entryBody)
+  const configBlock = findConfigBlock(entryBody)?.block
   if (!configBlock) return {}
 
   const config: DeckConfig = {}
@@ -56,28 +44,6 @@ function extractConfig(entryBody: string): DeckConfig {
   if (consumables !== undefined) config.consumables = consumables
 
   return config
-}
-
-function extractConfigBlock(entryBody: string): string | null {
-  const keyMatch = /config\s*=\s*\{/.exec(entryBody)
-  if (!keyMatch) return null
-
-  const openIndex = keyMatch.index + keyMatch[0].length - 1
-  return extractBalancedBraces(entryBody, openIndex)
-}
-
-// `config` pode ter chaves aninhadas (`consumables = {...}`) — não dá pra usar regex guloso até
-// o fim da linha, precisa contar chaves de verdade pra achar o `}` que fecha o `config` em si.
-function extractBalancedBraces(text: string, openIndex: number): string | null {
-  let depth = 0
-  for (let i = openIndex; i < text.length; i++) {
-    if (text[i] === '{') depth++
-    else if (text[i] === '}') {
-      depth--
-      if (depth === 0) return text.slice(openIndex, i + 1)
-    }
-  }
-  return null
 }
 
 function extractNumberField(text: string, key: string): number | undefined {
