@@ -30,4 +30,5 @@ npm run dev
 ## Links
 
 - [Nexus Mod](https://www.nexusmods.com/balatro/mods/913);
-- [Steam discussions](https://steamcommunity.com/app/2379780/discussions/2/583930834798697183/).
+- [Steam discussions](https://steamcommunity.com/app/2379780/discussions/2/583930834798697183/);
+- [VirusTotal](https://www.virustotal.com/gui/file/f630926d3733288f347301435aec5cf6c94ecd9412dd3848fe8cc83fd49fca02/detection).
