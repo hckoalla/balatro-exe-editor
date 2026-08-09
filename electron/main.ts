@@ -12,6 +12,7 @@ import { createBackupService } from './backup/backup-service'
 import { createFileBackupStore } from './backup/file-backup-store'
 import { registerBackupHandlers } from './backup/register-backup-handlers'
 import { registerSaveDeckHandlers } from './deck-config/register-save-deck-handlers'
+import { buildWindowTitle } from './build-window-title'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -22,11 +23,18 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
+    title: buildWindowTitle(app.getVersion()),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
     },
+  })
+
+  // Sem isso, o Electron troca o título de volta pro <title> do index.html assim que a página
+  // termina de carregar — a opção `title` acima só vale antes disso.
+  mainWindow.on('page-title-updated', (event) => {
+    event.preventDefault()
   })
 
   if (VITE_DEV_SERVER_URL) {

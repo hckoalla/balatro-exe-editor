@@ -59,7 +59,4 @@ export const en = {
     button: 'Settings',
     language: 'Language',
   },
-  footer: {
-    credit: 'Made by hckoalla',
-  },
 } as const
