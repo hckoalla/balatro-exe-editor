@@ -1,0 +1,60 @@
+.restore-default-button__trigger {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text-tertiary);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.restore-default-button__trigger:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.restore-default-button__confirm {
+  margin-top: 12px;
+  background: rgba(229, 72, 77, 0.1);
+  border: 1px solid rgba(229, 72, 77, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  max-width: 360px;
+}
+
+.restore-default-button__confirm-body {
+  color: var(--color-error-text);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.restore-default-button__confirm-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.restore-default-button__confirm-yes {
+  background: var(--color-error);
+  color: var(--color-text);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.restore-default-button__confirm-cancel {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text-tertiary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+}

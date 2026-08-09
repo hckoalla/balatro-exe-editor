@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { ParsedDeck } from '../shared/deck-schema'
+import { RestoreDefaultButton } from './RestoreDefaultButton'
 import './DecksScreen.css'
 
 export interface DecksScreenProps {
@@ -10,15 +11,13 @@ export interface DecksScreenProps {
 export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
   const [decks, setDecks] = useState<ParsedDeck[] | null>(null)
 
-  useEffect(() => {
-    let cancelled = false
-    window.balatro.getDecks(exePath).then((result) => {
-      if (!cancelled) setDecks(result)
-    })
-    return () => {
-      cancelled = true
-    }
+  const loadDecks = useCallback(() => {
+    window.balatro.getDecks(exePath).then(setDecks)
   }, [exePath])
+
+  useEffect(() => {
+    loadDecks()
+  }, [loadDecks])
 
   if (!decks) {
     return <p>Loading decks…</p>
@@ -31,6 +30,7 @@ export function DecksScreen({ exePath, onSelectDeck }: DecksScreenProps) {
           <h1 className="decks-screen__title">Choose a deck</h1>
           <p className="decks-screen__subtitle">Pick a deck to customize its starting rules.</p>
         </div>
+        <RestoreDefaultButton exePath={exePath} onRestored={loadDecks} />
       </div>
 
       <div className="decks-screen__grid">

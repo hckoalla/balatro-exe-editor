@@ -1,6 +1,6 @@
 import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron'
 import path from 'node:path'
-import { readFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { registerAppHandlers } from './ipc/register-app-handlers'
 import { createElectronSettingsStore } from './settings/electron-store-adapter'
 import { createSettingsService } from './settings/settings-service'
@@ -8,6 +8,9 @@ import { registerSettingsHandlers } from './settings/register-settings-handlers'
 import { registerExeHandlers } from './exe-engine/register-exe-handlers'
 import { registerDeckHandlers } from './deck-config/register-deck-handlers'
 import { registerConsumableCatalogHandlers } from './consumable-catalog/register-consumable-catalog-handlers'
+import { createBackupService } from './backup/backup-service'
+import { createFileBackupStore } from './backup/file-backup-store'
+import { registerBackupHandlers } from './backup/register-backup-handlers'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -51,6 +54,14 @@ app.whenReady().then(() => {
   })
   registerDeckHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })
   registerConsumableCatalogHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })
+  const backupService = createBackupService(
+    createFileBackupStore(path.join(app.getPath('userData'), 'backups')),
+  )
+  registerBackupHandlers(ipcMain, {
+    backupService,
+    readFile: (filePath) => readFile(filePath),
+    writeFile: (filePath, data) => writeFile(filePath, data),
+  })
   createWindow()
 })
 

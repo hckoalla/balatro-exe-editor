@@ -14,6 +14,8 @@ export const IPC_CHANNELS = {
   validateExeFile: 'exe:validate-file',
   getDecks: 'deck:get-all',
   getConsumableCatalog: 'consumable-catalog:get-all',
+  hasBackup: 'backup:has',
+  restoreDefault: 'backup:restore',
 } as const
 
 export interface SelectExeFileResult {
@@ -34,4 +36,6 @@ export interface BalatroApi {
   validateExeFile: (filePath: string) => Promise<ValidateExeFileResult>
   getDecks: (filePath: string) => Promise<ParsedDeck[]>
   getConsumableCatalog: (filePath: string) => Promise<ConsumableCatalogEntry[]>
+  hasBackup: (filePath: string) => Promise<boolean>
+  restoreDefault: (filePath: string) => Promise<void>
 }
