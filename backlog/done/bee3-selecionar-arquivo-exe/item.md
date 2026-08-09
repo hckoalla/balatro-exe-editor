@@ -2,7 +2,7 @@
 id: bee3-selecionar-arquivo-exe
 title: "Selecionar e validar o balatro.exe"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: ui
 domain: BEE-3
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P0 | [BEE-3](../../_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe | ui |
+| done | P0 | [BEE-3](../../_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe | ui |
 
 > Depende de [bee3-extrair-game-lua-do-exe](../bee3-extrair-game-lua-do-exe/item.md) e
 > [bee1-electron-store-config](../bee1-electron-store-config/item.md).
