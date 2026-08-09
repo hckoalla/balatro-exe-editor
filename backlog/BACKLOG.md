@@ -7,10 +7,10 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 5 |
+| refining | 4 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 6 |
+| qa | 7 |
 | done | 12 |
 | cancelled | 0 |
 | fase2 | 4 |
@@ -43,7 +43,7 @@
 - [qa] bee5-tela-selecao-baralho — P0
 - [qa] bee5-formulario-valores-numericos — P0
 - [qa] bee5-editor-consumiveis-iniciais — P0
-- [refining] bee5-salvar-alteracoes — P0
+- [qa] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [qa] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
