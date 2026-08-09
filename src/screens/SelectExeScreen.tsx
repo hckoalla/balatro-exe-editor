@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './SelectExeScreen.css'
 
 export interface SelectExeScreenProps {
   onExeSelected: (filePath: string) => void
@@ -52,24 +53,46 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
   }
 
   return (
-    <div>
-      <h1>Let&apos;s find your game</h1>
-      <p>Point me to your balatro.exe and I&apos;ll take it from there.</p>
+    <div className="select-exe-screen">
+      <div className="select-exe-screen__icon">
+        <div className="select-exe-screen__icon-stack">
+          <div className="select-exe-screen__card select-exe-screen__card--back" />
+          <div className="select-exe-screen__card select-exe-screen__card--mid" />
+          <div className="select-exe-screen__card select-exe-screen__card--front">&#9824;</div>
+        </div>
+      </div>
 
-      {suggestedPath && (
-        <button type="button" onClick={() => handleUseExe(suggestedPath)} disabled={isBusy}>
-          Continue with {suggestedPath}
+      <h1 className="select-exe-screen__title">Let&apos;s find your game</h1>
+      <p className="select-exe-screen__subtitle">
+        Point me to your balatro.exe and I&apos;ll take it from there.
+      </p>
+
+      <div className="select-exe-screen__actions">
+        {suggestedPath && (
+          <button
+            type="button"
+            className="select-exe-screen__button select-exe-screen__button--secondary"
+            onClick={() => handleUseExe(suggestedPath)}
+            disabled={isBusy}
+          >
+            Continue with {suggestedPath}
+          </button>
+        )}
+
+        <button
+          type="button"
+          className="select-exe-screen__button select-exe-screen__button--primary"
+          onClick={handleBrowse}
+          disabled={isBusy}
+        >
+          Browse for balatro.exe
         </button>
-      )}
-
-      <button type="button" onClick={handleBrowse} disabled={isBusy}>
-        Browse for balatro.exe
-      </button>
+      </div>
 
       {error && (
-        <div role="alert">
-          <strong>Not a valid Balatro executable</strong>
-          <p>{error}</p>
+        <div className="select-exe-screen__error" role="alert">
+          <p className="select-exe-screen__error-title">Not a valid Balatro executable</p>
+          <p className="select-exe-screen__error-body">{error}</p>
         </div>
       )}
     </div>
