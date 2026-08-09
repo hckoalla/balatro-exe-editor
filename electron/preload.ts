@@ -5,6 +5,8 @@ const api: BalatroApi = {
   getAppVersion: () => ipcRenderer.invoke(IPC_CHANNELS.getAppVersion),
   getSettings: () => ipcRenderer.invoke(IPC_CHANNELS.getSettings),
   updateSettings: (partial) => ipcRenderer.invoke(IPC_CHANNELS.updateSettings, partial),
+  selectExeFile: () => ipcRenderer.invoke(IPC_CHANNELS.selectExeFile),
+  validateExeFile: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.validateExeFile, filePath),
 }
 
 contextBridge.exposeInMainWorld('balatro', api)

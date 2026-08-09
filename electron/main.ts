@@ -1,9 +1,11 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron'
 import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { registerAppHandlers } from './ipc/register-app-handlers'
 import { createElectronSettingsStore } from './settings/electron-store-adapter'
 import { createSettingsService } from './settings/settings-service'
 import { registerSettingsHandlers } from './settings/register-settings-handlers'
+import { registerExeHandlers } from './exe-engine/register-exe-handlers'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -33,6 +35,18 @@ app.whenReady().then(() => {
   const settingsService = createSettingsService(createElectronSettingsStore())
   registerAppHandlers(ipcMain, app)
   registerSettingsHandlers(ipcMain, settingsService)
+  registerExeHandlers(ipcMain, {
+    showOpenDialog: async () => {
+      if (!mainWindow) {
+        return { canceled: true, filePaths: [] }
+      }
+      return dialog.showOpenDialog(mainWindow, {
+        properties: ['openFile'],
+        filters: [{ name: 'Balatro executable', extensions: ['exe'] }],
+      })
+    },
+    readFile: (filePath) => readFile(filePath),
+  })
   createWindow()
 })
 

@@ -98,6 +98,12 @@ Regras:
 - **Steam "Verificar integridade dos arquivos do jogo"** pode reverter o `.exe` modificado
   sozinha, sem aviso — o usuário precisa saber disso (documentado na tela de salvar/restaurar,
   `bee5-salvar-alteracoes`).
+- **`environment: 'jsdom'` do Vitest quebra `adm-zip` (e qualquer lib Node-only) silenciosamente**
+  — com `jsdom`, o Vite passa a considerar condições de resolução de browser, e dependências com
+  campo `"browser"` no `package.json` resolvem pra um shim incompatível; o sintoma é bizarro
+  (zip parece "vazio", `getEntry` retorna `null` sem erro nenhum). `vitest.config.mts` usa
+  `environment: 'node'` como padrão do projeto — testes de componente React optam por `jsdom`
+  individualmente via docblock (`// @vitest-environment jsdom`) no topo do arquivo.
 - **Arquivo travado**: se o Balatro ou a Steam estiverem com o `.exe` aberto, a gravação falha —
   o motor (`bee3-reinjetar-game-lua-no-exe`) precisa detectar isso e retornar um erro específico,
   não um erro genérico de I/O.
