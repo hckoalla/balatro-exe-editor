@@ -43,6 +43,8 @@ export const ptBR: Messages = {
     cancel: 'Cancelar',
     success: 'Salvo com sucesso.',
     genericError: 'Não foi possível salvar — tente de novo.',
+    possiblyPreEditedWarning:
+      'Atenção: esse arquivo já tinha valores fora do padrão antes do primeiro backup deste app — o backup pode não refletir os valores originais do jogo.',
   },
   restore: {
     button: 'Restaurar Padrão',

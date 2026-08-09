@@ -54,3 +54,9 @@ Concluído em 09/ago/26 — **fecha o loop completo do MVP** (selecionar `.exe` 
   `FileInUseError`), sem apagar as edições do formulário — o usuário só clica "Save" de novo.
 - `DeckEditorScreen` ganhou o `SaveButton` no final.
 - 8 testes novos (3 main de `saveDeckToExe`, 1 dos handlers IPC, 4 do componente).
+
+Complementado em 09/ago/26 (`bee6-detectar-edicao-preexistente`): `saveDeck` agora retorna
+`{ backupCreated, possiblyPreEdited }` em vez de `void` — quando o app detecta, no momento do
+primeiro backup, que o baralho já tinha valores fora do padrão conhecido (ver
+`bee6-backup-automatico-primeira-edicao`), o `SaveButton` mostra um aviso adicional (não
+bloqueante) junto da confirmação de sucesso. 2 testes novos do componente pra esse aviso.

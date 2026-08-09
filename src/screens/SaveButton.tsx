@@ -15,11 +15,17 @@ export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
   const { t } = useTranslation()
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [possiblyPreEdited, setPossiblyPreEdited] = useState(false)
 
   async function handleConfirm() {
     setStatus('saving')
     try {
-      await window.balatro.saveDeck(exePath, { id: deck.id, name: deck.name, config })
+      const result = await window.balatro.saveDeck(exePath, {
+        id: deck.id,
+        name: deck.name,
+        config,
+      })
+      setPossiblyPreEdited(result.possiblyPreEdited)
       setStatus('success')
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : t('save.genericError'))
@@ -56,7 +62,14 @@ export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
         </div>
       )}
 
-      {status === 'success' && <p className="save-button__success">{t('save.success')}</p>}
+      {status === 'success' && (
+        <>
+          <p className="save-button__success">{t('save.success')}</p>
+          {possiblyPreEdited && (
+            <div className="save-button__notice">{t('save.possiblyPreEditedWarning')}</div>
+          )}
+        </>
+      )}
 
       {status === 'error' && <div className="save-button__error">{errorMessage}</div>}
     </div>

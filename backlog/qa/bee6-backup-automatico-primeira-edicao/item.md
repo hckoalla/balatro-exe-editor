@@ -35,18 +35,14 @@ editada).
 - Se o `.exe` já tiver sido editado por fora do app (backup não existe e o conteúdo já difere do
   padrão conhecido), o app não finge ter um backup confiável — avisa o usuário.
 
-## Decisão registrada (sem o usuário disponível pra confirmar) — LEIA ANTES DE APROVAR
-O terceiro critério, como escrito, pede pro app detectar se o `.exe` "já foi editado por fora"
-antes mesmo do primeiro backup. Isso é **impossível de verificar de verdade**: o app não tem
-acesso ao `game.lua` "de fábrica" da Valve/LocalThunk pra comparar — só vê o que já está no
-`.exe` do usuário. Não existe um oráculo de "isso é o padrão real do jogo".
-
-O que implementei em vez disso: o backup captura o que o app **primeiro observa** naquele
-`.exe` — se o usuário já tinha editado manualmente antes de abrir o app, é ESSE estado editado
-que vira o "padrão" pro botão restaurar (bee6-restaurar-padrao). É uma limitação honesta, não um
-bug — mas é diferente do que o critério 3 pede literalmente. Se você quiser detecção de verdade,
-precisaríamos de outra fonte (ex: pedir uma cópia limpa do `game.lua` de outra instalação, ou
-aceitar hashes conhecidos de versões oficiais do jogo — escopo bem maior).
+## Critério 3 — resolvido
+Achei inicialmente que fosse impossível verificar sem um "game.lua de fábrica" de referência —
+mas o usuário lembrou que **os valores DEFAULT de cada baralho já são conhecidos** (vieram do
+`game.lua` real dele mesmo, lido no início do projeto). Não precisa do arquivo inteiro, só dos
+16 valores de `config` por baralho. Implementado em `bee6-detectar-edicao-preexistente` (ver
+Progresso) — `KNOWN_DEFAULT_DECKS` embutido no código + `detectPreexistingEdits`, que compara o
+`game.lua` pré-edição contra esses defaults conhecidos e sinaliza (`possiblyPreEdited`) se algum
+baralho já difere, no momento do primeiro backup.
 
 ## Progresso
 Concluído em 09/ago/26:
@@ -57,3 +53,15 @@ Concluído em 09/ago/26:
 - Só a peça de infraestrutura — sem IPC/UI ainda, porque nada consome isso até
   `bee5-salvar-alteracoes` existir (é ela quem vai chamar `ensureBackup` antes de gravar).
 - 7 testes (5 do service com store fake, 2 do adapter real em disco com pasta temporária).
+
+Complementado em 09/ago/26 (`bee6-detectar-edicao-preexistente`, mesma história — ver critério 3
+acima):
+- `electron/backup/known-default-decks.ts`: os 16 valores `config` default reais, extraídos do
+  `game.lua` do usuário (linhas 628–644) — só os 6 campos conhecidos, sem os demais campos que o
+  app não edita (`voucher`, `remove_faces`, etc.).
+- `electron/backup/detect-preexisting-edits.ts`: compara baralhos do `game.lua` contra
+  `KNOWN_DEFAULT_DECKS`; ignora baralhos sem default conhecido (versão diferente do jogo) em vez
+  de reportar falso positivo.
+- `saveDeckToExe` agora retorna `{ backupCreated, possiblyPreEdited }` em vez de `void` —
+  `possiblyPreEdited` só é calculado quando `backupCreated` é `true` (primeira gravação).
+- 4 testes novos de `detectPreexistingEdits` + 3 de `saveDeckToExe` cobrindo o novo retorno.

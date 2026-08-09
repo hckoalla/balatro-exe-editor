@@ -90,4 +90,58 @@ describe('saveDeckToExe', () => {
 
     expect(await backupService.getBackup('C:/games/balatro.exe')).toBe(FIXTURE_GAME_LUA)
   })
+
+  it('reports possiblyPreEdited when the pre-edit file already deviates from known defaults', async () => {
+    const originalExe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA)
+    const backupService = createBackupService(createFakeStore())
+    const bravo = parseDeckBlock(FIXTURE_GAME_LUA).find((d) => d.id === 'deck_bravo')!
+    bravo.config = { dollars: 500 }
+
+    const result = await saveDeckToExe('C:/games/balatro.exe', bravo, {
+      readFile: async () => originalExe,
+      writeFile: async () => {},
+      backupService,
+      // deck_bravo já vem com dollars:10 na fixture, mas o "default conhecido" aqui diz {} —
+      // simula um baralho que já tinha sido editado antes do primeiro backup.
+      knownDefaults: { deck_alpha: {}, deck_bravo: {} },
+    })
+
+    expect(result).toEqual({ backupCreated: true, possiblyPreEdited: true })
+  })
+
+  it('does not report possiblyPreEdited when the pre-edit file matches known defaults', async () => {
+    const originalExe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA)
+    const backupService = createBackupService(createFakeStore())
+    const bravo = parseDeckBlock(FIXTURE_GAME_LUA).find((d) => d.id === 'deck_bravo')!
+    bravo.config = { dollars: 500 }
+
+    const result = await saveDeckToExe('C:/games/balatro.exe', bravo, {
+      readFile: async () => originalExe,
+      writeFile: async () => {},
+      backupService,
+      knownDefaults: { deck_alpha: {}, deck_bravo: { dollars: 10 } },
+    })
+
+    expect(result).toEqual({ backupCreated: true, possiblyPreEdited: false })
+  })
+
+  it('does not report possiblyPreEdited on a second save (backup already exists)', async () => {
+    const originalExe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA)
+    const backupService = createBackupService(createFakeStore())
+    const bravo = parseDeckBlock(FIXTURE_GAME_LUA).find((d) => d.id === 'deck_bravo')!
+    const deps = {
+      readFile: async () => originalExe,
+      writeFile: async () => {},
+      backupService,
+      knownDefaults: { deck_alpha: {}, deck_bravo: {} },
+    }
+
+    bravo.config = { dollars: 100 }
+    await saveDeckToExe('C:/games/balatro.exe', bravo, deps)
+
+    bravo.config = { dollars: 200 }
+    const result = await saveDeckToExe('C:/games/balatro.exe', bravo, deps)
+
+    expect(result).toEqual({ backupCreated: false, possiblyPreEdited: false })
+  })
 })

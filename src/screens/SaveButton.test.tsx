@@ -51,6 +51,35 @@ describe('SaveButton', () => {
     expect(screen.getByRole('button', { name: /^save$/i })).toBeInTheDocument()
   })
 
+  it('shows a heads-up when the pre-edit file already deviated from known defaults', async () => {
+    const user = userEvent.setup()
+    vi.mocked(window.balatro.saveDeck).mockResolvedValue({
+      backupCreated: true,
+      possiblyPreEdited: true,
+    })
+
+    render(<SaveButton exePath="C:/balatro.exe" deck={DECK} config={{ dollars: 10 }} />)
+    await user.click(screen.getByRole('button', { name: /^save$/i }))
+    await user.click(screen.getByRole('button', { name: /yes, save/i }))
+
+    expect(await screen.findByText(/heads up/i)).toBeInTheDocument()
+  })
+
+  it('does not show the heads-up on a normal save', async () => {
+    const user = userEvent.setup()
+    vi.mocked(window.balatro.saveDeck).mockResolvedValue({
+      backupCreated: true,
+      possiblyPreEdited: false,
+    })
+
+    render(<SaveButton exePath="C:/balatro.exe" deck={DECK} config={{ dollars: 10 }} />)
+    await user.click(screen.getByRole('button', { name: /^save$/i }))
+    await user.click(screen.getByRole('button', { name: /yes, save/i }))
+
+    await screen.findByText(/saved/i)
+    expect(screen.queryByText(/heads up/i)).not.toBeInTheDocument()
+  })
+
   it('cancels without saving', async () => {
     const user = userEvent.setup()
     render(<SaveButton exePath="C:/balatro.exe" deck={DECK} config={{}} />)

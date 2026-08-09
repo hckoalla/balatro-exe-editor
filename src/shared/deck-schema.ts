@@ -12,3 +12,8 @@ export interface ParsedDeck {
   name: string
   config: DeckConfig
 }
+
+export interface SaveDeckResult {
+  backupCreated: boolean
+  possiblyPreEdited: boolean
+}

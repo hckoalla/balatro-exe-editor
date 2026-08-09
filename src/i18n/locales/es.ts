@@ -43,6 +43,8 @@ export const es: Messages = {
     cancel: 'Cancelar',
     success: 'Guardado con éxito.',
     genericError: 'No se pudo guardar — inténtalo de nuevo.',
+    possiblyPreEditedWarning:
+      'Atención: este archivo ya tenía valores fuera del predeterminado antes de la primera copia de seguridad de esta app — la copia podría no reflejar los valores originales del juego.',
   },
   restore: {
     button: 'Restaurar Predeterminado',

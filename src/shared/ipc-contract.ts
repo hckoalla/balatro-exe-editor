@@ -3,7 +3,7 @@
 // divergirem silenciosamente.
 
 import type { AppSettings } from './settings-schema'
-import type { ParsedDeck } from './deck-schema'
+import type { ParsedDeck, SaveDeckResult } from './deck-schema'
 import type { ConsumableCatalogEntry } from './consumable-catalog-schema'
 
 export const IPC_CHANNELS = {
@@ -39,5 +39,5 @@ export interface BalatroApi {
   getConsumableCatalog: (filePath: string) => Promise<ConsumableCatalogEntry[]>
   hasBackup: (filePath: string) => Promise<boolean>
   restoreDefault: (filePath: string) => Promise<void>
-  saveDeck: (filePath: string, deck: ParsedDeck) => Promise<void>
+  saveDeck: (filePath: string, deck: ParsedDeck) => Promise<SaveDeckResult>
 }

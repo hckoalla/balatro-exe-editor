@@ -45,6 +45,8 @@ export const en = {
     cancel: 'Cancel',
     success: 'Saved successfully.',
     genericError: 'Could not save — try again.',
+    possiblyPreEditedWarning:
+      "Heads up: this file already had non-default values before this app's first backup — the backup may not reflect the game's original defaults.",
   },
   restore: {
     button: 'Restore Default',
