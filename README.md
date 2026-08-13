@@ -1,31 +1,177 @@
 # Balatro EXE Editor
 
-App desktop (Electron + React + Vite + TypeScript) que edita o `balatro.exe` diretamente, com
-interface amigável, no lugar do fluxo manual de abrir o `.exe` no 7-Zip, extrair `game.lua`,
-editar no bloco de notas e reinjetar.
+Desktop app (Electron + React + Vite + TypeScript) that edits `balatro.exe` directly, through a
+friendly UI, replacing the manual workflow of opening the `.exe` in 7-Zip, extracting `game.lua`,
+editing it in Notepad, and reinjecting it.
 
-## MVP
+## Table of contents
 
-Edita, por baralho (dos 15 jogáveis + desafio):
-- Dinheiro inicial
-- Slots de joker
-- Slots de consumível
-- Consumíveis iniciais
+- [What the project does](#what-the-project-does)
+- [What was delivered](#what-was-delivered)
+- [How to run](#how-to-run)
+- [Architecture](#architecture)
+- [Tests](#tests)
+- [Internationalization](#internationalization)
+- [Backlog](#backlog)
+- [Links](#links)
 
-Com backup automático do `game.lua` original e restauração pro padrão a qualquer momento.
+## What the project does
 
-## Backlog
+Balatro on Windows ships as a "fused" LÖVE2D executable: `[binary stub][concatenated ZIP]`. The
+game reads that ZIP backward from the end of the file — the stub is never parsed, it just needs
+to be preserved byte-for-byte on write. Inside the ZIP lives `game.lua`, and inside that, the 15
+playable decks + `b_challenge` sit in a single block, each with a `config` table whose keys
+(`dollars`, `hands`, `discards`, `joker_slot`, `consumable_slot`, `consumables`) are **deltas
+added to a game base value** — not absolute values. A deck without the `dollars` key, for
+example, uses the game's default base value.
 
-Backlog-as-code em [`backlog/`](backlog/) — ver [`backlog/README.md`](backlog/README.md) pra
-convenção completa, e [`.claude/CLAUDE.md`](.claude/CLAUDE.md) pro contexto de domínio e workflow
-de desenvolvimento.
+The app abstracts all of that away: point it at your `balatro.exe`, pick a deck, edit the fields
+through a normal form, and it locates the embedded ZIP, extracts `game.lua`, applies the changes
+to the text, reinjects the edited ZIP, and rewrites the `.exe` — keeping the stub untouched.
 
-## Desenvolvimento
+Edit per deck (all 15 playable decks + the Challenge deck, individually):
+- Starting money
+- Joker slots
+- Consumable slots
+- Starting consumables (Tarots, Planets, Spectrals)
+
+With an automatic backup of the original `game.lua` before the first edit, a non-blocking
+warning if a value goes past the tested-safe range, and a restore-to-default option at any time.
+
+## What was delivered
+
+Full backlog (MVP + post-MVP) in [`backlog/BACKLOG.md`](backlog/BACKLOG.md) — source of truth,
+updated with every story.
+
+- **[BEE-1](backlog/_epicas/BEE-1.md) · Setup & Foundation**: Electron + React + Vite + TS, a
+  typed IPC bridge, persisted settings (`electron-store`), TDD test suite from day one.
+  Post-MVP: GitHub Actions release pipeline (packages the Windows installer when a tag is
+  published), an initial loading bar, a footer with credits and app version (read from
+  `app.getVersion()`, no number duplicated in code).
+- **[BEE-2](backlog/_epicas/BEE-2.md) · Design**: a synthesis prompt for Claude Design to
+  generate a prototype with Balatro's visual identity; the theme foundation applied to the app
+  from it — every new screen is born styled, no separate restyling pass.
+- **[BEE-3](backlog/_epicas/BEE-3.md) · `.exe` read/write engine**: locating the embedded ZIP,
+  extracting and reinjecting `game.lua`, `.exe` file selection with validation.
+- **[BEE-4](backlog/_epicas/BEE-4.md) · Deck config parsing**: parser and serializer for the
+  deck block in `game.lua`, consumable catalog extracted from the `.exe` itself (not hardcoded).
+- **[BEE-5](backlog/_epicas/BEE-5.md) · Deck editor (UI)**: deck selection, numeric fields form,
+  starting consumables editor, save changes — closes the full MVP loop.
+- **[BEE-6](backlog/_epicas/BEE-6.md) · Backup & Restore**: automatic backup on the first edit
+  (with detection of files possibly already edited outside the app, compared against the game's
+  real default values), restore to default.
+- **[BEE-7](backlog/_epicas/BEE-7.md) · Internationalization**: English (default/fallback),
+  Portuguese (BR) and Spanish, with a language selector in the UI.
+- **[BEE-8](backlog/_epicas/BEE-8.md)/[BEE-9](backlog/_epicas/BEE-9.md)/[BEE-10](backlog/_epicas/BEE-10.md)
+  (Phase 2, not implemented)**: automatic Steam install detection, macOS/Linux support, a
+  generic `game.lua` field editor (including starting Joker selection — pending investigation
+  into whether an equivalent field exists for the game).
+
+## How to run
+
+Prerequisites: **Node.js** + **npm**.
 
 ```bash
 npm install
-npm run dev
+npm run dev          # runs the app in dev mode (Vite + Electron)
+npm test             # runs the test suite (Vitest)
+npm run package      # builds the Windows installer (electron-builder), into release/
 ```
+
+The version shown in the footer and window title comes from `app.getVersion()`, which reads the
+`version` field from `package.json` — updated manually before each release tag.
+
+## Architecture
+
+```mermaid
+sequenceDiagram
+    participant UI as Renderer (React)
+    participant Preload as preload.ts<br/>(contextBridge)
+    participant Main as Main process
+    participant Exe as exe-engine
+    participant Deck as deck-config
+    participant Backup as backup
+
+    UI->>Preload: window.balatro.saveDeck(filePath, deck)
+    Preload->>Main: ipcRenderer.invoke('deck:save', ...)
+    Main->>Deck: saveDeckToExe(filePath, deck)
+    Deck->>Exe: extractGameLua(exeBuffer)
+    Deck->>Backup: ensureBackup(filePath, gameLua)<br/>(only on the 1st edit of this .exe)
+    Deck->>Deck: serializeDeckBlock(gameLua, [deck])
+    Deck->>Exe: updateGameLuaInExe(exeBuffer, newGameLua)
+    Exe->>Exe: writeExeToDisk(filePath, updatedExe)
+    Deck-->>Main: { backupCreated, possiblyPreEdited }
+    Main-->>UI: result via IPC
+```
+
+### Processes: main (Electron/Node) and renderer (React)
+
+- **`electron/`** (main process, Node): filesystem access, native dialogs, all domain logic —
+  organized by feature (`exe-engine/`, `deck-config/`, `backup/`, `consumable-catalog/`,
+  `settings/`, `ipc/`), not by technical layer.
+- **`src/`** (renderer, React): UI only — screens in `src/screens/`, types/schemas shared with
+  main in `src/shared/`.
+- **`src/shared/ipc-contract.ts`**: the single source of truth for IPC channel names and
+  payload/return types (`IPC_CHANNELS` + the `BalatroApi` interface). `electron/preload.ts`
+  implements that interface via `contextBridge.exposeInMainWorld`, and the renderer only ever
+  sees a fully-typed `window.balatro.*` — main and preload can't silently drift apart on a
+  channel's shape, since both import from the same file.
+
+### Locating the ZIP inside the `.exe`
+
+`electron/exe-engine/locate-embedded-zip.ts` scans the `.exe` backward looking for the End Of
+Central Directory signature (`PK\x05\x06`) — the same trick SFX/self-extracting archive tools
+use. From the EOCD, it reads the central directory's relative offset to compute where the ZIP
+actually starts (subtracting the LÖVE2D binary stub's size), then validates by opening the
+result with `adm-zip` before trusting the offset — the EOCD arithmetic can close by coincidence
+on a corrupted file, so actually opening the ZIP is the final confirmation.
+
+### A purpose-built Lua parser (not a real Lua parser)
+
+`electron/deck-config/parse-deck-block.ts` uses regex + manual brace-balance counting to extract
+the deck block from `game.lua`, instead of a full Lua parser — a deliberate call: the target is
+a narrow, regular format (one line per deck, known numeric keys), so a general-purpose parser
+would be complexity without real benefit.
+
+### Backup and pre-existing edit detection
+
+`backup/backup-service.ts` guarantees **one backup per `.exe`**: the first write to a given path
+saves the untouched `game.lua`; subsequent writes reuse that same backup, never overwriting it
+with an already-edited version. At that same moment, `backup/detect-preexisting-edits.ts`
+compares the freshly-read `game.lua` against `KNOWN_DEFAULT_DECKS` (the game's real default
+values, extracted from the original `game.lua`) — if it already differs before this app's first
+backup, the result includes `possiblyPreEdited: true`, and the UI (`SaveButton`) shows a
+non-blocking warning: the backup may not reflect the game's 100% original `game.lua`.
+
+### Testability via dependency injection
+
+All main-process logic receives `readFile`/`writeFile`/`backupService`/`knownDefaults` as
+parameters instead of importing `fs`/`electron` directly — tests run without a real Electron
+instance and without touching disk, using simple fakes.
+
+## Tests
+
+- **Vitest**, `environment: 'node'` as the project default — a global `environment: 'jsdom'`
+  silently breaks `adm-zip` (Vite starts resolving browser module conditions, and the lib
+  resolves to an incompatible shim). React component tests opt into `jsdom` individually via
+  `// @vitest-environment jsdom` at the top of the file.
+- Synthetic fixtures versioned in `test/fixtures/` — no test depends on the game's real
+  `game.lua`/`.exe` (proprietary content, excluded from git).
+- 37 test files, 120 tests, covering the main process (unit, with fakes) and React components
+  (`@testing-library/react`).
+
+## Internationalization
+
+`i18next` + `react-i18next`, English as the default/fallback language
+(`src/i18n/locales/{en,pt-BR,es}.ts`), with a language selector in the UI. Project convention:
+no hardcoded UI strings in JSX — always `t('namespace.key')`.
+
+## Backlog
+
+Backlog-as-code in [`backlog/`](backlog/) — see [`backlog/README.md`](backlog/README.md) for the
+full convention (folder-as-state model), and [`.claude/CLAUDE.md`](.claude/CLAUDE.md) for domain
+context and the development workflow. Backlog content is in Portuguese (the language it was
+authored in).
 
 ## Links
 
