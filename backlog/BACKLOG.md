@@ -7,8 +7,8 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 6 |
-| ready | 0 |
+| refining | 5 |
+| ready | 1 |
 | in-progress | 0 |
 | qa | 1 |
 | done | 28 |
@@ -50,8 +50,7 @@
 - [done] bee5-formulario-valores-numericos — P0
 - [done] bee5-editor-consumiveis-iniciais — P0
 - [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
-- [refining] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — decisão técnica em
-  aberto, ver item.md)
+- [ready] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — refinada 19/ago/26)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
