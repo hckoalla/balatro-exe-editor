@@ -8,7 +8,7 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 0 |
+| ready | 1 |
 | in-progress | 0 |
 | qa | 15 |
 | done | 12 |
@@ -27,6 +27,7 @@
 - [qa] bee1-loading-inicial — P2 (pós-MVP, pedida pelo usuário)
 - [qa] bee1-rodape-creditos — P3 (pós-MVP, pedida pelo usuário)
 - [qa] bee1-versao-na-ui — P3 (pós-MVP, pedida pelo usuário)
+- [ready] bee1-splash-nativa — P3 (pós-MVP, evolui bee1-loading-inicial — padrão do dark-generator)
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0
