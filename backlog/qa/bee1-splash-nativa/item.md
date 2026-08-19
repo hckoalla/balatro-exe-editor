@@ -2,7 +2,7 @@
 id: bee1-splash-nativa
 title: "Splash screen nativa (janela separada) no lugar do loader inline"
 type: story
-status: in-progress
+status: qa
 owner: ""
 sistema: main
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "19/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| in-progress | P3 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | main |
+| qa | P3 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | main |
 
 > Substitui/evolui [bee1-loading-inicial](../../qa/bee1-loading-inicial/item.md).
 
@@ -64,3 +64,28 @@ isso com uma **segunda `BrowserWindow`** dedicada à splash:
 - Barra de progresso real (%) — mesma limitação já documentada em `bee1-loading-inicial`: não
   existe uma métrica de progresso real pra medir na inicialização de um app Electron
   empacotado localmente. Splash continua indeterminada (spinner ou animação simples).
+
+## Progresso
+
+- `electron/build-splash-html.ts`: função pura que gera o HTML autocontido da splash (spinner +
+  nome do app, cores do tema — `#0a0710`/`#f3b542`, mesmas do loader removido). Testada
+  (`build-splash-html.test.ts`): sem recurso externo (`src=`/`href=` http(s)), contém o nome do
+  app.
+- `electron/create-splash-window.ts`: `createSplashWindow()` — `BrowserWindow` sem moldura
+  (`frame: false`), pequena, sempre no topo (`alwaysOnTop`), fora da taskbar (`skipTaskbar`),
+  carregando o HTML via `data:text/html;charset=utf-8,${encodeURIComponent(...)}`. Sem teste
+  automatizado — construir uma `BrowserWindow` real exige um processo Electron de verdade, não
+  dá pra instanciar em Vitest/Node puro (mesmo precedente de `main.ts`/`bee1-loading-inicial`).
+- `electron/main.ts`: `splashWindow = createSplashWindow()` logo no início do `app.whenReady()`
+  (antes de qualquer outro setup, pra abrir o quanto antes); `mainWindow` agora nasce com
+  `show: false`; `mainWindow.once('ready-to-show', ...)` fecha a splash e mostra a principal no
+  mesmo instante.
+- `index.html`: loader inline (`bee1-loading-inicial`) removido — ficou redundante, já que a
+  janela principal só aparece com conteúdo pronto. `dist/index.html` do build voltou a ~0.5kB
+  (era 1.73kB com o loader).
+- Suíte completa (122 testes, 2 novos), build e lint passando.
+- App testado subindo via `npm run dev` neste ambiente (sem erro, 5 processos `electron.exe` de
+  pé, sem exceção no log) — confirma que a criação da segunda janela não quebra o `whenReady()`.
+  **Não consegui verificar visualmente** o timing splash→janela principal nem o visual da splash
+  (sem captura de tela de janela nativa do Windows disponível aqui) — vale conferir ao abrir o
+  app de verdade, igual ficou registrado em `bee1-loading-inicial`.
