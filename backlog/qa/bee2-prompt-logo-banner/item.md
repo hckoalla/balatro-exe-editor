@@ -2,7 +2,7 @@
 id: bee2-prompt-logo-banner
 title: "Prompt de síntese pro logo e banner do app"
 type: story
-status: ready
+status: qa
 owner: ""
 sistema: design
 domain: BEE-2
@@ -16,7 +16,7 @@ updated: "19/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| ready | P3 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
+| qa | P3 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
 
 > Depende de [bee2-aplicar-design-system](../../done/bee2-aplicar-design-system/item.md) (a
 > identidade visual já aplicada é a referência pro logo/banner).
@@ -39,7 +39,7 @@ distribuído fora dos canais oficiais (Nexus Mods), não pode se passar pelo jog
 
 ## Critérios de aceitação
 
-O prompt (salvo em `design/prompt-logo-banner.md`) cobre dois entregáveis distintos:
+O prompt (salvo em `logo/prompt-logo-banner.md`) cobre dois entregáveis distintos:
 
 - **Logo**: vai substituir o ícone padrão do Electron (janela, taskbar, instalador). Formato
   quadrado; o prompt pede uma versão-fonte em alta resolução (≥512px) da qual as demais
@@ -63,3 +63,20 @@ Além disso, o prompt:
 - Aplicar o logo/banner gerado no app (ícone do `electron-builder`, componente de banner na UI)
   — vira uma história separada quando o asset existir, no mesmo padrão de
   `bee2-aplicar-design-system`.
+
+## Progresso
+
+- Prompt escrito em [`logo/prompt-logo-banner.md`](../../../logo/prompt-logo-banner.md), em
+  inglês (mesma convenção do `design/prompt-claude-design.md` original — prompts pra ferramenta
+  de geração vão em inglês, mesmo com o resto do projeto em PT-BR).
+- Referencia os tokens de design reais já aplicados no app (`src/index.css`), não só uma
+  descrição vaga: `--color-bg: #0a0710`, paleta de painéis `#16111c`→`#211a29`,
+  `--color-accent: #f3b542`, fonte de display `Bungee`, fonte de corpo `Manrope` — pra garantir
+  que o logo/banner gerado bata exatamente com o que já está no app, não com uma reinterpretação
+  nova da identidade visual.
+- Dois entregáveis cobertos como pedido: logo quadrado (fonte em alta resolução, legível de
+  16px a 512px+) e banner em duas variações (hero pra tela inicial, condensada pra navegação
+  entre telas) — evita pedir uma imagem única esticada nos dois contextos.
+- Reforça explicitamente "arte original, não reprodução" do logo/assets oficiais do jogo — mesmo
+  princípio do prompt de design original, mais importante ainda aqui por ser um ícone/marca
+  visível fora do app (Nexus Mods, instalador).
