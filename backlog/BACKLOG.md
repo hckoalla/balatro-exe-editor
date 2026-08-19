@@ -8,9 +8,9 @@
 | Estado | Itens |
 |---|---|
 | refining | 6 |
-| ready | 1 |
+| ready | 0 |
 | in-progress | 0 |
-| qa | 0 |
+| qa | 1 |
 | done | 28 |
 | cancelled | 0 |
 | fase2 | 0 |
@@ -32,7 +32,7 @@
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0
 - [done] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
-- [ready] bee2-prompt-logo-banner — P3 (pós-MVP, pedida pelo usuário)
+- [qa] bee2-prompt-logo-banner — P3 (pós-MVP, pedida pelo usuário)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [done] bee3-localizar-zip-embutido-no-exe — P0
