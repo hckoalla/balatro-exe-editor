@@ -2,7 +2,7 @@
 id: bee9-build-multiplataforma
 title: "Build e empacotamento para macOS/Linux"
 type: story
-status: refining
+status: cancelled
 owner: ""
 sistema: infra
 domain: BEE-9
@@ -16,7 +16,7 @@ updated: "08/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P2 | [BEE-9](../../_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2) | infra |
+| cancelled | P2 | [BEE-9](../../_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2) | infra |
 
 > Depende de [bee9-investigar-formato-exe-mac-linux](../bee9-investigar-formato-exe-mac-linux/item.md)
 > concluir que é viável.
@@ -30,3 +30,8 @@ updated: "08/ago/26"
   plataforma(s) suportada(s).
 - Fluxo completo (selecionar jogo → editar baralho → salvar → restaurar) funciona de ponta a
   ponta na plataforma alvo.
+
+## Cancelamento (19/ago/26)
+Cancelada junto com [bee9-investigar-formato-exe-mac-linux](../bee9-investigar-formato-exe-mac-linux/item.md)
+(da qual dependia) — mesmo motivo: sem demanda real ainda, escopo especulativo do planejamento
+inicial da fase 2. Se alguém pedir suporte macOS/Linux, volta a fazer sentido.

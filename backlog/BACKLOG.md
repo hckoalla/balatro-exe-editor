@@ -7,12 +7,12 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 5 |
+| refining | 3 |
 | ready | 1 |
 | in-progress | 0 |
 | qa | 1 |
 | done | 28 |
-| cancelled | 0 |
+| cancelled | 2 |
 | fase2 | 0 |
 | blocked | 0 |
 
@@ -72,8 +72,8 @@ refinadas de verdade.
 - [refining] bee8-detectar-instalacao-steam — P1
 
 ### [BEE-9](_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2)
-- [refining] bee9-investigar-formato-exe-mac-linux — P2 (spike)
-- [refining] bee9-build-multiplataforma — P2
+- [cancelled] bee9-investigar-formato-exe-mac-linux — P2 (spike — sem demanda real, ver item.md)
+- [cancelled] bee9-build-multiplataforma — P2 (sem demanda real, ver item.md)
 
 ### [BEE-10](_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2)
 - [refining] bee10-editor-generico-campos-lua — P2

@@ -2,7 +2,7 @@
 id: bee9-investigar-formato-exe-mac-linux
 title: "Spike: viabilidade de suporte a macOS/Linux"
 type: spike
-status: refining
+status: cancelled
 owner: ""
 sistema: infra
 domain: BEE-9
@@ -16,7 +16,7 @@ updated: "08/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P2 | [BEE-9](../../_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2) | infra |
+| cancelled | P2 | [BEE-9](../../_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2) | infra |
 
 > Como desenvolvedor, quero investigar como o Balatro é distribuído em macOS e Linux, para saber
 > se o motor de BEE-3/BEE-4 pode ser reaproveitado ou precisa de um caminho totalmente diferente
@@ -35,3 +35,9 @@ AppImage). Não dá pra saber o esforço real sem checar.
   plataforma) ou se precisa de implementações totalmente separadas.
 - Resultado registrado como decisão em `bee9-build-multiplataforma` (ou cancela a história, se a
   investigação concluir que não vale o esforço).
+
+## Cancelamento (19/ago/26)
+Não tem demanda real ainda — nenhum usuário pediu suporte macOS/Linux, era escopo especulativo do
+planejamento inicial da fase 2. Não é avaliação de que a ideia é ruim; é só falta de necessidade
+concreta até agora. Se alguém pedir, essa história volta a fazer sentido — não precisa recriar do
+zero, só tirar de `cancelled/`.
