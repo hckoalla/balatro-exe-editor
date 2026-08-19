@@ -7,12 +7,12 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 3 |
+| refining | 2 |
 | ready | 1 |
 | in-progress | 0 |
 | qa | 1 |
 | done | 28 |
-| cancelled | 2 |
+| cancelled | 3 |
 | fase2 | 0 |
 | blocked | 0 |
 
@@ -76,7 +76,7 @@ refinadas de verdade.
 - [cancelled] bee9-build-multiplataforma — P2 (sem demanda real, ver item.md)
 
 ### [BEE-10](_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2)
-- [refining] bee10-editor-generico-campos-lua — P2
+- [cancelled] bee10-editor-generico-campos-lua — P2 (sem demanda real, ver item.md)
 - [refining] bee10-jokers-iniciais — P2 (depende do usuário confirmar se o campo existe no jogo —
   agora também referencia bee5-imagens-consumiveis pro mecanismo de imagem)
 
