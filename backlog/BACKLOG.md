@@ -10,8 +10,8 @@
 | refining | 0 |
 | ready | 0 |
 | in-progress | 0 |
-| qa | 16 |
-| done | 12 |
+| qa | 0 |
+| done | 28 |
 | cancelled | 0 |
 | fase2 | 5 |
 | blocked | 0 |
@@ -23,11 +23,11 @@
 - [done] bee1-ipc-bridge-tipado — P0
 - [done] bee1-electron-store-config — P0
 - [done] bee1-setup-testes-tdd — P0 (furou a fila, saiu antes da IPC — ver seu item.md)
-- [qa] bee1-pipeline-release — P2 (pós-MVP, pedida pelo usuário)
-- [qa] bee1-loading-inicial — P2 (pós-MVP, pedida pelo usuário)
-- [qa] bee1-rodape-creditos — P3 (pós-MVP, pedida pelo usuário)
-- [qa] bee1-versao-na-ui — P3 (pós-MVP, pedida pelo usuário)
-- [qa] bee1-splash-nativa — P3 (pós-MVP, evolui bee1-loading-inicial — padrão do dark-generator)
+- [done] bee1-pipeline-release — P2 (pós-MVP, pedida pelo usuário)
+- [done] bee1-loading-inicial — P2 (pós-MVP, pedida pelo usuário)
+- [done] bee1-rodape-creditos — P3 (pós-MVP, pedida pelo usuário)
+- [done] bee1-versao-na-ui — P3 (pós-MVP, pedida pelo usuário)
+- [done] bee1-splash-nativa — P3 (pós-MVP, evolui bee1-loading-inicial — padrão do dark-generator)
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0
@@ -42,23 +42,23 @@
 ### [BEE-4](_epicas/BEE-4.md) · Parsing da Configuração dos Baralhos
 - [done] bee4-parser-bloco-baralhos — P0
 - [done] bee4-serializar-bloco-baralhos — P0
-- [qa] bee4-catalogo-consumiveis — P0
+- [done] bee4-catalogo-consumiveis — P0
 
 ### [BEE-5](_epicas/BEE-5.md) · Editor de Baralhos (UI)
-- [qa] bee5-tela-selecao-baralho — P0
-- [qa] bee5-formulario-valores-numericos — P0
-- [qa] bee5-editor-consumiveis-iniciais — P0
-- [qa] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
+- [done] bee5-tela-selecao-baralho — P0
+- [done] bee5-formulario-valores-numericos — P0
+- [done] bee5-editor-consumiveis-iniciais — P0
+- [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
-- [qa] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
-- [qa] bee6-restaurar-padrao — P0
+- [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
+- [done] bee6-restaurar-padrao — P0
 
 ### [BEE-7](_epicas/BEE-7.md) · Internacionalização
-- [qa] bee7-infra-i18n — P0
-- [qa] bee7-traducao-pt-br — P1
-- [qa] bee7-traducao-es — P1
-- [qa] bee7-seletor-idioma — P1
+- [done] bee7-infra-i18n — P0
+- [done] bee7-traducao-pt-br — P1
+- [done] bee7-traducao-es — P1
+- [done] bee7-seletor-idioma — P1
 
 ## Fase 2 — por épica
 
