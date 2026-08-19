@@ -2,7 +2,7 @@
 id: bee1-splash-nativa
 title: "Splash screen nativa (janela separada) no lugar do loader inline"
 type: story
-status: ready
+status: in-progress
 owner: ""
 sistema: main
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "19/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| ready | P3 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | main |
+| in-progress | P3 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | main |
 
 > Substitui/evolui [bee1-loading-inicial](../../qa/bee1-loading-inicial/item.md).
 
