@@ -2,7 +2,7 @@
 id: bee9-investigar-formato-exe-mac-linux
 title: "Spike: viabilidade de suporte a macOS/Linux"
 type: spike
-status: fase2
+status: refining
 owner: ""
 sistema: infra
 domain: BEE-9
@@ -16,7 +16,7 @@ updated: "08/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| fase2 | P2 | [BEE-9](../../_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2) | infra |
+| refining | P2 | [BEE-9](../../_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2) | infra |
 
 > Como desenvolvedor, quero investigar como o Balatro é distribuído em macOS e Linux, para saber
 > se o motor de BEE-3/BEE-4 pode ser reaproveitado ou precisa de um caminho totalmente diferente

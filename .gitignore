@@ -4,6 +4,13 @@
 *.exe
 fixtures/real/
 
+# Assets reais do jogo (extraídos do balatro.exe pra referência/prototipagem — fontes, sons,
+# texturas, shaders). Mesmo motivo do /game.lua: conteúdo proprietário, nunca versionar.
+/fonts/
+/shaders/
+/sounds/
+/textures/
+
 # Node
 node_modules/
 dist/

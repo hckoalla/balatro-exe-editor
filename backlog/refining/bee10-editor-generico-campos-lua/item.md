@@ -2,7 +2,7 @@
 id: bee10-editor-generico-campos-lua
 title: "Editor genérico para outros campos do game.lua"
 type: story
-status: fase2
+status: refining
 owner: ""
 sistema: main
 domain: BEE-10
@@ -16,7 +16,7 @@ updated: "08/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| fase2 | P2 | [BEE-10](../../_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2) | main |
+| refining | P2 | [BEE-10](../../_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2) | main |
 
 > Como usuário avançado, quero editar outros valores do `game.lua` além dos 4 do MVP (ex:
 > `hands`, `discards`, ou campos de `config` como `voucher`/`remove_faces`), para não ficar

@@ -7,13 +7,13 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 0 |
-| ready | 0 |
+| refining | 6 |
+| ready | 1 |
 | in-progress | 0 |
 | qa | 0 |
 | done | 28 |
 | cancelled | 0 |
-| fase2 | 5 |
+| fase2 | 0 |
 | blocked | 0 |
 
 ## MVP — por épica
@@ -32,6 +32,7 @@
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0
 - [done] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
+- [ready] bee2-prompt-logo-banner — P3 (pós-MVP, pedida pelo usuário)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [done] bee3-localizar-zip-embutido-no-exe — P0
@@ -49,6 +50,8 @@
 - [done] bee5-formulario-valores-numericos — P0
 - [done] bee5-editor-consumiveis-iniciais — P0
 - [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
+- [refining] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — decisão técnica em
+  aberto, ver item.md)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
@@ -62,16 +65,21 @@
 
 ## Fase 2 — por épica
 
+Épicas escopadas pra depois do MVP. Saíram da bandeja `fase2/` e voltaram pro fluxo ativo
+(`refining/`) em 19/ago/26, a pedido do usuário — deixaram de estar "paradas" e passam a ser
+refinadas de verdade.
+
 ### [BEE-8](_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2)
-- [fase2] bee8-detectar-instalacao-steam — P1
+- [refining] bee8-detectar-instalacao-steam — P1
 
 ### [BEE-9](_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2)
-- [fase2] bee9-investigar-formato-exe-mac-linux — P2 (spike)
-- [fase2] bee9-build-multiplataforma — P2
+- [refining] bee9-investigar-formato-exe-mac-linux — P2 (spike)
+- [refining] bee9-build-multiplataforma — P2
 
 ### [BEE-10](_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2)
-- [fase2] bee10-editor-generico-campos-lua — P2
-- [fase2] bee10-jokers-iniciais — P2 (depende do usuário confirmar se o campo existe no jogo)
+- [refining] bee10-editor-generico-campos-lua — P2
+- [refining] bee10-jokers-iniciais — P2 (depende do usuário confirmar se o campo existe no jogo —
+  agora também referencia bee5-imagens-consumiveis pro mecanismo de imagem)
 
 ## Ordem sugerida (dependências)
 

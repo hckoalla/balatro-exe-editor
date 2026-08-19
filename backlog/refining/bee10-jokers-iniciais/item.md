@@ -2,7 +2,7 @@
 id: bee10-jokers-iniciais
 title: "Escolher jokers iniciais do baralho"
 type: story
-status: fase2
+status: refining
 owner: ""
 sistema: main
 domain: BEE-10
@@ -16,7 +16,7 @@ updated: "09/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| fase2 | P2 | [BEE-10](../../_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2) | main |
+| refining | P2 | [BEE-10](../../_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2) | main |
 
 > Depende de investigação do usuário sobre como o jogo trata jokers iniciais — ver Contexto.
 
@@ -48,3 +48,8 @@ especificação pronta pra implementar.
 
 ## Fora de escopo
 - Qualquer implementação antes da investigação do usuário confirmar que o campo existe.
+
+## Nota (19/ago/26)
+Se avançar, os Jokers devem mostrar imagem no seletor igual os consumíveis — reaproveitar o
+mecanismo de extração de imagem definido em
+[bee5-imagens-consumiveis](../bee5-imagens-consumiveis/item.md), não reinventar.
