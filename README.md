@@ -13,6 +13,7 @@ editing it in Notepad, and reinjecting it.
 - [Tests](#tests)
 - [Internationalization](#internationalization)
 - [Backlog](#backlog)
+- [Changelog](#changelog)
 - [Links](#links)
 
 ## What the project does
@@ -46,26 +47,39 @@ updated with every story.
 - **[BEE-1](backlog/_epicas/BEE-1.md) · Setup & Foundation**: Electron + React + Vite + TS, a
   typed IPC bridge, persisted settings (`electron-store`), TDD test suite from day one.
   Post-MVP: GitHub Actions release pipeline (packages a portable `.exe` — no installer — when a
-  tag is published), an initial loading bar, a footer with credits and app version (read from
-  `app.getVersion()`, no number duplicated in code).
+  tag is published), a native splash window shown while the app boots, a footer with credits and
+  app version (read from `app.getVersion()`, no number duplicated in code).
 - **[BEE-2](backlog/_epicas/BEE-2.md) · Design**: a synthesis prompt for Claude Design to
   generate a prototype with Balatro's visual identity; the theme foundation applied to the app
-  from it — every new screen is born styled, no separate restyling pass.
+  from it — every new screen is born styled, no separate restyling pass. Post-MVP: an original
+  logo and banner (not the game's own artwork), generated from a second design prompt and
+  applied as the app icon and the home screen banner.
 - **[BEE-3](backlog/_epicas/BEE-3.md) · `.exe` read/write engine**: locating the embedded ZIP,
-  extracting and reinjecting `game.lua`, `.exe` file selection with validation.
+  extracting and reinjecting `game.lua`, `.exe` file selection with validation. Generalized
+  post-MVP to read any entry from the embedded ZIP by path, not just `game.lua`.
 - **[BEE-4](backlog/_epicas/BEE-4.md) · Deck config parsing**: parser and serializer for the
   deck block in `game.lua`, consumable catalog extracted from the `.exe` itself (not hardcoded).
 - **[BEE-5](backlog/_epicas/BEE-5.md) · Deck editor (UI)**: deck selection, numeric fields form,
-  starting consumables editor, save changes — closes the full MVP loop.
+  starting consumables editor, save changes — closes the full MVP loop. Post-MVP: each
+  consumable shows its real in-game artwork (cropped from the game's own sprite atlas, extracted
+  from the user's `.exe` — no game assets bundled with the app) in the picker and as chips, plus
+  a hover tooltip with a larger image, name, and an effect description (pulled from the game's
+  own localization files, in whichever of the 3 supported languages is active).
 - **[BEE-6](backlog/_epicas/BEE-6.md) · Backup & Restore**: automatic backup on the first edit
   (with detection of files possibly already edited outside the app, compared against the game's
   real default values), restore to default.
 - **[BEE-7](backlog/_epicas/BEE-7.md) · Internationalization**: English (default/fallback),
   Portuguese (BR) and Spanish, with a language selector in the UI.
-- **[BEE-8](backlog/_epicas/BEE-8.md)/[BEE-9](backlog/_epicas/BEE-9.md)/[BEE-10](backlog/_epicas/BEE-10.md)
-  (Phase 2, not implemented)**: automatic Steam install detection, macOS/Linux support, a
-  generic `game.lua` field editor (including starting Joker selection — pending investigation
-  into whether an equivalent field exists for the game).
+- **[BEE-8](backlog/_epicas/BEE-8.md) · Automatic install detection (post-MVP)**: an explicit
+  "detect automatically" action on the first screen locates a Steam install of Balatro (Windows
+  registry → Steam library folders → app manifest), as an alternative to browsing manually.
+- **[BEE-9](backlog/_epicas/BEE-9.md) · macOS/Linux support** and
+  **[BEE-10](backlog/_epicas/BEE-10.md) · generic `game.lua` field editor**: scoped, then
+  cancelled — no real demand materialized for either.
+- **[BEE-11](backlog/_epicas/BEE-11.md) · Challenges (not implemented)**: investigated whether
+  decks can start with specific Jokers — confirmed that's a Challenge-only mechanic in the game,
+  not a per-deck one. Rescoped into a Challenge-jokers editor; technically mapped out but
+  deliberately left for last.
 
 ## How to run
 
@@ -108,7 +122,7 @@ sequenceDiagram
 
 - **`electron/`** (main process, Node): filesystem access, native dialogs, all domain logic —
   organized by feature (`exe-engine/`, `deck-config/`, `backup/`, `consumable-catalog/`,
-  `settings/`, `ipc/`), not by technical layer.
+  `steam-detection/`, `settings/`, `ipc/`), not by technical layer.
 - **`src/`** (renderer, React): UI only — screens in `src/screens/`, types/schemas shared with
   main in `src/shared/`.
 - **`src/shared/ipc-contract.ts`**: the single source of truth for IPC channel names and
@@ -157,7 +171,7 @@ instance and without touching disk, using simple fakes.
   `// @vitest-environment jsdom` at the top of the file.
 - Synthetic fixtures versioned in `test/fixtures/` — no test depends on the game's real
   `game.lua`/`.exe` (proprietary content, excluded from git).
-- 37 test files, 120 tests, covering the main process (unit, with fakes) and React components
+- 47 test files, 161 tests, covering the main process (unit, with fakes) and React components
   (`@testing-library/react`).
 
 ## Internationalization
@@ -172,6 +186,10 @@ Backlog-as-code in [`backlog/`](backlog/) — see [`backlog/README.md`](backlog/
 full convention (folder-as-state model), and [`.claude/CLAUDE.md`](.claude/CLAUDE.md) for domain
 context and the development workflow. Backlog content is in Portuguese (the language it was
 authored in).
+
+## Changelog
+
+See [`CHANGELOG.md`](CHANGELOG.md) for what changed release to release.
 
 ## Links
 
