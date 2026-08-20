@@ -1,19 +1,20 @@
 # Backlog — visão geral
 
 > View gerada — não editar à mão. Atualize movendo pastas entre `refining/`, `ready/`,
-> `in-progress/`, `qa/`, `done/`, e as bandejas `cancelled/`, `fase2/`, `blocked/`.
+> `in-progress/`, `qa/`, `done/`, e as bandejas `cancelled/`, `fase2/`, `fase3/`, `blocked/`.
 
 ## Contagem por estado
 
 | Estado | Itens |
 |---|---|
-| refining | 1 |
+| refining | 0 |
 | ready | 2 |
 | in-progress | 0 |
 | qa | 1 |
 | done | 28 |
 | cancelled | 3 |
 | fase2 | 0 |
+| fase3 | 1 |
 | blocked | 0 |
 
 ## MVP — por épica
@@ -80,9 +81,8 @@ refinadas de verdade.
 - [cancelled] bee10-editor-generico-campos-lua — P2 (sem demanda real, ver item.md)
 
 ### [BEE-11](_epicas/BEE-11.md) · Challenges (Fase 2)
-- [refining] bee11-jokers-iniciais-challenge — P2 (reescrita de bee10-jokers-iniciais — confirmado
-  no código-fonte real que jokers iniciais são recurso de Challenge, não de Deck; nova épica
-  própria por ser estrutura de dados separada, `challenges.lua`)
+- [fase3] bee11-jokers-iniciais-challenge — P2 (viável — abordagem técnica completa no item.md —
+  mas deliberadamente deixada por último, decisão do usuário em 20/ago/26)
 
 ## Ordem sugerida (dependências)
 

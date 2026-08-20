@@ -13,6 +13,7 @@ backlog/
   <estado>/<ID>/item.md    ← 1 item = 1 pasta. A pasta = o estado.
   <estado>/.gitkeep        ← para o git preservar as pastas de estado mesmo vazias
   fase2/                   ← BANDEJA (não é um estado). Ver fase2/README.md
+  fase3/                   ← BANDEJA (não é um estado) — prioridade menor que fase2
   blocked/                 ← BANDEJA (não é um estado)
   cancelled/               ← BANDEJA (não é um estado)
 ```
@@ -44,6 +45,7 @@ Vivem fora do eixo `refining → done`. Um item aqui não está no quadro ativo.
 |---|---|
 | `cancelled` | Descartada / substituída. Terminal. |
 | `fase2` | Escopo entendido e dimensionado, conscientemente adiado para depois do MVP. |
+| `fase3` | Como `fase2`, mas deliberadamente por último — feita depois de tudo o mais em `fase2`, mesmo já viável tecnicamente. Usada quando a análise técnica já foi feita (pra não perder o trabalho), mas a prioridade real é "por último". |
 | `blocked` | Escopo entendido, mas travada por uma dependência concreta ainda não resolvida (outra história/épica). |
 
 **Mudar de estado** = `git mv <estado_velho>/<ID> <estado_novo>/<ID>` + atualizar `status:` no
