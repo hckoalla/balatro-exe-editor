@@ -63,8 +63,11 @@ quebrar o uso atual pra `game.lua`.
 
 O catálogo de jokers (id/name/pos, pra imagem) também não existe ainda no app — `game.lua` tem
 148 definições `j_*` (ex. `j_joker` na linha 368), no mesmo formato que
-`parseConsumableCatalog` já lê pra Tarot/Planet/Spectral. `textures/1x/Jokers.png` é o atlas
-equivalente ao `Tarots.png`.
+`parseConsumableCatalog` já lê pra Tarot/Planet/Spectral. `resources/textures/1x/Jokers.png` é o
+atlas equivalente ao `Tarots.png` — **atenção ao prefixo `resources/`**: `bee5-imagens-consumiveis`
+usou `textures/1x/Tarots.png` (sem esse prefixo) inicialmente e o atlas nunca era encontrado no
+`.exe` real; só corrigido depois de listar as entradas reais do ZIP. Não repetir o mesmo erro
+aqui — confirmar o caminho contra o `.exe` de verdade antes de assumir.
 
 ## Critérios de aceitação
 

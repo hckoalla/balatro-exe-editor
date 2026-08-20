@@ -1,6 +1,6 @@
 import { extractFileFromExe } from '../exe-engine/extract-file-from-exe'
 
-const CONSUMABLE_ATLAS_ENTRY = 'textures/1x/Tarots.png'
+const CONSUMABLE_ATLAS_ENTRY = 'resources/textures/1x/Tarots.png'
 
 type ReadFileFn = (path: string) => Promise<Buffer>
 

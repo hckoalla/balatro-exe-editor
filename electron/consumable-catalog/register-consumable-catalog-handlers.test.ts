@@ -21,7 +21,7 @@ describe('registerConsumableCatalogHandlers', () => {
 
   it('resolves the consumable atlas as a data URL for the given exe path', async () => {
     const exe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA, {
-      'textures/1x/Tarots.png': 'fake-atlas-bytes',
+      'resources/textures/1x/Tarots.png': 'fake-atlas-bytes',
     })
     const { ipcMain, invoke } = createFakeIpcMain()
     registerConsumableCatalogHandlers(ipcMain, { readFile: async () => exe })

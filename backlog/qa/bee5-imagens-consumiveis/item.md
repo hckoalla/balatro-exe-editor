@@ -35,12 +35,14 @@ isso pra desenhar a carta).
 
 - **Origem da imagem**: o usuário confirmou que extraiu `fonts/`, `sounds/`, `textures/`,
   `shaders/` do próprio `balatro.exe` (mesmo truque do 7-Zip usado pro `game.lua`). Isso confirma
-  que o ZIP fusionado do LÖVE2D contém `textures/1x/Tarots.png` no mesmo caminho relativo —
+  que o ZIP fusionado do LÖVE2D contém `resources/textures/1x/Tarots.png` no mesmo caminho
+  relativo —
   então a imagem pode (e deve) ser extraída **do próprio `.exe` que o usuário já selecionou no
   app**, reaproveitando o mesmo mecanismo de `locate-embedded-zip.ts`/`extract-game-lua.ts`.
   Nenhum asset proprietário precisa ser empacotado no instalador distribuído.
 - **Tamanho de célula do atlas**: confirmado por matemática, não estimativa. Tarot/Planet/
-  Spectral dividem o mesmo atlas (`textures/1x/Tarots.png`, 710×570px) — `pos` no `game.lua` vai
+  Spectral dividem o mesmo atlas (`resources/textures/1x/Tarots.png`, 710×570px) — `pos` no
+  `game.lua` vai
   até `x=9`/`y=5` pros três `set`s (ex.: `c_fool` Tarot `pos={x=0,y=0}`, `c_mercury` Planet
   `pos={x=0,y=3}`, `c_ankh` Spectral `pos={x=0,y=5}`). 710÷10 = 71, 570÷6 = 95 — **célula =
   71×95px** (142×190px na versão `2x`). `pixel_x = pos.x * 71`, `pixel_y = pos.y * 95`.
@@ -50,8 +52,8 @@ isso pra desenhar a carta).
 - Catálogo de consumíveis passa a incluir a posição (`pos`) de cada item, extraída do
   `game.lua` junto com `id`/`name`/`category`.
 - A imagem de cada consumível vem do `.exe` já selecionado pelo usuário (extraída do ZIP
-  embutido, caminho `textures/1x/Tarots.png`) — nenhum asset proprietário do jogo é empacotado
-  no instalador distribuído.
+  embutido, caminho `resources/textures/1x/Tarots.png`) — nenhum asset proprietário do jogo é
+  empacotado no instalador distribuído.
 - `ConsumablesEditor` mostra a imagem de cada item nos resultados da busca e nos "chips"
   selecionados, não só o nome — recorte de 71×95px (grid `pos.x * 71, pos.y * 95`) do atlas.
 - Fallback gracioso se o atlas não puder ser extraído/decodificado (mostra só o nome, sem
@@ -94,3 +96,17 @@ Concluído em 20/ago/26. 130 testes passando, tsc/lint limpos, build de produç�
 **Não verificado visualmente** (sem captura de tela de janela nativa do Windows neste ambiente,
 mesma limitação já registrada em `bee1-splash-nativa`) — vale conferir o tamanho/proporção do
 sprite (28×37px) ao abrir o app de verdade.
+
+### Bug fix (20/ago/26)
+
+Usuário reportou que nenhuma imagem aparecia (caía direto no fallback de nome). Causa: o caminho
+usado pra extrair o atlas (`CONSUMABLE_ATLAS_ENTRY` em `get-consumable-atlas-from-exe.ts`) estava
+errado — `textures/1x/Tarots.png`, sem o prefixo `resources/`. Confirmado abrindo o `.exe` real
+(Steam, `C:\Program Files (x86)\Steam\steamapps\common\Balatro\Balatro.exe`) e listando as 304
+entradas do ZIP embutido: o caminho real é **`resources/textures/1x/Tarots.png`**. O usuário
+provavelmente extraiu de dentro da pasta `resources/` no 7-Zip, e a cópia pra raiz do projeto
+(`textures/`, `fonts/`, etc.) perdeu esse prefixo — o que enganou a suposição original (o
+prefixo correto nunca foi verificado contra o ZIP de verdade, só inferido pela estrutura de
+pastas local). Corrigido o caminho no código e em todas as menções de doc/teste que repetiam o
+mesmo erro (`extract-file-from-exe.ts`/`.test.ts`,
+`register-consumable-catalog-handlers.test.ts`, `parse-consumable-catalog.ts`).

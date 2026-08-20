@@ -5,7 +5,7 @@ import { getConsumableAtlasFromExe } from './get-consumable-atlas-from-exe'
 describe('getConsumableAtlasFromExe', () => {
   it('reads the exe and returns the consumable atlas as a data URL', async () => {
     const exe = buildSyntheticBalatroExe('return {}', {
-      'textures/1x/Tarots.png': 'fake-atlas-bytes',
+      'resources/textures/1x/Tarots.png': 'fake-atlas-bytes',
     })
 
     const atlas = await getConsumableAtlasFromExe('C:/fake/balatro.exe', async () => exe)

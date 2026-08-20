@@ -45,7 +45,7 @@ function extractStringField(text: string, key: string): string | undefined {
   return match ? match[1] : undefined
 }
 
-// Posição da célula do item dentro do atlas de sprites do jogo (ex. `textures/1x/Tarots.png`) —
+// Posição da célula do item dentro do atlas de sprites do jogo (ex. `resources/textures/1x/Tarots.png`) —
 // usada pra recortar a imagem correta (ver bee5-imagens-consumiveis).
 function extractPos(text: string): { x: number; y: number } | undefined {
   const match = /pos\s*=\s*\{\s*x\s*=\s*(-?\d+(?:\.\d+)?)\s*,\s*y\s*=\s*(-?\d+(?:\.\d+)?)\s*\}/.exec(
