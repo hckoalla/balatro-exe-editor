@@ -31,7 +31,7 @@ describe('DeckEditorScreen', () => {
 
   it('loads the consumable catalog for the exe and renders the consumables editor', async () => {
     vi.mocked(window.balatro.getConsumableCatalog).mockResolvedValue([
-      { id: 'c_fool', name: 'The Fool', category: 'Tarot' },
+      { id: 'c_fool', name: 'The Fool', category: 'Tarot', pos: { x: 0, y: 0 } },
     ])
 
     render(<DeckEditorScreen deck={DECK} exePath="C:/balatro.exe" onBack={vi.fn()} />)

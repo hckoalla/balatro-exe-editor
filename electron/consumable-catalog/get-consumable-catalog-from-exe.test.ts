@@ -17,6 +17,7 @@ describe('getConsumableCatalogFromExe', () => {
       id: 'c_fixture_tarot_one',
       name: 'The Fixture Fool',
       category: 'Tarot',
+      pos: { x: 0, y: 0 },
     })
   })
 })

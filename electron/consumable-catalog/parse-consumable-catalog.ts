@@ -31,7 +31,10 @@ export function parseConsumableCatalog(gameLuaSource: string): ConsumableCatalog
     const name = extractStringField(body, 'name')
     if (!name) continue
 
-    catalog.push({ id, name, category: categoryMatch[1] as ConsumableCategory })
+    const pos = extractPos(body)
+    if (!pos) continue
+
+    catalog.push({ id, name, category: categoryMatch[1] as ConsumableCategory, pos })
   }
 
   return catalog
@@ -40,4 +43,13 @@ export function parseConsumableCatalog(gameLuaSource: string): ConsumableCatalog
 function extractStringField(text: string, key: string): string | undefined {
   const match = new RegExp(`\\b${key}\\s*=\\s*['"]([^'"]*)['"]`).exec(text)
   return match ? match[1] : undefined
+}
+
+// Posição da célula do item dentro do atlas de sprites do jogo (ex. `textures/1x/Tarots.png`) —
+// usada pra recortar a imagem correta (ver bee5-imagens-consumiveis).
+function extractPos(text: string): { x: number; y: number } | undefined {
+  const match = /pos\s*=\s*\{\s*x\s*=\s*(-?\d+(?:\.\d+)?)\s*,\s*y\s*=\s*(-?\d+(?:\.\d+)?)\s*\}/.exec(
+    text,
+  )
+  return match ? { x: Number(match[1]), y: Number(match[2]) } : undefined
 }

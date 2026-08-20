@@ -18,4 +18,16 @@ describe('registerConsumableCatalogHandlers', () => {
 
     expect(catalog).toHaveLength(6)
   })
+
+  it('resolves the consumable atlas as a data URL for the given exe path', async () => {
+    const exe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA, {
+      'textures/1x/Tarots.png': 'fake-atlas-bytes',
+    })
+    const { ipcMain, invoke } = createFakeIpcMain()
+    registerConsumableCatalogHandlers(ipcMain, { readFile: async () => exe })
+
+    const atlas = await invoke(IPC_CHANNELS.getConsumableAtlas, 'C:/fake/balatro.exe')
+
+    expect(atlas).toBe(`data:image/png;base64,${Buffer.from('fake-atlas-bytes').toString('base64')}`)
+  })
 })

@@ -6,23 +6,26 @@ import { parseConsumableCatalog } from './parse-consumable-catalog'
 const FIXTURE_GAME_LUA = readFileSync(join(__dirname, '../../test/fixtures/game.lua'), 'utf-8')
 
 describe('parseConsumableCatalog', () => {
-  it('parses Tarot, Planet and Spectral entries with id + friendly name', () => {
+  it('parses Tarot, Planet and Spectral entries with id + friendly name + atlas position', () => {
     const catalog = parseConsumableCatalog(FIXTURE_GAME_LUA)
 
     expect(catalog).toContainEqual({
       id: 'c_fixture_tarot_one',
       name: 'The Fixture Fool',
       category: 'Tarot',
+      pos: { x: 0, y: 0 },
     })
     expect(catalog).toContainEqual({
       id: 'c_fixture_planet_one',
       name: 'Fixture Mercury',
       category: 'Planet',
+      pos: { x: 0, y: 3 },
     })
     expect(catalog).toContainEqual({
       id: 'c_fixture_spectral_one',
       name: 'Fixture Wraith',
       category: 'Spectral',
+      pos: { x: 0, y: 5 },
     })
   })
 

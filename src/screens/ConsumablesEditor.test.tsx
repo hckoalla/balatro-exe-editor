@@ -7,9 +7,9 @@ import type { ConsumableCatalogEntry } from '../shared/consumable-catalog-schema
 import { ConsumablesEditor } from './ConsumablesEditor'
 
 const CATALOG: ConsumableCatalogEntry[] = [
-  { id: 'c_fool', name: 'The Fool', category: 'Tarot' },
-  { id: 'c_star', name: 'The Star', category: 'Tarot' },
-  { id: 'c_mercury', name: 'Mercury', category: 'Planet' },
+  { id: 'c_fool', name: 'The Fool', category: 'Tarot', pos: { x: 0, y: 0 } },
+  { id: 'c_star', name: 'The Star', category: 'Tarot', pos: { x: 1, y: 0 } },
+  { id: 'c_mercury', name: 'Mercury', category: 'Planet', pos: { x: 0, y: 3 } },
 ]
 
 // Componente controlado — mesmo motivo do harness em NumericFieldsForm.test.tsx.

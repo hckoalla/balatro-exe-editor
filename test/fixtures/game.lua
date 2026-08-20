@@ -23,16 +23,16 @@ return {
             deck_challenge={name = "Fixture Challenge Deck",stake = 1, unlocked = true,  order = 16, pos = {x=0,y=4}, set = "Back", config = {}, omit = true},
         },
         Tarot = {
-            c_fixture_tarot_one=    {name = "The Fixture Fool", order = 1, discovered = false, cost = 3, set = "Tarot", consumeable = true},
-            c_fixture_tarot_two=    {name = "The Fixture Star", order = 2, discovered = false, cost = 3, set = "Tarot", consumeable = true},
+            c_fixture_tarot_one=    {name = "The Fixture Fool", order = 1, discovered = false, cost = 3, pos = {x=0,y=0}, set = "Tarot", consumeable = true},
+            c_fixture_tarot_two=    {name = "The Fixture Star", order = 2, discovered = false, cost = 3, pos = {x=1,y=0}, set = "Tarot", consumeable = true},
         },
         Planet = {
-            c_fixture_planet_one=   {name = "Fixture Mercury",  order = 1, discovered = false, cost = 3, set = "Planet", consumeable = true},
-            c_fixture_planet_two=   {name = "Fixture Venus",    order = 2, discovered = false, cost = 3, set = "Planet", consumeable = true},
+            c_fixture_planet_one=   {name = "Fixture Mercury",  order = 1, discovered = false, cost = 3, pos = {x=0,y=3}, set = "Planet", consumeable = true},
+            c_fixture_planet_two=   {name = "Fixture Venus",    order = 2, discovered = false, cost = 3, pos = {x=1,y=3}, set = "Planet", consumeable = true},
         },
         Spectral = {
-            c_fixture_spectral_one= {name = "Fixture Wraith",     order = 1, discovered = false, cost = 4, set = "Spectral", consumeable = true},
-            c_fixture_spectral_two= {name = "Fixture Ectoplasm",  order = 2, discovered = false, cost = 4, set = "Spectral", consumeable = true},
+            c_fixture_spectral_one= {name = "Fixture Wraith",     order = 1, discovered = false, cost = 4, pos = {x=0,y=5}, set = "Spectral", consumeable = true},
+            c_fixture_spectral_two= {name = "Fixture Ectoplasm",  order = 2, discovered = false, cost = 4, pos = {x=1,y=5}, set = "Spectral", consumeable = true},
         },
     },
 }

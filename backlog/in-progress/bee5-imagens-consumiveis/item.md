@@ -2,7 +2,7 @@
 id: bee5-imagens-consumiveis
 title: "Mostrar imagem de cada consumível no seletor"
 type: story
-status: ready
+status: in-progress
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "19/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| ready | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| in-progress | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Depende de [bee4-catalogo-consumiveis](../../done/bee4-catalogo-consumiveis/item.md) e
 > [bee5-editor-consumiveis-iniciais](../../done/bee5-editor-consumiveis-iniciais/item.md).
@@ -60,7 +60,30 @@ isso pra desenhar a carta).
 
 ## Fora de escopo
 
-- Jokers (ver [bee11-jokers-iniciais-challenge](../../refining/bee11-jokers-iniciais-challenge/item.md)
-  — confirmado que é recurso de Challenge, não de Deck) — quando essa história avançar, deve
-  reaproveitar o mesmo mecanismo de extração de imagem definido aqui, não reinventar.
+- Jokers (ver [bee11-jokers-iniciais-challenge](../../fase3/bee11-jokers-iniciais-challenge/item.md)
+  — confirmado que é recurso de Challenge, não de Deck, e deliberadamente adiada pra fase 3) —
+  quando essa história avançar, deve reaproveitar o mesmo mecanismo de extração de imagem
+  definido aqui, não reinventar.
 - Assets de fonte/som/shader (`fonts/`, `sounds/`, `shaders/`) — não usados nesta história.
+
+## Progresso (WIP, 20/ago/26)
+
+Backend completo, testado, tsc/lint limpos (127 testes passando). Falta só o consumo na UI.
+
+- `electron/exe-engine/extract-file-from-exe.ts` (+ teste): versão genérica de `extractGameLua`,
+  extrai qualquer entrada do ZIP embutido por caminho, retorna `Buffer`.
+- `parseConsumableCatalog` agora extrai `pos` de cada consumível (regex `pos = {x=N,y=N}`) —
+  `ConsumableCatalogEntry` ganhou o campo `pos: { x, y }` em `src/shared/consumable-catalog-schema.ts`.
+  Fixture `test/fixtures/game.lua` atualizada com `pos` em todas as entradas de consumível.
+- `electron/consumable-catalog/get-consumable-atlas-from-exe.ts` (+ teste): extrai
+  `textures/1x/Tarots.png` do `.exe` do usuário via `extractFileFromExe`, retorna como
+  `data:image/png;base64,...`. Nunca lança — `null` se o atlas não existir/não puder ser lido
+  (fallback silencioso, mesmo padrão de `detectPreexistingEdits`).
+- Novo canal IPC `getConsumableAtlas` (`consumable-catalog:get-atlas`) — contrato
+  (`ipc-contract.ts`), `preload.ts`, handler (`register-consumable-catalog-handlers.ts`) e mock
+  global de teste (`vitest.setup.ts`) todos atualizados.
+
+**Falta**: consumir isso em `ConsumablesEditor.tsx` (buscar o atlas via IPC em
+`DeckEditorScreen`, passar como prop, renderizar cada item com
+`background-image: url(atlas); background-position: -{x*71}px -{y*95}px` nos resultados da busca
+e nos chips selecionados) + CSS + testes de componente.

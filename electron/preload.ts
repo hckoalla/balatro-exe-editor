@@ -10,6 +10,7 @@ const api: BalatroApi = {
   getDecks: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.getDecks, filePath),
   getConsumableCatalog: (filePath) =>
     ipcRenderer.invoke(IPC_CHANNELS.getConsumableCatalog, filePath),
+  getConsumableAtlas: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.getConsumableAtlas, filePath),
   hasBackup: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.hasBackup, filePath),
   restoreDefault: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.restoreDefault, filePath),
   saveDeck: (filePath, deck) => ipcRenderer.invoke(IPC_CHANNELS.saveDeck, filePath, deck),
