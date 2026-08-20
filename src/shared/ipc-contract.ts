@@ -16,6 +16,7 @@ export const IPC_CHANNELS = {
   getDecks: 'deck:get-all',
   getConsumableCatalog: 'consumable-catalog:get-all',
   getConsumableAtlas: 'consumable-catalog:get-atlas',
+  getConsumableDescriptions: 'consumable-catalog:get-descriptions',
   hasBackup: 'backup:has',
   restoreDefault: 'backup:restore',
   saveDeck: 'deck:save',
@@ -41,6 +42,10 @@ export interface BalatroApi {
   getDecks: (filePath: string) => Promise<ParsedDeck[]>
   getConsumableCatalog: (filePath: string) => Promise<ConsumableCatalogEntry[]>
   getConsumableAtlas: (filePath: string) => Promise<string | null>
+  getConsumableDescriptions: (
+    filePath: string,
+    language: string,
+  ) => Promise<Record<string, string> | null>
   hasBackup: (filePath: string) => Promise<boolean>
   restoreDefault: (filePath: string) => Promise<void>
   saveDeck: (filePath: string, deck: ParsedDeck) => Promise<SaveDeckResult>

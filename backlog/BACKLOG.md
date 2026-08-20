@@ -8,7 +8,7 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 0 |
+| ready | 1 |
 | in-progress | 0 |
 | qa | 5 |
 | done | 28 |
@@ -55,6 +55,7 @@
 - [done] bee5-editor-consumiveis-iniciais — P0
 - [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
 - [qa] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
+- [ready] bee5-tooltip-consumiveis — P3 (pós-MVP, pedida pelo usuário)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)

@@ -16,12 +16,14 @@ const CATALOG: ConsumableCatalogEntry[] = [
 function ControlledHarness({
   catalog,
   atlas,
+  descriptions,
   originalConsumables,
   initial,
   onChange,
 }: {
   catalog: ConsumableCatalogEntry[]
   atlas?: string | null
+  descriptions?: Record<string, string> | null
   originalConsumables: string[]
   initial: string[]
   onChange: (consumables: string[]) => void
@@ -31,6 +33,7 @@ function ControlledHarness({
     <ConsumablesEditor
       catalog={catalog}
       atlas={atlas}
+      descriptions={descriptions}
       originalConsumables={originalConsumables}
       consumables={consumables}
       onChange={(next) => {
@@ -46,11 +49,13 @@ function renderEditor(
   originalConsumables: string[] = initial,
   onChange = vi.fn(),
   atlas: string | null = null,
+  descriptions: Record<string, string> | null = null,
 ) {
   render(
     <ControlledHarness
       catalog={CATALOG}
       atlas={atlas}
+      descriptions={descriptions}
       originalConsumables={originalConsumables}
       initial={initial}
       onChange={onChange}
@@ -144,5 +149,61 @@ describe('ConsumablesEditor', () => {
     expect(chip?.querySelector('.consumables-editor__sprite')).toHaveStyle({
       backgroundImage: 'url(data:image/png;base64,FAKE)',
     })
+  })
+
+  it('shows a tooltip with name and description on hover over a search result icon', async () => {
+    const user = userEvent.setup()
+    renderEditor([], [], vi.fn(), 'data:image/png;base64,FAKE', {
+      c_fool: 'Creates the last Tarot or Planet card used during this run.',
+    })
+
+    await user.type(screen.getByPlaceholderText(/search/i), 'fool')
+    const option = await screen.findByRole('option', { name: 'The Fool' })
+    const sprite = option.querySelector('.consumables-editor__sprite')!
+    await user.hover(sprite)
+
+    const tooltip = await screen.findByRole('tooltip')
+    expect(tooltip).toHaveTextContent('The Fool')
+    expect(tooltip).toHaveTextContent('Creates the last Tarot or Planet card used during this run.')
+  })
+
+  it('hides the tooltip when the mouse leaves the icon', async () => {
+    const user = userEvent.setup()
+    renderEditor([], [], vi.fn(), 'data:image/png;base64,FAKE', { c_fool: 'Some effect.' })
+
+    await user.type(screen.getByPlaceholderText(/search/i), 'fool')
+    const option = await screen.findByRole('option', { name: 'The Fool' })
+    const sprite = option.querySelector('.consumables-editor__sprite')!
+    await user.hover(sprite)
+    await screen.findByRole('tooltip')
+    await user.unhover(sprite)
+
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+  })
+
+  it('shows the tooltip with just the name when no description is available', async () => {
+    const user = userEvent.setup()
+    renderEditor([], [], vi.fn(), 'data:image/png;base64,FAKE', null)
+
+    await user.type(screen.getByPlaceholderText(/search/i), 'fool')
+    const option = await screen.findByRole('option', { name: 'The Fool' })
+    const sprite = option.querySelector('.consumables-editor__sprite')!
+    await user.hover(sprite)
+
+    const tooltip = await screen.findByRole('tooltip')
+    expect(tooltip).toHaveTextContent('The Fool')
+  })
+
+  it('shows a tooltip when hovering a selected chip icon too', async () => {
+    const user = userEvent.setup()
+    renderEditor(['c_fool'], ['c_fool'], vi.fn(), 'data:image/png;base64,FAKE', {
+      c_fool: 'Some effect.',
+    })
+
+    const chip = screen.getByText('The Fool').closest('.consumables-editor__chip')!
+    const sprite = chip.querySelector('.consumables-editor__sprite')!
+    await user.hover(sprite)
+
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Some effect.')
   })
 })
