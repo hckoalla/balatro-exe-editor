@@ -1,3 +1,5 @@
+![Balatro EXE Editor](logo/banner_v1.png)
+
 # Balatro EXE Editor
 
 Desktop app (Electron + React + Vite + TypeScript) that edits `balatro.exe` directly, through a
