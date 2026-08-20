@@ -1,6 +1,6 @@
 name: Release
 
-# Dispara ao dar push numa tag (ex.: v0.1.0). Builda um .zip portátil (não um instalador -- ver
+# Dispara ao dar push numa tag (ex.: v0.1.0). Builda um .exe portátil (não um instalador -- ver
 # bee1-build-portatil) e anexa como asset na Release correspondente, criada automaticamente se
 # ainda não existir.
 on:
@@ -41,14 +41,14 @@ jobs:
       - name: Testes
         run: npx vitest run
 
-      - name: Empacotar .zip portátil
+      - name: Empacotar .exe portátil
         # --publish never desliga o auto-publish do electron-builder (ele tenta publicar
         # sozinho no GitHub Releases se detectar CI + tag, e falha sem GH_TOKEN) — quem
-        # publica é o step abaixo, com o .zip já pronto.
+        # publica é o step abaixo, com o .exe já pronto.
         run: npm run package -- --publish never
 
-      - name: Publicar release com o .zip portátil
+      - name: Publicar release com o .exe portátil
         uses: softprops/action-gh-release@v3
         with:
-          files: release/*.zip
+          files: release/*.exe
           generate_release_notes: true
