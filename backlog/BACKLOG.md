@@ -8,7 +8,7 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 0 |
+| ready | 1 |
 | in-progress | 0 |
 | qa | 4 |
 | done | 28 |
@@ -36,6 +36,7 @@
 - [done] bee2-prompt-sintese-claude-design — P0
 - [done] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
 - [qa] bee2-prompt-logo-banner — P3 (pós-MVP, pedida pelo usuário)
+- [ready] bee2-aplicar-logo-banner — P3 (pós-MVP, pedida pelo usuário)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [done] bee3-localizar-zip-embutido-no-exe — P0

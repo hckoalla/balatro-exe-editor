@@ -5,6 +5,12 @@ import userEvent from '@testing-library/user-event'
 import { SelectExeScreen } from './SelectExeScreen'
 
 describe('SelectExeScreen', () => {
+  it('shows the app banner', () => {
+    render(<SelectExeScreen onExeSelected={vi.fn()} />)
+
+    expect(screen.getByRole('img', { name: /balatro exe editor/i })).toBeInTheDocument()
+  })
+
   it('lets the user browse for and select a valid exe', async () => {
     const user = userEvent.setup()
     const onExeSelected = vi.fn()

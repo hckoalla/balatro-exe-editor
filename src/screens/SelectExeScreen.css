@@ -5,51 +5,11 @@
   padding: 0 20px;
 }
 
-.select-exe-screen__icon {
-  display: flex;
-  justify-content: center;
+.select-exe-screen__banner {
+  display: block;
+  width: 100%;
+  height: auto;
   margin-bottom: 28px;
-}
-
-.select-exe-screen__icon-stack {
-  position: relative;
-  width: 110px;
-  height: 70px;
-}
-
-.select-exe-screen__card {
-  position: absolute;
-  width: 60px;
-  height: 82px;
-  border-radius: 10px;
-}
-
-.select-exe-screen__card--back {
-  left: 20px;
-  top: 6px;
-  background: var(--color-panel-3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transform: rotate(-10deg);
-}
-
-.select-exe-screen__card--mid {
-  left: 25px;
-  top: 2px;
-  background: var(--color-panel-4);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transform: rotate(4deg);
-}
-
-.select-exe-screen__card--front {
-  left: 22px;
-  top: 0;
-  background: #332a3d;
-  border: 1px solid rgba(243, 181, 66, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-accent);
-  font-size: 22px;
 }
 
 .select-exe-screen__title {

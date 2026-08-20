@@ -29,6 +29,9 @@ function createWindow() {
     height: 800,
     show: false,
     title: buildWindowTitle(app.getVersion()),
+    // `build.win.icon` (package.json) só vale pro .exe empacotado — sem isso, `npm run dev`
+    // mostra o ícone genérico do Electron na taskbar (ver bee2-aplicar-logo-banner).
+    icon: path.join(__dirname, '../logo/logo_v1.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import bannerUrl from '../../logo/banner_v1.png'
 import './SelectExeScreen.css'
 
 export interface SelectExeScreenProps {
@@ -74,13 +75,7 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
 
   return (
     <div className="select-exe-screen">
-      <div className="select-exe-screen__icon">
-        <div className="select-exe-screen__icon-stack">
-          <div className="select-exe-screen__card select-exe-screen__card--back" />
-          <div className="select-exe-screen__card select-exe-screen__card--mid" />
-          <div className="select-exe-screen__card select-exe-screen__card--front">&#9824;</div>
-        </div>
-      </div>
+      <img className="select-exe-screen__banner" src={bannerUrl} alt="Balatro EXE Editor" />
 
       <h1 className="select-exe-screen__title">{t('selectExe.title')}</h1>
       <p className="select-exe-screen__subtitle">{t('selectExe.subtitle')}</p>

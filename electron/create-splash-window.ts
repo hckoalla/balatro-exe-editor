@@ -1,4 +1,6 @@
 import { BrowserWindow } from 'electron'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { buildSplashHtml } from './build-splash-html'
 
 /**
@@ -18,7 +20,11 @@ export function createSplashWindow(): BrowserWindow {
     webPreferences: { contextIsolation: true },
   })
 
-  splashWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(buildSplashHtml())}`)
+  // `readFileSync` síncrono é aceitável aqui — roda uma vez, antes de qualquer coisa aparecer na
+  // tela, e o arquivo é pequeno (ver bee2-aplicar-logo-banner).
+  const logoBase64 = readFileSync(join(__dirname, '../logo/logo_v1.png')).toString('base64')
+  const html = buildSplashHtml(logoBase64)
+  splashWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`)
 
   return splashWindow
 }
