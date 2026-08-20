@@ -8,7 +8,7 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 0 |
+| ready | 1 |
 | in-progress | 0 |
 | qa | 3 |
 | done | 28 |
@@ -29,6 +29,7 @@
 - [done] bee1-rodape-creditos — P3 (pós-MVP, pedida pelo usuário)
 - [done] bee1-versao-na-ui — P3 (pós-MVP, pedida pelo usuário)
 - [done] bee1-splash-nativa — P3 (pós-MVP, evolui bee1-loading-inicial — padrão do dark-generator)
+- [ready] bee1-build-portatil — P2 (pós-MVP, pedida pelo usuário — rescopa bee1-pipeline-release)
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0

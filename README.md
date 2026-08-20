@@ -45,8 +45,8 @@ updated with every story.
 
 - **[BEE-1](backlog/_epicas/BEE-1.md) · Setup & Foundation**: Electron + React + Vite + TS, a
   typed IPC bridge, persisted settings (`electron-store`), TDD test suite from day one.
-  Post-MVP: GitHub Actions release pipeline (packages the Windows installer when a tag is
-  published), an initial loading bar, a footer with credits and app version (read from
+  Post-MVP: GitHub Actions release pipeline (packages a portable `.zip` — no installer — when a
+  tag is published), an initial loading bar, a footer with credits and app version (read from
   `app.getVersion()`, no number duplicated in code).
 - **[BEE-2](backlog/_epicas/BEE-2.md) · Design**: a synthesis prompt for Claude Design to
   generate a prototype with Balatro's visual identity; the theme foundation applied to the app
@@ -75,7 +75,7 @@ Prerequisites: **Node.js** + **npm**.
 npm install
 npm run dev          # runs the app in dev mode (Vite + Electron)
 npm test             # runs the test suite (Vitest)
-npm run package      # builds the Windows installer (electron-builder), into release/
+npm run package      # builds a portable Windows .zip (electron-builder), into release/
 ```
 
 The version shown in the footer and window title comes from `app.getVersion()`, which reads the

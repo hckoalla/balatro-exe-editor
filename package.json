@@ -57,6 +57,9 @@
     ],
     "directories": {
       "output": "release"
+    },
+    "win": {
+      "target": ["zip"]
     }
   }
 }
