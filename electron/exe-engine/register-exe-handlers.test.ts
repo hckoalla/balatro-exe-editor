@@ -11,6 +11,7 @@ describe('registerExeHandlers', () => {
       registerExeHandlers(ipcMain, {
         showOpenDialog: async () => ({ canceled: false, filePaths: ['C:/games/balatro.exe'] }),
         readFile: async () => Buffer.from(''),
+        detectExeViaSteam: async () => null,
       })
 
       await expect(invoke(IPC_CHANNELS.selectExeFile)).resolves.toEqual({
@@ -24,6 +25,7 @@ describe('registerExeHandlers', () => {
       registerExeHandlers(ipcMain, {
         showOpenDialog: async () => ({ canceled: true, filePaths: [] }),
         readFile: async () => Buffer.from(''),
+        detectExeViaSteam: async () => null,
       })
 
       await expect(invoke(IPC_CHANNELS.selectExeFile)).resolves.toEqual({
@@ -40,10 +42,26 @@ describe('registerExeHandlers', () => {
       registerExeHandlers(ipcMain, {
         showOpenDialog: async () => ({ canceled: true, filePaths: [] }),
         readFile: async () => exe,
+        detectExeViaSteam: async () => null,
       })
 
       await expect(invoke(IPC_CHANNELS.validateExeFile, 'C:/games/balatro.exe')).resolves.toEqual(
         { valid: true, reason: null },
+      )
+    })
+  })
+
+  describe('detectExeViaSteam', () => {
+    it('delegates to the injected detection dependency', async () => {
+      const { ipcMain, invoke } = createFakeIpcMain()
+      registerExeHandlers(ipcMain, {
+        showOpenDialog: async () => ({ canceled: true, filePaths: [] }),
+        readFile: async () => Buffer.from(''),
+        detectExeViaSteam: async () => 'C:/games/steamapps/common/Balatro/Balatro.exe',
+      })
+
+      await expect(invoke(IPC_CHANNELS.detectExeViaSteam)).resolves.toBe(
+        'C:/games/steamapps/common/Balatro/Balatro.exe',
       )
     })
   })

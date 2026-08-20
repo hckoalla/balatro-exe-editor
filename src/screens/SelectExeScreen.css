@@ -128,3 +128,20 @@
   line-height: 1.5;
   margin: 0;
 }
+
+/* Tom neutro (não vermelho/alarmante como o erro) — "não encontrado" não é o mesmo que "arquivo
+   inválido" (ver bee8-detectar-instalacao-steam). */
+.select-exe-screen__notice {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+}
+
+.select-exe-screen__notice-body {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}

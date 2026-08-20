@@ -16,6 +16,7 @@ if (typeof window !== 'undefined') {
       updateSettings: vi.fn().mockResolvedValue(DEFAULT_SETTINGS),
       selectExeFile: vi.fn().mockResolvedValue({ canceled: true, filePath: null }),
       validateExeFile: vi.fn().mockResolvedValue({ valid: false, reason: null }),
+      detectExeViaSteam: vi.fn().mockResolvedValue(null),
       getDecks: vi.fn().mockResolvedValue([]),
       getConsumableCatalog: vi.fn().mockResolvedValue([]),
       getConsumableAtlas: vi.fn().mockResolvedValue(null),

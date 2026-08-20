@@ -1,6 +1,6 @@
 import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron'
 import path from 'node:path'
-import { readFile, writeFile } from 'node:fs/promises'
+import { access, readFile, writeFile } from 'node:fs/promises'
 import { registerAppHandlers } from './ipc/register-app-handlers'
 import { createElectronSettingsStore } from './settings/electron-store-adapter'
 import { createSettingsService } from './settings/settings-service'
@@ -14,6 +14,8 @@ import { registerBackupHandlers } from './backup/register-backup-handlers'
 import { registerSaveDeckHandlers } from './deck-config/register-save-deck-handlers'
 import { buildWindowTitle } from './build-window-title'
 import { createSplashWindow } from './create-splash-window'
+import { detectBalatroViaSteam } from './steam-detection/detect-balatro-via-steam'
+import { getSteamPathFromRegistry } from './steam-detection/get-steam-path-from-registry'
 
 const DIST = path.join(__dirname, '../dist')
 const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL
@@ -72,6 +74,15 @@ app.whenReady().then(() => {
       })
     },
     readFile: (filePath) => readFile(filePath),
+    detectExeViaSteam: () =>
+      detectBalatroViaSteam({
+        getSteamPath: getSteamPathFromRegistry,
+        readFile: (filePath) => readFile(filePath, 'utf-8'),
+        fileExists: (filePath) =>
+          access(filePath)
+            .then(() => true)
+            .catch(() => false),
+      }),
   })
   registerDeckHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })
   registerConsumableCatalogHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })

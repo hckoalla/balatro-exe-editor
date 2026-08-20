@@ -8,6 +8,8 @@ export const es: Messages = {
     browse: 'Buscar balatro.exe',
     invalidTitle: 'No es un ejecutable válido de Balatro',
     genericInvalid: 'Esto no parece ser un balatro.exe válido.',
+    detectSteam: 'Detectar automáticamente (Steam)',
+    steamNotFound: 'No se pudo encontrar Balatro a través de Steam — probá buscarlo manualmente.',
   },
   decks: {
     loading: 'Cargando mazos…',

@@ -12,6 +12,7 @@ export const IPC_CHANNELS = {
   updateSettings: 'settings:update',
   selectExeFile: 'exe:select-file',
   validateExeFile: 'exe:validate-file',
+  detectExeViaSteam: 'exe:detect-steam',
   getDecks: 'deck:get-all',
   getConsumableCatalog: 'consumable-catalog:get-all',
   getConsumableAtlas: 'consumable-catalog:get-atlas',
@@ -36,6 +37,7 @@ export interface BalatroApi {
   updateSettings: (partial: Partial<AppSettings>) => Promise<AppSettings>
   selectExeFile: () => Promise<SelectExeFileResult>
   validateExeFile: (filePath: string) => Promise<ValidateExeFileResult>
+  detectExeViaSteam: () => Promise<string | null>
   getDecks: (filePath: string) => Promise<ParsedDeck[]>
   getConsumableCatalog: (filePath: string) => Promise<ConsumableCatalogEntry[]>
   getConsumableAtlas: (filePath: string) => Promise<string | null>

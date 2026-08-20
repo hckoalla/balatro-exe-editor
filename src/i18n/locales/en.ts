@@ -10,6 +10,8 @@ export const en = {
     browse: 'Browse for balatro.exe',
     invalidTitle: 'Not a valid Balatro executable',
     genericInvalid: 'This does not look like a valid balatro.exe.',
+    detectSteam: 'Detect automatically (Steam)',
+    steamNotFound: "Could not find Balatro through Steam — try browsing for it manually.",
   },
   decks: {
     loading: 'Loading decks…',

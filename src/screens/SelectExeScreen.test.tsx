@@ -90,4 +90,40 @@ describe('SelectExeScreen', () => {
     expect(screen.queryByText(/could not read/i)).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: /browse/i })).toBeInTheDocument()
   })
+
+  it('does not run Steam detection on its own — it is not called until the user clicks the button', () => {
+    render(<SelectExeScreen onExeSelected={vi.fn()} />)
+
+    expect(window.balatro.detectExeViaSteam).not.toHaveBeenCalled()
+  })
+
+  it('lets the user trigger Steam detection and selects the exe it finds', async () => {
+    const user = userEvent.setup()
+    const onExeSelected = vi.fn()
+    vi.mocked(window.balatro.detectExeViaSteam).mockResolvedValue(
+      'C:/Steam/steamapps/common/Balatro/Balatro.exe',
+    )
+    vi.mocked(window.balatro.validateExeFile).mockResolvedValue({ valid: true, reason: null })
+
+    render(<SelectExeScreen onExeSelected={onExeSelected} />)
+    await user.click(screen.getByRole('button', { name: /detect automatically/i }))
+
+    await waitFor(() =>
+      expect(onExeSelected).toHaveBeenCalledWith('C:/Steam/steamapps/common/Balatro/Balatro.exe'),
+    )
+  })
+
+  it('shows a not-found state (not the invalid-file error) when Steam detection finds nothing', async () => {
+    const user = userEvent.setup()
+    vi.mocked(window.balatro.detectExeViaSteam).mockResolvedValue(null)
+
+    render(<SelectExeScreen onExeSelected={vi.fn()} />)
+    await user.click(screen.getByRole('button', { name: /detect automatically/i }))
+
+    expect(await screen.findByText(/could not find balatro through steam/i)).toBeInTheDocument()
+    expect(screen.queryByText(/not a valid balatro executable/i)).not.toBeInTheDocument()
+    // ainda dá pra tentar de novo, dos dois jeitos
+    expect(screen.getByRole('button', { name: /browse/i })).toBeEnabled()
+    expect(screen.getByRole('button', { name: /detect automatically/i })).toBeEnabled()
+  })
 })

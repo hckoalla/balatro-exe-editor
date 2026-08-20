@@ -10,6 +10,7 @@ export interface OpenDialogResult {
 export interface ExeHandlersDeps {
   showOpenDialog: () => Promise<OpenDialogResult>
   readFile: (path: string) => Promise<Buffer>
+  detectExeViaSteam: () => Promise<string | null>
 }
 
 export function registerExeHandlers(ipcMain: IpcMainLike, deps: ExeHandlersDeps) {
@@ -24,4 +25,6 @@ export function registerExeHandlers(ipcMain: IpcMainLike, deps: ExeHandlersDeps)
   ipcMain.handle(IPC_CHANNELS.validateExeFile, (_event, filePath: string) =>
     validateBalatroExe(filePath, deps.readFile),
   )
+
+  ipcMain.handle(IPC_CHANNELS.detectExeViaSteam, () => deps.detectExeViaSteam())
 }

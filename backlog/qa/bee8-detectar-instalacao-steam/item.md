@@ -2,7 +2,7 @@
 id: bee8-detectar-instalacao-steam
 title: "Detectar automaticamente a instalação do Balatro via Steam"
 type: story
-status: ready
+status: qa
 owner: ""
 sistema: main
 domain: BEE-8
@@ -16,7 +16,7 @@ updated: "08/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| ready | P1 | [BEE-8](../../_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2) | main |
+| qa | P1 | [BEE-8](../../_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2) | main |
 
 > Como usuário, quero poder escolher entre localizar o `balatro.exe` manualmente ou pedir pro app
 > tentar detectar automaticamente (se eu tenho o jogo instalado via Steam), em vez de só um dos
@@ -70,3 +70,33 @@ esse continua automático, é sobre reabrir o app; a detecção via Steam é sob
   instalado em nenhuma biblioteca, `.acf` ausente/corrompido), mostra um estado de "não
   encontrado" (não um erro de arquivo inválido) e o usuário cai de volta pro botão de busca
   manual sem travar a tela.
+
+## Progresso
+
+Concluído em 20/ago/26. 145 testes passando, tsc/lint limpos, build de produção ok.
+
+- `electron/steam-detection/` (novo, 4 arquivos + testes):
+  - `get-steam-path-from-registry.ts` — `reg query "HKCU\Software\Valve\Steam" /v SteamPath` via
+    `child_process` (injetável, testável sem shell real). `null` se a chave não existir.
+  - `parse-vdf-library-paths.ts` — parser mínimo pro formato VDF (KeyValues da Valve, não JSON)
+    de `libraryfolders.vdf`, sob medida pro que a detecção precisa (campo `"path"` de cada
+    biblioteca numerada), mesmo espírito do parser de baralho do `game.lua`.
+  - `extract-appmanifest-installdir.ts` — extrai `"installdir"` de `appmanifest_2379780.acf`.
+  - `detect-balatro-via-steam.ts` — orquestra os três acima: registro → todas as bibliotecas do
+    `.vdf` → `.acf` por biblioteca → `Balatro.exe`. Nunca lança, `null` em qualquer falha.
+  - Testes usam o conteúdo **real** do `libraryfolders.vdf`/`appmanifest_2379780.acf` capturados
+    da máquina do usuário durante o refinamento, como fixture.
+- Novo canal IPC `detectExeViaSteam` (`exe:detect-steam`) — contrato, `preload.ts`, handler
+  (`register-exe-handlers.ts`, com deps reais wireadas em `main.ts`: `readFile`/`access` do
+  `node:fs/promises`) e mock global de teste.
+- `SelectExeScreen`: novo botão "Detectar automaticamente (Steam)" ao lado do "Procurar" — só
+  roda a detecção quando clicado (não no mount da tela). Sucesso segue o mesmo
+  `handleUseExe` da seleção manual. Falha mostra um aviso neutro (`.select-exe-screen__notice`,
+  não o box vermelho de erro) — "não encontrado" é um estado diferente de "arquivo inválido".
+  Chaves i18n novas (`selectExe.detectSteam`, `selectExe.steamNotFound`) nos 3 idiomas.
+- **Validado end-to-end na máquina real do usuário** (não só com fakes/mocks) — rodei a cadeia
+  completa via script (`tsx`, descartado depois) e o resultado bateu exatamente:
+  `C:\Program Files (x86)\Steam\steamapps\common\Balatro\Balatro.exe`.
+- **Não verificado visualmente na UI** (sem captura de tela de janela nativa neste ambiente,
+  mesma limitação de `bee1-splash-nativa`/`bee5-imagens-consumiveis`) — a lógica de detecção em
+  si já está confirmada real, só o botão/aviso na tela vale conferir ao abrir o app de verdade.

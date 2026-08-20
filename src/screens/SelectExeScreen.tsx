@@ -10,6 +10,7 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
   const { t } = useTranslation()
   const [suggestedPath, setSuggestedPath] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [steamNotFound, setSteamNotFound] = useState(false)
   const [isBusy, setIsBusy] = useState(false)
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
   async function handleUseExe(filePath: string) {
     setIsBusy(true)
     setError(null)
+    setSteamNotFound(false)
     try {
       const result = await window.balatro.validateExeFile(filePath)
       if (!result.valid) {
@@ -52,6 +54,22 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
     const selection = await window.balatro.selectExeFile()
     if (selection.canceled || !selection.filePath) return
     await handleUseExe(selection.filePath)
+  }
+
+  async function handleDetectSteam() {
+    setIsBusy(true)
+    setError(null)
+    setSteamNotFound(false)
+    try {
+      const detectedPath = await window.balatro.detectExeViaSteam()
+      if (!detectedPath) {
+        setSteamNotFound(true)
+        return
+      }
+      await handleUseExe(detectedPath)
+    } finally {
+      setIsBusy(false)
+    }
   }
 
   return (
@@ -87,12 +105,27 @@ export function SelectExeScreen({ onExeSelected }: SelectExeScreenProps) {
         >
           {t('selectExe.browse')}
         </button>
+
+        <button
+          type="button"
+          className="select-exe-screen__button select-exe-screen__button--secondary"
+          onClick={handleDetectSteam}
+          disabled={isBusy}
+        >
+          {t('selectExe.detectSteam')}
+        </button>
       </div>
 
       {error && (
         <div className="select-exe-screen__error" role="alert">
           <p className="select-exe-screen__error-title">{t('selectExe.invalidTitle')}</p>
           <p className="select-exe-screen__error-body">{error}</p>
+        </div>
+      )}
+
+      {steamNotFound && (
+        <div className="select-exe-screen__notice" role="status">
+          <p className="select-exe-screen__notice-body">{t('selectExe.steamNotFound')}</p>
         </div>
       )}
     </div>
