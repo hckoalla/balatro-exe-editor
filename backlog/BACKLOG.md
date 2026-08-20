@@ -7,8 +7,8 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 2 |
-| ready | 1 |
+| refining | 1 |
+| ready | 2 |
 | in-progress | 0 |
 | qa | 1 |
 | done | 28 |
@@ -69,7 +69,8 @@
 refinadas de verdade.
 
 ### [BEE-8](_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2)
-- [refining] bee8-detectar-instalacao-steam — P1
+- [ready] bee8-detectar-instalacao-steam — P1 (refinada 19/ago/26 — cadeia de detecção validada
+  empiricamente, e vira ação explícita do usuário, não automática ao abrir a tela)
 
 ### [BEE-9](_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2)
 - [cancelled] bee9-investigar-formato-exe-mac-linux — P2 (spike — sem demanda real, ver item.md)
