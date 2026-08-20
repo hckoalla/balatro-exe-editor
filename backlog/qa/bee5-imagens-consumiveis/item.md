@@ -2,7 +2,7 @@
 id: bee5-imagens-consumiveis
 title: "Mostrar imagem de cada consumível no seletor"
 type: story
-status: in-progress
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "19/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| in-progress | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| qa | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Depende de [bee4-catalogo-consumiveis](../../done/bee4-catalogo-consumiveis/item.md) e
 > [bee5-editor-consumiveis-iniciais](../../done/bee5-editor-consumiveis-iniciais/item.md).
@@ -66,9 +66,9 @@ isso pra desenhar a carta).
   definido aqui, não reinventar.
 - Assets de fonte/som/shader (`fonts/`, `sounds/`, `shaders/`) — não usados nesta história.
 
-## Progresso (WIP, 20/ago/26)
+## Progresso
 
-Backend completo, testado, tsc/lint limpos (127 testes passando). Falta só o consumo na UI.
+Concluído em 20/ago/26. 130 testes passando, tsc/lint limpos, build de produção ok.
 
 - `electron/exe-engine/extract-file-from-exe.ts` (+ teste): versão genérica de `extractGameLua`,
   extrai qualquer entrada do ZIP embutido por caminho, retorna `Buffer`.
@@ -82,8 +82,15 @@ Backend completo, testado, tsc/lint limpos (127 testes passando). Falta só o co
 - Novo canal IPC `getConsumableAtlas` (`consumable-catalog:get-atlas`) — contrato
   (`ipc-contract.ts`), `preload.ts`, handler (`register-consumable-catalog-handlers.ts`) e mock
   global de teste (`vitest.setup.ts`) todos atualizados.
+- `DeckEditorScreen` busca o atlas via IPC junto com o catálogo, passa como prop pro
+  `ConsumablesEditor`.
+- `ConsumablesEditor` recorta o atlas via CSS (`background-image` + `background-size` +
+  `background-position`, escalado de 71×95px reais pra 28×~37px de exibição) — mostra o sprite
+  nos resultados da busca e nos chips selecionados. Sem atlas (`null`), nenhum `background-image`
+  é aplicado — cai pro fallback de mostrar só o nome, sem quebrar a tela.
+- 3 novos testes de componente cobrindo: recorte correto por posição, ausência de sprite sem
+  atlas, e sprite também aparecendo nos chips.
 
-**Falta**: consumir isso em `ConsumablesEditor.tsx` (buscar o atlas via IPC em
-`DeckEditorScreen`, passar como prop, renderizar cada item com
-`background-image: url(atlas); background-position: -{x*71}px -{y*95}px` nos resultados da busca
-e nos chips selecionados) + CSS + testes de componente.
+**Não verificado visualmente** (sem captura de tela de janela nativa do Windows neste ambiente,
+mesma limitação já registrada em `bee1-splash-nativa`) — vale conferir o tamanho/proporção do
+sprite (28×37px) ao abrir o app de verdade.

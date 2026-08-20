@@ -17,11 +17,15 @@ export function DeckEditorScreen({ deck, exePath, onBack }: DeckEditorScreenProp
   const { t } = useTranslation()
   const [config, setConfig] = useState(deck.config)
   const [catalog, setCatalog] = useState<ConsumableCatalogEntry[]>([])
+  const [atlas, setAtlas] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
     window.balatro.getConsumableCatalog(exePath).then((result) => {
       if (!cancelled) setCatalog(result)
+    })
+    window.balatro.getConsumableAtlas(exePath).then((result) => {
+      if (!cancelled) setAtlas(result)
     })
     return () => {
       cancelled = true
@@ -51,6 +55,7 @@ export function DeckEditorScreen({ deck, exePath, onBack }: DeckEditorScreenProp
 
       <ConsumablesEditor
         catalog={catalog}
+        atlas={atlas}
         originalConsumables={deck.config.consumables ?? []}
         consumables={config.consumables ?? []}
         onChange={handleConsumablesChange}

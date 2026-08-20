@@ -15,11 +15,13 @@ const CATALOG: ConsumableCatalogEntry[] = [
 // Componente controlado — mesmo motivo do harness em NumericFieldsForm.test.tsx.
 function ControlledHarness({
   catalog,
+  atlas,
   originalConsumables,
   initial,
   onChange,
 }: {
   catalog: ConsumableCatalogEntry[]
+  atlas?: string | null
   originalConsumables: string[]
   initial: string[]
   onChange: (consumables: string[]) => void
@@ -28,6 +30,7 @@ function ControlledHarness({
   return (
     <ConsumablesEditor
       catalog={catalog}
+      atlas={atlas}
       originalConsumables={originalConsumables}
       consumables={consumables}
       onChange={(next) => {
@@ -42,10 +45,12 @@ function renderEditor(
   initial: string[],
   originalConsumables: string[] = initial,
   onChange = vi.fn(),
+  atlas: string | null = null,
 ) {
   render(
     <ControlledHarness
       catalog={CATALOG}
+      atlas={atlas}
       originalConsumables={originalConsumables}
       initial={initial}
       onChange={onChange}
@@ -106,5 +111,38 @@ describe('ConsumablesEditor', () => {
     renderEditor(['c_fool'], ['c_fool'])
 
     expect(screen.queryByRole('button', { name: /reset starting consumables/i })).not.toBeInTheDocument()
+  })
+
+  it('crops the atlas at the entry position for search results, when an atlas is provided', async () => {
+    const user = userEvent.setup()
+    renderEditor([], [], vi.fn(), 'data:image/png;base64,FAKE')
+
+    await user.type(screen.getByPlaceholderText(/search/i), 'star')
+    const option = await screen.findByRole('option', { name: 'The Star' })
+    const sprite = option.querySelector('.consumables-editor__sprite')
+
+    expect(sprite).toHaveStyle({ backgroundImage: 'url(data:image/png;base64,FAKE)' })
+    // c_star tem pos={x:1,y:0} — recorte não pode ficar no x=0 (posição do c_fool).
+    expect(sprite?.getAttribute('style')).not.toContain('-0px -0px')
+  })
+
+  it('does not render a sprite background when no atlas is available (fallback to name only)', async () => {
+    const user = userEvent.setup()
+    renderEditor([], [], vi.fn(), null)
+
+    await user.type(screen.getByPlaceholderText(/search/i), 'fool')
+    const option = await screen.findByRole('option', { name: 'The Fool' })
+    const sprite = option.querySelector('.consumables-editor__sprite')
+
+    expect(sprite?.getAttribute('style') ?? '').not.toContain('background-image')
+  })
+
+  it('shows a sprite on selected chips too, when an atlas is provided', () => {
+    renderEditor(['c_fool'], ['c_fool'], vi.fn(), 'data:image/png;base64,FAKE')
+
+    const chip = screen.getByText('The Fool').closest('.consumables-editor__chip')
+    expect(chip?.querySelector('.consumables-editor__sprite')).toHaveStyle({
+      backgroundImage: 'url(data:image/png;base64,FAKE)',
+    })
   })
 })

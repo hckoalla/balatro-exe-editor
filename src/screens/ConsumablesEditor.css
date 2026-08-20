@@ -57,6 +57,9 @@
 }
 
 .consumables-editor__result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 8px 12px;
   font-size: 13px;
   color: var(--color-text-tertiary);
@@ -66,6 +69,17 @@
 .consumables-editor__result:hover {
   background: rgba(255, 255, 255, 0.06);
   color: var(--color-text);
+}
+
+/* Tamanho de exibição do recorte do atlas — precisa bater com SPRITE_DISPLAY_WIDTH/HEIGHT em
+   ConsumablesEditor.tsx (background-size/background-position vêm de lá, inline). */
+.consumables-editor__sprite {
+  flex-shrink: 0;
+  width: 28px;
+  height: 37px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.04);
+  background-repeat: no-repeat;
 }
 
 .consumables-editor__chips {
