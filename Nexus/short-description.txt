@@ -1,0 +1,1 @@
+Customize each Balatro deck's starting money, joker slots, and consumable slots, and choose exactly which consumables (Tarots, Planets, Spectrals) you begin with. A single portable .exe, no installer. Edits balatro.exe directly, with automatic backup and one-click restore to default.
