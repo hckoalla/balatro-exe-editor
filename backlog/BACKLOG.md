@@ -77,8 +77,11 @@ refinadas de verdade.
 
 ### [BEE-10](_epicas/BEE-10.md) · Editor Avançado de Campos (Fase 2)
 - [cancelled] bee10-editor-generico-campos-lua — P2 (sem demanda real, ver item.md)
-- [refining] bee10-jokers-iniciais — P2 (depende do usuário confirmar se o campo existe no jogo —
-  agora também referencia bee5-imagens-consumiveis pro mecanismo de imagem)
+
+### [BEE-11](_epicas/BEE-11.md) · Challenges (Fase 2)
+- [refining] bee11-jokers-iniciais-challenge — P2 (reescrita de bee10-jokers-iniciais — confirmado
+  no código-fonte real que jokers iniciais são recurso de Challenge, não de Deck; nova épica
+  própria por ser estrutura de dados separada, `challenges.lua`)
 
 ## Ordem sugerida (dependências)
 

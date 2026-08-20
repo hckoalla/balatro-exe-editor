@@ -60,7 +60,7 @@ isso pra desenhar a carta).
 
 ## Fora de escopo
 
-- Jokers (ver [bee10-jokers-iniciais](../bee10-jokers-iniciais/item.md), ainda depende de
-  investigação separada sobre se o jogo suporta jokers iniciais) — quando essa história avançar,
-  deve reaproveitar o mesmo mecanismo de extração de imagem definido aqui, não reinventar.
+- Jokers (ver [bee11-jokers-iniciais-challenge](../../refining/bee11-jokers-iniciais-challenge/item.md)
+  — confirmado que é recurso de Challenge, não de Deck) — quando essa história avançar, deve
+  reaproveitar o mesmo mecanismo de extração de imagem definido aqui, não reinventar.
 - Assets de fonte/som/shader (`fonts/`, `sounds/`, `shaders/`) — não usados nesta história.

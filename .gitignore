@@ -11,6 +11,10 @@ fixtures/real/
 /sounds/
 /textures/
 
+# Código-fonte COMPLETO do jogo, extraído do balatro.exe pra investigação de backlog (ver
+# bee10-jokers-iniciais, 19/ago/26). Ainda mais sensível que os itens acima — nunca versionar.
+/balatro-exe-source-code/
+
 # Node
 node_modules/
 dist/
