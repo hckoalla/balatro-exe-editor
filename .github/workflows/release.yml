@@ -55,18 +55,12 @@ jobs:
           files: release/*.exe
           generate_release_notes: true
 
-      - name: Instalar butler (CLI do itch.io)
-        # Instalação oficial documentada pelo itch.io (broth.itch.zone) -- em vez de uma Action
-        # de terceiro com acesso ao secret, roda um binário auditável, baixado direto da fonte.
-        shell: bash
-        run: |
-          curl -L -o butler.zip https://broth.itch.zone/butler/windows-amd64/LATEST/archive/default
-          unzip -o butler.zip -d butler
-          ./butler/butler -V
+      - name: Instalar butler (itch.io)
+        uses: itchio/setup-butler@v1
 
       - name: Publicar no itch.io
-        shell: bash
         env:
           BUTLER_API_KEY: ${{ secrets.ITCHIO_SECRET }}
         run: |
-          ./butler/butler push release/*.exe storydevgames/balatro-exe-editor:win --userversion "${GITHUB_REF_NAME#v}"
+          $exe = Get-ChildItem release\*.exe | Select-Object -First 1
+          butler push $exe.FullName storydevgames/balatro-exe-editor:win --userversion ${{ github.ref_name }}
