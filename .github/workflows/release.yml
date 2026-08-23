@@ -1,8 +1,9 @@
 name: Release
 
 # Dispara ao dar push numa tag (ex.: v0.1.0). Builda um .exe portátil (não um instalador -- ver
-# bee1-build-portatil) e anexa como asset na Release correspondente, criada automaticamente se
-# ainda não existir.
+# bee1-build-portatil) e publica em dois lugares: GitHub Release (criada automaticamente se
+# ainda não existir) e itch.io (via butler, usando o environment "production" pro secret
+# ITCHIO_SECRET).
 on:
   push:
     tags:
@@ -14,6 +15,7 @@ permissions:
 jobs:
   build-and-release:
     runs-on: windows-latest
+    environment: production
     env:
       # Sem certificado de assinatura configurado — sem isso, o electron-builder tenta
       # baixar/extrair o winCodeSign à toa (mesmo gotcha documentado em .claude/CLAUDE.md pro
@@ -52,3 +54,19 @@ jobs:
         with:
           files: release/*.exe
           generate_release_notes: true
+
+      - name: Instalar butler (CLI do itch.io)
+        # Instalação oficial documentada pelo itch.io (broth.itch.zone) -- em vez de uma Action
+        # de terceiro com acesso ao secret, roda um binário auditável, baixado direto da fonte.
+        shell: bash
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/windows-amd64/LATEST/archive/default
+          unzip -o butler.zip -d butler
+          ./butler/butler -V
+
+      - name: Publicar no itch.io
+        shell: bash
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCHIO_SECRET }}
+        run: |
+          ./butler/butler push release/*.exe storydevgames/balatro-exe-editor:win --userversion "${GITHUB_REF_NAME#v}"
