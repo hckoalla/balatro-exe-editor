@@ -29,6 +29,8 @@ export const es: Messages = {
     resetField: 'Restablecer {{label}}',
     warning:
       '{{label}}: este valor no ha sido probado (rango seguro hasta ±{{limit}}) y podría hacer que el juego deje de funcionar.',
+    challengeDeckDollarsNote:
+      'El desafío Impuesto al Lujo reduce el tamaño de tu mano a medida que este dinero se acumula — un valor alto acá puede volver ese desafío injugable.',
   },
   consumables: {
     label: 'Consumibles Iniciales',

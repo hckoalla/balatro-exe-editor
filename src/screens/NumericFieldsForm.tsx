@@ -4,6 +4,7 @@ import './NumericFieldsForm.css'
 
 export interface NumericFieldsFormProps {
   config: DeckConfig
+  deckId: string
   onChange: (config: DeckConfig) => void
 }
 
@@ -22,7 +23,7 @@ const FIELDS: FieldDef[] = [
   { key: 'consumable_slot', labelKey: 'numericFields.consumableSlot', safeLimit: 90 },
 ]
 
-export function NumericFieldsForm({ config, onChange }: NumericFieldsFormProps) {
+export function NumericFieldsForm({ config, deckId, onChange }: NumericFieldsFormProps) {
   const { t } = useTranslation()
 
   function handleFieldChange(key: NumericKey, rawValue: string) {
@@ -96,6 +97,9 @@ export function NumericFieldsForm({ config, onChange }: NumericFieldsFormProps) 
                 </div>
               </div>
               <p className="numeric-field__hint">{t('numericFields.addedToBase')}</p>
+              {field.key === 'dollars' && deckId === 'b_challenge' && (
+                <p className="numeric-field__note">{t('numericFields.challengeDeckDollarsNote')}</p>
+              )}
             </div>
           )
         })}

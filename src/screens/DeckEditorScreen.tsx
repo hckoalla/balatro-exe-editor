@@ -55,7 +55,7 @@ export function DeckEditorScreen({ deck, exePath, onBack }: DeckEditorScreenProp
       </button>
       <h1 className="deck-editor-screen__title">{deck.name}</h1>
 
-      <NumericFieldsForm config={config} onChange={setConfig} />
+      <NumericFieldsForm config={config} deckId={deck.id} onChange={setConfig} />
 
       <ConsumablesEditor
         catalog={catalog}

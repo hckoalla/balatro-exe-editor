@@ -12,14 +12,17 @@ import { NumericFieldsForm } from './NumericFieldsForm'
 function ControlledHarness({
   initial,
   onChange,
+  deckId,
 }: {
   initial: DeckConfig
   onChange: (config: DeckConfig) => void
+  deckId: string
 }) {
   const [config, setConfig] = useState(initial)
   return (
     <NumericFieldsForm
       config={config}
+      deckId={deckId}
       onChange={(next) => {
         setConfig(next)
         onChange(next)
@@ -28,8 +31,8 @@ function ControlledHarness({
   )
 }
 
-function renderForm(initial: DeckConfig, onChange = vi.fn()) {
-  render(<ControlledHarness initial={initial} onChange={onChange} />)
+function renderForm(initial: DeckConfig, onChange = vi.fn(), deckId = 'b_red') {
+  render(<ControlledHarness initial={initial} onChange={onChange} deckId={deckId} />)
   return { onChange }
 }
 
@@ -111,5 +114,17 @@ describe('NumericFieldsForm', () => {
     await user.click(screen.getByRole('button', { name: /reset starting money/i }))
 
     expect(onChange).toHaveBeenLastCalledWith({ joker_slot: 2 })
+  })
+
+  it('shows an always-visible note about the Luxury Tax challenge next to Starting Money, only for the Challenge Deck', () => {
+    renderForm({}, vi.fn(), 'b_challenge')
+
+    expect(screen.getByText(/luxury tax/i)).toBeInTheDocument()
+  })
+
+  it('does not show the Luxury Tax note for decks other than the Challenge Deck', () => {
+    renderForm({}, vi.fn(), 'b_red')
+
+    expect(screen.queryByText(/luxury tax/i)).not.toBeInTheDocument()
   })
 })

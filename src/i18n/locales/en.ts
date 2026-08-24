@@ -31,6 +31,8 @@ export const en = {
     resetField: 'Reset {{label}}',
     warning:
       "{{label}}: this value hasn't been tested (safe range up to ±{{limit}}) and could make the game stop working.",
+    challengeDeckDollarsNote:
+      "The Luxury Tax challenge shrinks your hand size as this money adds up — a high value here can make that challenge unplayable.",
   },
   consumables: {
     label: 'Starting Consumables',

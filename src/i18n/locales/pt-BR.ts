@@ -29,6 +29,8 @@ export const ptBR: Messages = {
     resetField: 'Restaurar {{label}}',
     warning:
       '{{label}}: esse valor ainda não foi testado (faixa segura até ±{{limit}}) e pode fazer o jogo parar de funcionar.',
+    challengeDeckDollarsNote:
+      'O desafio Imposto de Luxo encolhe o tamanho da mão conforme esse dinheiro se acumula — um valor alto aqui pode tornar esse desafio impossível de jogar.',
   },
   consumables: {
     label: 'Consumíveis Iniciais',
