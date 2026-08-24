@@ -2,7 +2,7 @@
 id: bee1-build-portatil
 title: "Build portátil (.exe único) no lugar do instalador"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: infra
 domain: BEE-1
@@ -16,7 +16,7 @@ updated: "20/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P2 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
+| done | P2 | [BEE-1](../../_epicas/BEE-1.md) · Setup & Fundação do Projeto | infra |
 
 > Rescopa [bee1-pipeline-release](../../done/bee1-pipeline-release/item.md) — troca o alvo do
 > `electron-builder`, não muda o gatilho/estrutura do pipeline.

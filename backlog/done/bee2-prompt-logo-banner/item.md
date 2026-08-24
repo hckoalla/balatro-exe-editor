@@ -2,7 +2,7 @@
 id: bee2-prompt-logo-banner
 title: "Prompt de síntese pro logo e banner do app"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: design
 domain: BEE-2
@@ -16,7 +16,7 @@ updated: "19/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P3 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
+| done | P3 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | design |
 
 > Depende de [bee2-aplicar-design-system](../../done/bee2-aplicar-design-system/item.md) (a
 > identidade visual já aplicada é a referência pro logo/banner).

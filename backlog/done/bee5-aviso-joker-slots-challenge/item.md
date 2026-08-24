@@ -2,7 +2,7 @@
 id: bee5-aviso-joker-slots-challenge
 title: "Avisar que alguns desafios sobrescrevem os slots de joker do baralho de desafio"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| done | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Como usuário, quero saber que editar os slots de joker do baralho de desafio não tem efeito
 > em alguns desafios específicos, em vez de achar que o app tem um bug.

@@ -2,7 +2,7 @@
 id: bee5-tooltip-consumiveis
 title: "Tooltip com imagem maior, nome e descrição do consumível"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "20/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| done | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Depende de [bee5-imagens-consumiveis](../../qa/bee5-imagens-consumiveis/item.md) — mesmo
 > mecanismo de atlas, mesma tela.

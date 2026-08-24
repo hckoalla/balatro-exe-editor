@@ -2,7 +2,7 @@
 id: bee12-editor-niveis-mao-poker
 title: "Editar valores base das mãos de pôquer"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: main
 domain: BEE-12
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P3 | [BEE-12](../../_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer | main |
+| done | P3 | [BEE-12](../../_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer | main |
 
 > Como usuário, quero editar os valores de chips/mult de cada tipo de mão de pôquer, pra
 > customizar o quanto uma mão vale desde o início da run.

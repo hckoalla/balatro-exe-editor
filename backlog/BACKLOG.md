@@ -10,8 +10,8 @@
 | refining | 0 |
 | ready | 1 |
 | in-progress | 0 |
-| qa | 11 |
-| done | 28 |
+| qa | 0 |
+| done | 39 |
 | cancelled | 3 |
 | fase2 | 0 |
 | fase3 | 1 |
@@ -29,14 +29,14 @@
 - [done] bee1-rodape-creditos — P3 (pós-MVP, pedida pelo usuário)
 - [done] bee1-versao-na-ui — P3 (pós-MVP, pedida pelo usuário)
 - [done] bee1-splash-nativa — P3 (pós-MVP, evolui bee1-loading-inicial — padrão do dark-generator)
-- [qa] bee1-build-portatil — P2 (pós-MVP, pedida pelo usuário — rescopa bee1-pipeline-release,
+- [done] bee1-build-portatil — P2 (pós-MVP, pedida pelo usuário — rescopa bee1-pipeline-release,
   revisada de .zip pra .exe portable 20/ago/26, comparando com my-rpg-companion)
 
 ### [BEE-2](_epicas/BEE-2.md) · Design (Claude Design)
 - [done] bee2-prompt-sintese-claude-design — P0
 - [done] bee2-aplicar-design-system — P0 (rescopo: fundação de tema, não restilo de telas)
-- [qa] bee2-prompt-logo-banner — P3 (pós-MVP, pedida pelo usuário)
-- [qa] bee2-aplicar-logo-banner — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
+- [done] bee2-prompt-logo-banner — P3 (pós-MVP, pedida pelo usuário)
+- [done] bee2-aplicar-logo-banner — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
 
 ### [BEE-3](_epicas/BEE-3.md) · Motor de Leitura/Escrita do balatro.exe
 - [done] bee3-localizar-zip-embutido-no-exe — P0
@@ -54,13 +54,13 @@
 - [done] bee5-formulario-valores-numericos — P0
 - [done] bee5-editor-consumiveis-iniciais — P0
 - [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
-- [qa] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
-- [qa] bee5-tooltip-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
-- [qa] bee5-edicao-lote — P3 (pós-MVP, issue #1 — tela com checkboxes, sempre os 4 campos,
+- [done] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
+- [done] bee5-tooltip-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
+- [done] bee5-edicao-lote — P3 (pós-MVP, issue #1 — tela com checkboxes, sempre os 4 campos,
   substitui valores em vez de somar — implementada 24/ago/26)
-- [qa] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — desafio real: Luxury Tax / "Imposto de
+- [done] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — desafio real: Luxury Tax / "Imposto de
   Luxo" no PT-BR, não "Inflação" — implementada 24/ago/26)
-- [qa] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, desafio
+- [done] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, desafio
   reportado é Blast Off / "Decolar" (#16), mesma causa em mais 4 desafios — implementada 24/ago/26)
 - [ready] bee5-testar-limites-seguros — P3 (pós-MVP, issue #1 — spike depende de teste manual do
   usuário)
@@ -68,8 +68,8 @@
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
 - [done] bee6-restaurar-padrao — P0
-- [qa] bee6-restaurar-por-escopo — P2 (pedido direto do usuário 24/ago/26 — aba de Configurações +
-  restaurar baralhos/mãos por escopo, reaproveitando os parsers existentes — implementada mesmo
+- [done] bee6-restaurar-por-escopo — P2 (pedido direto do usuário 24/ago/26 — aba de Configurações
+  + restaurar baralhos/mãos por escopo, reaproveitando os parsers existentes — implementada mesmo
   dia)
 
 ### [BEE-7](_epicas/BEE-7.md) · Internacionalização
@@ -85,7 +85,7 @@
 refinadas de verdade.
 
 ### [BEE-8](_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2)
-- [qa] bee8-detectar-instalacao-steam — P1 (implementada 20/ago/26 — validada end-to-end na
+- [done] bee8-detectar-instalacao-steam — P1 (implementada 20/ago/26 — validada end-to-end na
   máquina real do usuário, não só com fakes)
 
 ### [BEE-9](_epicas/BEE-9.md) · Suporte macOS/Linux (Fase 2)
@@ -100,7 +100,7 @@ refinadas de verdade.
   mas deliberadamente deixada por último, decisão do usuário em 20/ago/26)
 
 ### [BEE-12](_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer
-- [qa] bee12-editor-niveis-mao-poker — P3 (issue #1 — os 4 campos, todas as mãos, aba própria
+- [done] bee12-editor-niveis-mao-poker — P3 (issue #1 — os 4 campos, todas as mãos, aba própria
   "Edição de Mão de Pôquer", soft-warning provisório de +20 — implementada 24/ago/26)
 
 ## Ordem sugerida (dependências)

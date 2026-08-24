@@ -2,7 +2,7 @@
 id: bee8-detectar-instalacao-steam
 title: "Detectar automaticamente a instalação do Balatro via Steam"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: main
 domain: BEE-8
@@ -16,7 +16,7 @@ updated: "08/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P1 | [BEE-8](../../_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2) | main |
+| done | P1 | [BEE-8](../../_epicas/BEE-8.md) · Detecção Automática da Instalação (Fase 2) | main |
 
 > Como usuário, quero poder escolher entre localizar o `balatro.exe` manualmente ou pedir pro app
 > tentar detectar automaticamente (se eu tenho o jogo instalado via Steam), em vez de só um dos

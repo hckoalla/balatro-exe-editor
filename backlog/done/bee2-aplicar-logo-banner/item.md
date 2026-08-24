@@ -2,7 +2,7 @@
 id: bee2-aplicar-logo-banner
 title: "Aplicar logo e banner gerados no app"
 type: story
-status: qa
+status: done
 owner: ""
 sistema: ui
 domain: BEE-2
@@ -16,7 +16,7 @@ updated: "20/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| qa | P3 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | ui |
+| done | P3 | [BEE-2](../../_epicas/BEE-2.md) · Design (Claude Design) | ui |
 
 > Depende de [bee2-prompt-logo-banner](../../qa/bee2-prompt-logo-banner/item.md) — os 4 assets já
 > foram gerados a partir do prompt (`logo/*.png`), essa história aplica.
