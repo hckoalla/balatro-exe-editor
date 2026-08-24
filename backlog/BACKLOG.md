@@ -8,9 +8,9 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 2 |
+| ready | 1 |
 | in-progress | 0 |
-| qa | 10 |
+| qa | 11 |
 | done | 28 |
 | cancelled | 3 |
 | fase2 | 0 |
@@ -68,8 +68,9 @@
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
 - [done] bee6-restaurar-padrao — P0
-- [ready] bee6-restaurar-por-escopo — P2 (pedido direto do usuário 24/ago/26 — aba de
-  Configurações + restaurar baralhos/mãos por escopo, reaproveitando os parsers existentes)
+- [qa] bee6-restaurar-por-escopo — P2 (pedido direto do usuário 24/ago/26 — aba de Configurações +
+  restaurar baralhos/mãos por escopo, reaproveitando os parsers existentes — implementada mesmo
+  dia)
 
 ### [BEE-7](_epicas/BEE-7.md) · Internacionalização
 - [done] bee7-infra-i18n — P0
