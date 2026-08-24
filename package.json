@@ -1,7 +1,7 @@
 {
   "name": "balatro-exe-editor",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Editor desktop para o balatro.exe — troca o fluxo manual (7-Zip + bloco de notas) por uma interface amigável.",
   "author": "hckoalla",
   "main": "dist-electron/main.js",
