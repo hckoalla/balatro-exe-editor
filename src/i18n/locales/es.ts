@@ -31,6 +31,8 @@ export const es: Messages = {
       '{{label}}: este valor no ha sido probado (rango seguro hasta ±{{limit}}) y podría hacer que el juego deje de funcionar.',
     challengeDeckDollarsNote:
       'El desafío Impuesto al Lujo reduce el tamaño de tu mano a medida que este dinero se acumula — un valor alto acá puede volver ese desafío injugable.',
+    challengeDeckJokerSlotNote:
+      'Algunos desafíos (Estallido, Saca cinco cartas, Crueldad, Sin comodines, Encasillado) fuerzan su propia cantidad de espacios de joker e ignoran este valor.',
   },
   consumables: {
     label: 'Consumibles Iniciales',

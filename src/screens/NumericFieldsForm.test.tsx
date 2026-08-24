@@ -127,4 +127,16 @@ describe('NumericFieldsForm', () => {
 
     expect(screen.queryByText(/luxury tax/i)).not.toBeInTheDocument()
   })
+
+  it('shows an always-visible note about challenges overriding joker slots, only for the Challenge Deck', () => {
+    renderForm({}, vi.fn(), 'b_challenge')
+
+    expect(screen.getByText(/blast off/i)).toBeInTheDocument()
+  })
+
+  it('does not show the joker slots override note for decks other than the Challenge Deck', () => {
+    renderForm({}, vi.fn(), 'b_red')
+
+    expect(screen.queryByText(/blast off/i)).not.toBeInTheDocument()
+  })
 })

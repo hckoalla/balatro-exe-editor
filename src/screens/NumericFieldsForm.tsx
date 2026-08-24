@@ -100,6 +100,11 @@ export function NumericFieldsForm({ config, deckId, onChange }: NumericFieldsFor
               {field.key === 'dollars' && deckId === 'b_challenge' && (
                 <p className="numeric-field__note">{t('numericFields.challengeDeckDollarsNote')}</p>
               )}
+              {field.key === 'joker_slot' && deckId === 'b_challenge' && (
+                <p className="numeric-field__note">
+                  {t('numericFields.challengeDeckJokerSlotNote')}
+                </p>
+              )}
             </div>
           )
         })}

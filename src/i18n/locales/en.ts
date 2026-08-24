@@ -33,6 +33,8 @@ export const en = {
       "{{label}}: this value hasn't been tested (safe range up to ±{{limit}}) and could make the game stop working.",
     challengeDeckDollarsNote:
       "The Luxury Tax challenge shrinks your hand size as this money adds up — a high value here can make that challenge unplayable.",
+    challengeDeckJokerSlotNote:
+      'Some challenges (Blast Off, Five-Card Draw, Cruelty, Jokerless, Typecast) force their own joker slot count and ignore this value.',
   },
   consumables: {
     label: 'Starting Consumables',

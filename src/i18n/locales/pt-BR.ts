@@ -31,6 +31,8 @@ export const ptBR: Messages = {
       '{{label}}: esse valor ainda não foi testado (faixa segura até ±{{limit}}) e pode fazer o jogo parar de funcionar.',
     challengeDeckDollarsNote:
       'O desafio Imposto de Luxo encolhe o tamanho da mão conforme esse dinheiro se acumula — um valor alto aqui pode tornar esse desafio impossível de jogar.',
+    challengeDeckJokerSlotNote:
+      'Alguns desafios (Decolar, Saque de Cinco Cartas, Crueldade, Sem Curinga, Estereótipo) forçam sua própria quantidade de slots de joker e ignoram esse valor.',
   },
   consumables: {
     label: 'Consumíveis Iniciais',
