@@ -8,9 +8,9 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 3 |
+| ready | 2 |
 | in-progress | 0 |
-| qa | 8 |
+| qa | 9 |
 | done | 28 |
 | cancelled | 3 |
 | fase2 | 0 |
@@ -56,8 +56,8 @@
 - [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
 - [qa] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
 - [qa] bee5-tooltip-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
-- [ready] bee5-edicao-lote — P3 (pós-MVP, issue #1 — refinada 24/ago/26: tela com checkboxes,
-  sempre os 4 campos, substitui valores em vez de somar)
+- [qa] bee5-edicao-lote — P3 (pós-MVP, issue #1 — tela com checkboxes, sempre os 4 campos,
+  substitui valores em vez de somar — implementada 24/ago/26)
 - [qa] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — desafio real: Luxury Tax / "Imposto de
   Luxo" no PT-BR, não "Inflação" — implementada 24/ago/26)
 - [qa] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, desafio

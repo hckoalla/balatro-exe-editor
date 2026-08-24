@@ -2,7 +2,7 @@
 id: bee5-edicao-lote
 title: "Edição em lote de múltiplos baralhos"
 type: story
-status: in-progress
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| in-progress | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| qa | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Como usuário, quero aplicar um "setup" de valores a um ou mais baralhos de uma vez, em vez de
 > repetir a mesma edição manualmente baralho por baralho.
