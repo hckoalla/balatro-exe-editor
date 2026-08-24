@@ -3,7 +3,24 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.1.0] - Unreleased
+## [1.1.2] - 2026-08-23
+
+_(`v1.1.1` shipped the itch.io publish step below, but it referenced a GitHub Action that doesn't
+exist — the release workflow failed before ever reaching itch.io. Fixed here; no other changes.)_
+
+### Added
+
+- Releases are now also published to [itch.io](https://storydevgames.itch.io/balatro-exe-editor)
+  automatically, alongside GitHub Releases, on every version tag.
+- A banner now appears at the top of the README.
+
+### Fixed
+
+- The itch.io publish step referenced a GitHub Action (`itchio/setup-butler`) that doesn't
+  exist, so it failed immediately — switched to `remarkablegames/setup-butler`, the one itch.io's
+  own documentation actually references.
+
+## [1.1.0] - 2026-08-20
 
 ### Added
 
