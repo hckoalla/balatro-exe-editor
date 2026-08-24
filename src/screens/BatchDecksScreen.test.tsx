@@ -58,4 +58,20 @@ describe('BatchDecksScreen', () => {
     expect(alpha).not.toBeChecked()
     expect(screen.getByRole('button', { name: /continue/i })).toBeDisabled()
   })
+
+  it('reloads decks after a scoped restore', async () => {
+    const user = userEvent.setup()
+    vi.mocked(window.balatro.getDecks).mockResolvedValue(DECKS)
+    vi.mocked(window.balatro.hasBackup).mockResolvedValue(true)
+
+    render(<BatchDecksScreen exePath="C:/balatro.exe" onContinue={vi.fn()} />)
+    await screen.findByText('Fixture Deck Alpha')
+    vi.mocked(window.balatro.getDecks).mockClear()
+
+    await user.click(await screen.findByRole('button', { name: /restore decks/i }))
+    await user.click(screen.getByRole('button', { name: /yes, restore decks/i }))
+
+    expect(window.balatro.restoreDecksDefault).toHaveBeenCalledWith('C:/balatro.exe')
+    expect(window.balatro.getDecks).toHaveBeenCalledWith('C:/balatro.exe')
+  })
 })

@@ -55,17 +55,25 @@ export const es: Messages = {
   restore: {
     button: 'Restaurar Predeterminado',
     confirmBody:
-      'Esto deshará todas las personalizaciones de este juego — todos los mazos vuelven a sus valores predeterminados. Cierra Balatro antes de continuar.',
+      'Esto deshará todas las personalizaciones de este juego — todos los mazos y niveles de mano de póker vuelven a sus valores predeterminados. Cierra Balatro antes de continuar.',
     confirmYes: 'Sí, restaurar',
     cancel: 'Cancelar',
+    decksButton: 'Restablecer Mazos',
+    decksConfirmBody:
+      'Esto deshace las personalizaciones de los mazos — todos los mazos vuelven a su valor predeterminado. Los niveles de mano de póker no se ven afectados. Cierra Balatro antes de continuar.',
+    decksConfirmYes: 'Sí, restablecer mazos',
+    pokerHandsButton: 'Restablecer Manos de Póker',
+    pokerHandsConfirmBody:
+      'Esto deshace las personalizaciones de las manos de póker — todas las manos vuelven a su valor predeterminado. Los mazos no se ven afectados. Cierra Balatro antes de continuar.',
+    pokerHandsConfirmYes: 'Sí, restablecer manos de póker',
   },
   settings: {
-    button: 'Configuración',
     language: 'Idioma',
   },
   tabs: {
     deckEditor: 'Editor de Mazo',
     batchEdit: 'Edición de Mazos por Lote',
+    settings: 'Configuración',
     pokerHands: 'Editor de Manos de Póker',
   },
   batchEdit: {

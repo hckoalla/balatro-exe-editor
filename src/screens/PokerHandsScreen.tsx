@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedPokerHand } from '../shared/poker-hand-schema'
 import { PokerHandsSaveButton } from './PokerHandsSaveButton'
+import { RestorePokerHandsButton } from './RestorePokerHandsButton'
 import './PokerHandsScreen.css'
 
 export interface PokerHandsScreenProps {
@@ -28,12 +29,16 @@ export function PokerHandsScreen({ exePath }: PokerHandsScreenProps) {
   const [original, setOriginal] = useState<ParsedPokerHand[] | null>(null)
   const [hands, setHands] = useState<ParsedPokerHand[] | null>(null)
 
-  useEffect(() => {
+  const loadHands = useCallback(() => {
     window.balatro.getPokerHands(exePath).then((result) => {
       setOriginal(result)
       setHands(result)
     })
   }, [exePath])
+
+  useEffect(() => {
+    loadHands()
+  }, [loadHands])
 
   if (!hands || !original) {
     return <p>{t('decks.loading')}</p>
@@ -53,8 +58,15 @@ export function PokerHandsScreen({ exePath }: PokerHandsScreenProps) {
 
   return (
     <div className="poker-hands-screen">
-      <h1 className="poker-hands-screen__title">{t('pokerHands.title')}</h1>
-      <p className="poker-hands-screen__subtitle">{t('pokerHands.subtitle')}</p>
+      <div className="poker-hands-screen__header">
+        <div>
+          <h1 className="poker-hands-screen__title">{t('pokerHands.title')}</h1>
+          <p className="poker-hands-screen__subtitle">{t('pokerHands.subtitle')}</p>
+        </div>
+        <div className="poker-hands-screen__header-actions">
+          <RestorePokerHandsButton exePath={exePath} onRestored={loadHands} />
+        </div>
+      </div>
 
       <div className="poker-hands-screen__grid">
         {hands.map((hand) => {

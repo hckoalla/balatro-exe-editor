@@ -20,6 +20,8 @@ export const IPC_CHANNELS = {
   getConsumableDescriptions: 'consumable-catalog:get-descriptions',
   hasBackup: 'backup:has',
   restoreDefault: 'backup:restore',
+  restoreDecksDefault: 'backup:restore-decks',
+  restorePokerHandsDefault: 'backup:restore-poker-hands',
   saveDeck: 'deck:save',
   saveDecksBatch: 'deck:save-batch',
   getPokerHands: 'poker-hand:get-all',
@@ -52,6 +54,8 @@ export interface BalatroApi {
   ) => Promise<Record<string, string> | null>
   hasBackup: (filePath: string) => Promise<boolean>
   restoreDefault: (filePath: string) => Promise<void>
+  restoreDecksDefault: (filePath: string) => Promise<void>
+  restorePokerHandsDefault: (filePath: string) => Promise<void>
   saveDeck: (filePath: string, deck: ParsedDeck) => Promise<SaveDeckResult>
   saveDecksBatch: (filePath: string, decks: ParsedDeck[]) => Promise<SaveDeckResult>
   getPokerHands: (filePath: string) => Promise<ParsedPokerHand[]>

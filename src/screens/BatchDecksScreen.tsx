@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedDeck } from '../shared/deck-schema'
+import { RestoreDecksButton } from './RestoreDecksButton'
 import './BatchDecksScreen.css'
 
 export interface BatchDecksScreenProps {
@@ -13,9 +14,13 @@ export function BatchDecksScreen({ exePath, onContinue }: BatchDecksScreenProps)
   const [decks, setDecks] = useState<ParsedDeck[] | null>(null)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
 
-  useEffect(() => {
+  const loadDecks = useCallback(() => {
     window.balatro.getDecks(exePath).then(setDecks)
   }, [exePath])
+
+  useEffect(() => {
+    loadDecks()
+  }, [loadDecks])
 
   if (!decks) {
     return <p>{t('decks.loading')}</p>
@@ -40,8 +45,13 @@ export function BatchDecksScreen({ exePath, onContinue }: BatchDecksScreenProps)
   return (
     <div className="batch-decks-screen">
       <div className="batch-decks-screen__header">
-        <h1 className="batch-decks-screen__title">{t('batchEdit.selectTitle')}</h1>
-        <p className="batch-decks-screen__subtitle">{t('batchEdit.selectSubtitle')}</p>
+        <div>
+          <h1 className="batch-decks-screen__title">{t('batchEdit.selectTitle')}</h1>
+          <p className="batch-decks-screen__subtitle">{t('batchEdit.selectSubtitle')}</p>
+        </div>
+        <div className="batch-decks-screen__header-actions">
+          <RestoreDecksButton exePath={exePath} onRestored={loadDecks} />
+        </div>
       </div>
 
       <div className="batch-decks-screen__grid">

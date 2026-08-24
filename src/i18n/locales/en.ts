@@ -57,18 +57,26 @@ export const en = {
   restore: {
     button: 'Restore Default',
     confirmBody:
-      'This will undo every customization on this game — all decks go back to their default values. Close Balatro before continuing.',
+      'This will undo every customization on this game — all decks and poker hand levels go back to their default values. Close Balatro before continuing.',
     confirmYes: 'Yes, restore',
     cancel: 'Cancel',
+    decksButton: 'Restore Decks',
+    decksConfirmBody:
+      "This undoes every deck customization — all decks go back to their default values. Poker hand levels aren't affected. Close Balatro before continuing.",
+    decksConfirmYes: 'Yes, restore decks',
+    pokerHandsButton: 'Restore Poker Hands',
+    pokerHandsConfirmBody:
+      "This undoes every poker hand customization — all hands go back to their default values. Decks aren't affected. Close Balatro before continuing.",
+    pokerHandsConfirmYes: 'Yes, restore poker hands',
   },
   settings: {
-    button: 'Settings',
     language: 'Language',
   },
   tabs: {
     deckEditor: 'Deck Editor',
     batchEdit: 'Batch Deck Editor',
     pokerHands: 'Poker Hand Editor',
+    settings: 'Settings',
   },
   batchEdit: {
     selectTitle: 'Select decks to edit',

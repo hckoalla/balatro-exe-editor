@@ -55,17 +55,25 @@ export const ptBR: Messages = {
   restore: {
     button: 'Restaurar Padrão',
     confirmBody:
-      'Isso vai desfazer todas as customizações desse jogo — todos os baralhos voltam pros valores padrão. Feche o Balatro antes de continuar.',
+      'Isso vai desfazer todas as customizações desse jogo — todos os baralhos e níveis de mão de pôquer voltam pros valores padrão. Feche o Balatro antes de continuar.',
     confirmYes: 'Sim, restaurar',
     cancel: 'Cancelar',
+    decksButton: 'Restaurar Baralhos',
+    decksConfirmBody:
+      'Isso vai desfazer as customizações dos baralhos — todos os baralhos voltam pro padrão. Os níveis de mão de pôquer não são afetados. Feche o Balatro antes de continuar.',
+    decksConfirmYes: 'Sim, restaurar baralhos',
+    pokerHandsButton: 'Restaurar Mãos de Pôquer',
+    pokerHandsConfirmBody:
+      'Isso vai desfazer as customizações das mãos de pôquer — todas as mãos voltam pro padrão. Os baralhos não são afetados. Feche o Balatro antes de continuar.',
+    pokerHandsConfirmYes: 'Sim, restaurar mãos de pôquer',
   },
   settings: {
-    button: 'Configurações',
     language: 'Idioma',
   },
   tabs: {
     deckEditor: 'Edição de Baralho',
     batchEdit: 'Edição de Baralho por Lote',
+    settings: 'Configurações',
     pokerHands: 'Edição de Mão de Pôquer',
   },
   batchEdit: {

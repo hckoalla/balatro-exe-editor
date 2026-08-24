@@ -16,6 +16,10 @@ const api: BalatroApi = {
     ipcRenderer.invoke(IPC_CHANNELS.getConsumableDescriptions, filePath, language),
   hasBackup: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.hasBackup, filePath),
   restoreDefault: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.restoreDefault, filePath),
+  restoreDecksDefault: (filePath) =>
+    ipcRenderer.invoke(IPC_CHANNELS.restoreDecksDefault, filePath),
+  restorePokerHandsDefault: (filePath) =>
+    ipcRenderer.invoke(IPC_CHANNELS.restorePokerHandsDefault, filePath),
   saveDeck: (filePath, deck) => ipcRenderer.invoke(IPC_CHANNELS.saveDeck, filePath, deck),
   saveDecksBatch: (filePath, decks) =>
     ipcRenderer.invoke(IPC_CHANNELS.saveDecksBatch, filePath, decks),

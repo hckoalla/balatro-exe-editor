@@ -64,4 +64,20 @@ describe('PokerHandsScreen', () => {
       { name: 'High Card', config: { s_mult: 1, s_chips: 5, l_mult: 1, l_chips: 10 } },
     ])
   })
+
+  it('reloads the hands after a scoped restore', async () => {
+    const user = userEvent.setup()
+    vi.mocked(window.balatro.getPokerHands).mockResolvedValue(HANDS)
+    vi.mocked(window.balatro.hasBackup).mockResolvedValue(true)
+
+    render(<PokerHandsScreen exePath="C:/balatro.exe" />)
+    await screen.findByText('Straight Flush')
+    vi.mocked(window.balatro.getPokerHands).mockClear()
+
+    await user.click(await screen.findByRole('button', { name: /restore poker hands/i }))
+    await user.click(screen.getByRole('button', { name: /yes, restore poker hands/i }))
+
+    expect(window.balatro.restorePokerHandsDefault).toHaveBeenCalledWith('C:/balatro.exe')
+    expect(window.balatro.getPokerHands).toHaveBeenCalledWith('C:/balatro.exe')
+  })
 })
