@@ -56,7 +56,10 @@ jobs:
           generate_release_notes: true
 
       - name: Instalar butler (itch.io)
-        uses: itchio/setup-butler@v1
+        # itchio/setup-butler NÃO existe (erro real na primeira tentativa: "repository not
+        # found") -- não é uma Action oficial do itch.io, o itch.io não publica uma própria. A
+        # que a documentação oficial do itch.io referencia é esta (remarkablegames/setup-butler).
+        uses: remarkablegames/setup-butler@v3
 
       - name: Publicar no itch.io
         env:
