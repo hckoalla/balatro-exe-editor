@@ -72,6 +72,24 @@ parser de Lua completo) reaproveita quase direto, só trocando o marcador de ide
    grupo de campos — a criação dessa história de teste específica fica pra depois desta história
    estar implementada, não faz sentido testar campo que ainda não existe no editor).
 
+## Bug encontrado no smoke test (24/ago/26)
+
+Usuário reportou: editar o valor inicial da mão (campos `s_mult`/`s_chips`) não tinha efeito
+nenhum no jogo, mas editar o incremento por nível (`l_mult`/`l_chips`) funcionou perfeitamente.
+
+Causa raiz confirmada em `functions/common_events.lua:464-468`
+(`balatro-exe-source-code/`, local, fora do git): o jogo só recalcula os campos que ele realmente
+usa pra pontuar (`mult`/`chips`) a partir de `s_mult`/`s_chips` quando o jogador sobe aquela mão
+de nível — `level_up_hand()`, `mult = max(s_mult + l_mult*(level-1), 1)`. Numa run nova
+(`level = 1`), `mult`/`chips` ficam travados no valor que já estava gravado no arquivo até isso
+acontecer — e o editor gravava só `s_mult`/`s_chips`, sem tocar em `mult`/`chips`. Por isso editar
+o valor inicial não tinha efeito nenhum (até o jogador subir a mão pela primeira vez), enquanto
+`l_mult`/`l_chips` "funcionava" — a fórmula de subida de nível já lia o valor novo.
+
+Corrigido em `serializePokerHandsBlock` (`electron/poker-hand-config/serialize-poker-hands-block.ts`):
+ao gravar `s_mult`/`s_chips`, sincroniza `mult`/`chips` com os mesmos valores (correto pra essa
+tabela especificamente, já que `level` é sempre 1 no estado inicial de uma run nova).
+
 ## Critérios de aceitação
 
 - Nova aba/tela "Edição de Mão de Pôquer", com formulário de 12 entradas (uma por tipo de mão),

@@ -27,13 +27,26 @@ describe('serializePokerHandsBlock', () => {
     })
   })
 
-  it('preserves the non-editable fields on the same line (mult, chips, level, example, etc.)', () => {
+  it('preserves fields that are neither editable nor derived from them (level, example, etc.)', () => {
     const one = { name: 'Fixture Hand One', config: { s_mult: 99, s_chips: 88, l_mult: 7, l_chips: 6 } }
 
     const updated = serializePokerHandsBlock(FIXTURE_GAME_LUA, [one])
 
     expect(updated).toContain("example = {{'S_A', true}}")
-    expect(updated).toContain('mult = 8,')
+    expect(updated).toContain('level = 1,')
+  })
+
+  it('also syncs mult/chips (the fields the game actually scores with) to match s_mult/s_chips', () => {
+    // O jogo só recalcula mult/chips a partir de s_mult/s_chips quando o jogador sobe a mão de
+    // nível (functions/common_events.lua, level_up_hand) -- numa run nova (level = 1), mult/chips
+    // ficam travados no valor gravado no arquivo até isso acontecer. Editar só s_mult/s_chips sem
+    // sincronizar mult/chips faz a edição não ter efeito nenhum até o jogador subir aquela mão.
+    const one = { name: 'Fixture Hand One', config: { s_mult: 99, s_chips: 88, l_mult: 7, l_chips: 6 } }
+
+    const updated = serializePokerHandsBlock(FIXTURE_GAME_LUA, [one])
+
+    expect(updated).toMatch(/\["Fixture Hand One"\][^\n]*\bmult = 99\b/)
+    expect(updated).toMatch(/\["Fixture Hand One"\][^\n]*\bchips = 88\b/)
   })
 
   it('applies changes to more than one hand in a single pass', () => {

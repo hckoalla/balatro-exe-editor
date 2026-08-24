@@ -2,9 +2,9 @@ import { HAND_ENTRY_LINE, HAND_FIELD_KEYS, HAS_HAND_FIELDS, type ParsedPokerHand
 
 /**
  * Regrava os 4 campos editáveis das mãos em `handsToApply` de volta no texto do `game.lua` —
- * substitui só `s_mult`/`s_chips`/`l_mult`/`l_chips`, preservando tudo mais na linha (`mult`,
- * `chips`, `level`, `example`, etc.) exatamente como estava. Mãos fora de `handsToApply` não são
- * tocadas.
+ * substitui `s_mult`/`s_chips`/`l_mult`/`l_chips` e sincroniza `mult`/`chips` com os novos
+ * `s_mult`/`s_chips` (ver `applyConfigToEntry`), preservando tudo mais na linha (`level`,
+ * `example`, etc.) exatamente como estava. Mãos fora de `handsToApply` não são tocadas.
  */
 export function serializePokerHandsBlock(
   gameLuaSource: string,
@@ -37,5 +37,14 @@ function applyConfigToEntry(entryBody: string, config: ParsedPokerHand['config']
       `${key} = ${config[key]}`,
     )
   }
+
+  // O jogo só recalcula `mult`/`chips` (o que a mão realmente vale na pontuação) a partir de
+  // `s_mult`/`s_chips` quando o jogador sobe a mão de nível (functions/common_events.lua,
+  // level_up_hand) -- nessa tabela (estado inicial de uma run nova, level = 1), mult/chips
+  // precisam ser sincronizados aqui, senão a edição de s_mult/s_chips fica sem efeito nenhum até
+  // a primeira subida de nível daquela mão.
+  newBody = newBody.replace(/\bmult\s*=\s*-?\d+(?:\.\d+)?/, `mult = ${config.s_mult}`)
+  newBody = newBody.replace(/\bchips\s*=\s*-?\d+(?:\.\d+)?/, `chips = ${config.s_chips}`)
+
   return newBody
 }
