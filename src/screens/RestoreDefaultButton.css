@@ -14,15 +14,6 @@
   background: rgba(255, 255, 255, 0.09);
 }
 
-.restore-default-button__confirm {
-  margin-top: 12px;
-  background: rgba(229, 72, 77, 0.1);
-  border: 1px solid rgba(229, 72, 77, 0.4);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  max-width: 360px;
-}
-
 .restore-default-button__confirm-body {
   color: var(--color-error-text);
   font-size: 13px;

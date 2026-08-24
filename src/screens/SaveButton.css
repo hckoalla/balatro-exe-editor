@@ -15,15 +15,6 @@
   background: var(--color-accent-hover);
 }
 
-.save-button__confirm {
-  margin-top: 12px;
-  background: var(--color-panel-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  max-width: 360px;
-}
-
 .save-button__confirm-body {
   color: var(--color-text-secondary);
   font-size: 13px;

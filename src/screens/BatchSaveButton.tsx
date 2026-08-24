@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedDeck } from '../shared/deck-schema'
 import type { BatchDeckSetup } from './BatchSetupForm'
+import { Modal } from './Modal'
 import './SaveButton.css'
 
 export interface BatchSaveButtonProps {
@@ -47,7 +48,7 @@ export function BatchSaveButton({ exePath, decks, setup, consumables }: BatchSav
       </button>
 
       {status === 'confirming' && (
-        <div className="save-button__confirm">
+        <Modal onClose={() => setStatus('idle')}>
           <p className="save-button__confirm-body">{t('batchEdit.confirmBody', { count })}</p>
           <div className="save-button__confirm-actions">
             <button type="button" className="save-button__confirm-yes" onClick={handleConfirm}>
@@ -61,7 +62,7 @@ export function BatchSaveButton({ exePath, decks, setup, consumables }: BatchSav
               {t('save.cancel')}
             </button>
           </div>
-        </div>
+        </Modal>
       )}
 
       {status === 'success' && <p className="save-button__success">{t('save.success')}</p>}

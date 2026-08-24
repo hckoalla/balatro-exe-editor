@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Modal } from './Modal'
 import './RestoreDefaultButton.css'
 
 export interface RestoreButtonProps {
@@ -57,7 +58,7 @@ export function RestoreButton({
       </button>
 
       {confirming && (
-        <div className="restore-default-button__confirm">
+        <Modal onClose={() => setConfirming(false)}>
           <p className="restore-default-button__confirm-body">{t(confirmBodyKey)}</p>
           <div className="restore-default-button__confirm-actions">
             <button
@@ -75,7 +76,7 @@ export function RestoreButton({
               {t('restore.cancel')}
             </button>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   )

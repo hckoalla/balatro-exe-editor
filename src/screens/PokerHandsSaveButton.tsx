@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedPokerHand } from '../shared/poker-hand-schema'
+import { Modal } from './Modal'
 import './SaveButton.css'
 
 export interface PokerHandsSaveButtonProps {
@@ -38,7 +39,7 @@ export function PokerHandsSaveButton({ exePath, hands }: PokerHandsSaveButtonPro
       </button>
 
       {status === 'confirming' && (
-        <div className="save-button__confirm">
+        <Modal onClose={() => setStatus('idle')}>
           <p className="save-button__confirm-body">{t('save.confirmBody')}</p>
           <div className="save-button__confirm-actions">
             <button type="button" className="save-button__confirm-yes" onClick={handleConfirm}>
@@ -52,7 +53,7 @@ export function PokerHandsSaveButton({ exePath, hands }: PokerHandsSaveButtonPro
               {t('save.cancel')}
             </button>
           </div>
-        </div>
+        </Modal>
       )}
 
       {status === 'success' && <p className="save-button__success">{t('save.success')}</p>}

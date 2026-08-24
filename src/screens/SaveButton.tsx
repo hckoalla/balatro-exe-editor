@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ParsedDeck, DeckConfig } from '../shared/deck-schema'
+import { Modal } from './Modal'
 import './SaveButton.css'
 
 export interface SaveButtonProps {
@@ -45,7 +46,7 @@ export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
       </button>
 
       {status === 'confirming' && (
-        <div className="save-button__confirm">
+        <Modal onClose={() => setStatus('idle')}>
           <p className="save-button__confirm-body">{t('save.confirmBody')}</p>
           <div className="save-button__confirm-actions">
             <button type="button" className="save-button__confirm-yes" onClick={handleConfirm}>
@@ -59,7 +60,7 @@ export function SaveButton({ exePath, deck, config }: SaveButtonProps) {
               {t('save.cancel')}
             </button>
           </div>
-        </div>
+        </Modal>
       )}
 
       {status === 'success' && (
