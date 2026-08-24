@@ -7,8 +7,8 @@
 
 | Estado | Itens |
 |---|---|
-| refining | 0 |
-| ready | 0 |
+| refining | 2 |
+| ready | 3 |
 | in-progress | 0 |
 | qa | 6 |
 | done | 28 |
@@ -56,6 +56,13 @@
 - [done] bee5-salvar-alteracoes — P0 (fecha o loop completo do MVP)
 - [qa] bee5-imagens-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
 - [qa] bee5-tooltip-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
+- [refining] bee5-edicao-lote — P3 (pós-MVP, issue #1 — precisa refinar escopo de UX)
+- [ready] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — refinada 24/ago/26, nome real do
+  desafio confirmado: Luxury Tax, não "Inflação")
+- [ready] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, causa raiz
+  confirmada: alguns desafios sobrescrevem joker_slots via rules.modifiers)
+- [ready] bee5-testar-limites-seguros — P3 (pós-MVP, issue #1 — spike depende de teste manual do
+  usuário)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
@@ -87,6 +94,10 @@ refinadas de verdade.
 ### [BEE-11](_epicas/BEE-11.md) · Challenges (Fase 2)
 - [fase3] bee11-jokers-iniciais-challenge — P2 (viável — abordagem técnica completa no item.md —
   mas deliberadamente deixada por último, decisão do usuário em 20/ago/26)
+
+### [BEE-12](_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer
+- [refining] bee12-editor-niveis-mao-poker — P3 (issue #1 — campos confirmados no game.lua,
+  precisa refinar escopo: quais campos, quais mãos, limites seguros ainda não testados)
 
 ## Ordem sugerida (dependências)
 
