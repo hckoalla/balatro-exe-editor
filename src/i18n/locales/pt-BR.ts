@@ -66,6 +66,7 @@ export const ptBR: Messages = {
   tabs: {
     deckEditor: 'Edição de Baralho',
     batchEdit: 'Edição de Baralho por Lote',
+    pokerHands: 'Edição de Mão de Pôquer',
   },
   batchEdit: {
     selectTitle: 'Selecione os baralhos pra editar',
@@ -79,5 +80,15 @@ export const ptBR: Messages = {
     confirmBody:
       'Isso vai sobrescrever Dinheiro Inicial, Slots de Joker, Slots de Consumível e Consumíveis Iniciais em {{count}} baralhos, substituindo os valores atuais deles. Isso vai gravar direto no seu balatro.exe. Feche o Balatro antes de continuar.',
     confirmYes: 'Sim, aplicar a {{count}} baralhos',
+  },
+  pokerHands: {
+    title: 'Níveis de mão de pôquer',
+    subtitle: 'Edite os chips/mult base e o crescimento por nível de cada mão de pôquer.',
+    sMult: 'Mult Base',
+    sChips: 'Chips Base',
+    lMult: 'Mult por Nível',
+    lChips: 'Chips por Nível',
+    warning:
+      'Essa faixa de ±{{limit}} ainda não foi confirmada por teste — é um chute provisório, e ir além pode fazer o jogo parar de funcionar.',
   },
 }

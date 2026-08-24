@@ -12,6 +12,8 @@ import { createBackupService } from './backup/backup-service'
 import { createFileBackupStore } from './backup/file-backup-store'
 import { registerBackupHandlers } from './backup/register-backup-handlers'
 import { registerSaveDeckHandlers } from './deck-config/register-save-deck-handlers'
+import { registerPokerHandHandlers } from './poker-hand-config/register-poker-hand-handlers'
+import { registerSavePokerHandHandlers } from './poker-hand-config/register-save-poker-hand-handlers'
 import { buildWindowTitle } from './build-window-title'
 import { createSplashWindow } from './create-splash-window'
 import { detectBalatroViaSteam } from './steam-detection/detect-balatro-via-steam'
@@ -98,6 +100,12 @@ app.whenReady().then(() => {
     writeFile: (filePath, data) => writeFile(filePath, data),
   })
   registerSaveDeckHandlers(ipcMain, {
+    backupService,
+    readFile: (filePath) => readFile(filePath),
+    writeFile: (filePath, data) => writeFile(filePath, data),
+  })
+  registerPokerHandHandlers(ipcMain, { readFile: (filePath) => readFile(filePath) })
+  registerSavePokerHandHandlers(ipcMain, {
     backupService,
     readFile: (filePath) => readFile(filePath),
     writeFile: (filePath, data) => writeFile(filePath, data),

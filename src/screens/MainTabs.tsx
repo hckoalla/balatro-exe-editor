@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeckEditorTab } from './DeckEditorTab'
 import { BatchEditTab } from './BatchEditTab'
+import { PokerHandsScreen } from './PokerHandsScreen'
 import './MainTabs.css'
 
 export interface MainTabsProps {
   exePath: string
 }
 
-type Tab = 'deckEditor' | 'batchEdit'
+type Tab = 'deckEditor' | 'batchEdit' | 'pokerHands'
 
 export function MainTabs({ exePath }: MainTabsProps) {
   const { t } = useTranslation()
@@ -35,14 +36,21 @@ export function MainTabs({ exePath }: MainTabsProps) {
         >
           {t('tabs.batchEdit')}
         </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === 'pokerHands'}
+          className={`main-tabs__tab${tab === 'pokerHands' ? ' main-tabs__tab--active' : ''}`}
+          onClick={() => setTab('pokerHands')}
+        >
+          {t('tabs.pokerHands')}
+        </button>
       </div>
 
       <div className="main-tabs__content">
-        {tab === 'deckEditor' ? (
-          <DeckEditorTab exePath={exePath} />
-        ) : (
-          <BatchEditTab exePath={exePath} />
-        )}
+        {tab === 'deckEditor' && <DeckEditorTab exePath={exePath} />}
+        {tab === 'batchEdit' && <BatchEditTab exePath={exePath} />}
+        {tab === 'pokerHands' && <PokerHandsScreen exePath={exePath} />}
       </div>
     </div>
   )

@@ -25,6 +25,19 @@ describe('MainTabs', () => {
     expect(await screen.findByText(/select decks to edit/i)).toBeInTheDocument()
   })
 
+  it('switches to the poker hand editor flow when its tab is clicked', async () => {
+    const user = userEvent.setup()
+    vi.mocked(window.balatro.getDecks).mockResolvedValue([])
+    vi.mocked(window.balatro.getPokerHands).mockResolvedValue([])
+
+    render(<MainTabs exePath="C:/balatro.exe" />)
+    await screen.findByText(/choose a deck/i)
+
+    await user.click(screen.getByRole('tab', { name: /poker hand editor/i }))
+
+    expect(await screen.findByText(/poker hand levels/i)).toBeInTheDocument()
+  })
+
   it('switches back to the deck editor flow', async () => {
     const user = userEvent.setup()
     vi.mocked(window.balatro.getDecks).mockResolvedValue([])

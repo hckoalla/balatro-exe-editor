@@ -5,6 +5,7 @@
 import type { AppSettings } from './settings-schema'
 import type { ParsedDeck, SaveDeckResult } from './deck-schema'
 import type { ConsumableCatalogEntry } from './consumable-catalog-schema'
+import type { ParsedPokerHand, SavePokerHandsResult } from './poker-hand-schema'
 
 export const IPC_CHANNELS = {
   getAppVersion: 'app:get-version',
@@ -21,6 +22,8 @@ export const IPC_CHANNELS = {
   restoreDefault: 'backup:restore',
   saveDeck: 'deck:save',
   saveDecksBatch: 'deck:save-batch',
+  getPokerHands: 'poker-hand:get-all',
+  savePokerHands: 'poker-hand:save-batch',
 } as const
 
 export interface SelectExeFileResult {
@@ -51,4 +54,6 @@ export interface BalatroApi {
   restoreDefault: (filePath: string) => Promise<void>
   saveDeck: (filePath: string, deck: ParsedDeck) => Promise<SaveDeckResult>
   saveDecksBatch: (filePath: string, decks: ParsedDeck[]) => Promise<SaveDeckResult>
+  getPokerHands: (filePath: string) => Promise<ParsedPokerHand[]>
+  savePokerHands: (filePath: string, hands: ParsedPokerHand[]) => Promise<SavePokerHandsResult>
 }

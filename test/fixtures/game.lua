@@ -35,4 +35,9 @@ return {
             c_fixture_spectral_two= {name = "Fixture Ectoplasm",  order = 2, discovered = false, cost = 4, pos = {x=1,y=5}, set = "Spectral", consumeable = true},
         },
     },
+    hands = {
+        ["Fixture Hand One"] =   {visible = true,  order = 1, mult = 8,  chips = 40, s_mult = 8,  s_chips = 40, level = 1, l_mult = 2, l_chips = 10, played = 0, played_this_round = 0, example = {{'S_A', true}}},
+        ["Fixture Hand Two"] =   {visible = true,  order = 2, mult = 4,  chips = 20, s_mult = 4,  s_chips = 20, level = 1, l_mult = 1, l_chips = 5,  played = 0, played_this_round = 0, example = {{'S_K', true}}},
+        ["Fixture Hand Three"] = {visible = false, order = 3, mult = 12, chips = 60, s_mult = 12, s_chips = 60, level = 1, l_mult = 3, l_chips = 15, played = 0, played_this_round = 0, example = {{'S_Q', true}}},
+    },
 }

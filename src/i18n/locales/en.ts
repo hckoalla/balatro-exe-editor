@@ -68,6 +68,7 @@ export const en = {
   tabs: {
     deckEditor: 'Deck Editor',
     batchEdit: 'Batch Deck Editor',
+    pokerHands: 'Poker Hand Editor',
   },
   batchEdit: {
     selectTitle: 'Select decks to edit',
@@ -81,5 +82,15 @@ export const en = {
     confirmBody:
       "This overwrites Starting Money, Joker Slots, Consumable Slots and Starting Consumables on {{count}} decks, replacing their current values. This writes directly to your balatro.exe. Close Balatro before continuing.",
     confirmYes: 'Yes, apply to {{count}} decks',
+  },
+  pokerHands: {
+    title: 'Poker hand levels',
+    subtitle: 'Edit the base chips/mult and per-level growth of each poker hand.',
+    sMult: 'Base Mult',
+    sChips: 'Base Chips',
+    lMult: 'Mult per Level',
+    lChips: 'Chips per Level',
+    warning:
+      "This ±{{limit}} range hasn't been confirmed by testing yet — a provisional guess, and going further could make the game stop working.",
   },
 } as const

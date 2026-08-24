@@ -27,6 +27,8 @@ if (typeof window !== 'undefined') {
       saveDecksBatch: vi
         .fn()
         .mockResolvedValue({ backupCreated: false, possiblyPreEdited: false }),
+      getPokerHands: vi.fn().mockResolvedValue([]),
+      savePokerHands: vi.fn().mockResolvedValue({ backupCreated: false }),
     }
   }
 

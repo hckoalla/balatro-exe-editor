@@ -66,6 +66,7 @@ export const es: Messages = {
   tabs: {
     deckEditor: 'Editor de Mazo',
     batchEdit: 'Edición de Mazos por Lote',
+    pokerHands: 'Editor de Manos de Póker',
   },
   batchEdit: {
     selectTitle: 'Elige los mazos a editar',
@@ -79,5 +80,15 @@ export const es: Messages = {
     confirmBody:
       'Esto sobrescribe Dinero Inicial, Espacios de Joker, Espacios de Consumible y Consumibles Iniciales en {{count}} mazos, reemplazando sus valores actuales. Esto escribe directamente en tu balatro.exe. Cierra Balatro antes de continuar.',
     confirmYes: 'Sí, aplicar a {{count}} mazos',
+  },
+  pokerHands: {
+    title: 'Niveles de manos de póker',
+    subtitle: 'Edita los chips/mult base y el crecimiento por nivel de cada mano de póker.',
+    sMult: 'Mult Base',
+    sChips: 'Chips Base',
+    lMult: 'Mult por Nivel',
+    lChips: 'Chips por Nivel',
+    warning:
+      'Este rango de ±{{limit}} todavía no fue confirmado por pruebas — es una estimación provisoria, y ir más allá podría hacer que el juego deje de funcionar.',
   },
 }

@@ -19,6 +19,9 @@ const api: BalatroApi = {
   saveDeck: (filePath, deck) => ipcRenderer.invoke(IPC_CHANNELS.saveDeck, filePath, deck),
   saveDecksBatch: (filePath, decks) =>
     ipcRenderer.invoke(IPC_CHANNELS.saveDecksBatch, filePath, decks),
+  getPokerHands: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.getPokerHands, filePath),
+  savePokerHands: (filePath, hands) =>
+    ipcRenderer.invoke(IPC_CHANNELS.savePokerHands, filePath, hands),
 }
 
 contextBridge.exposeInMainWorld('balatro', api)
