@@ -8,9 +8,9 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 2 |
+| ready | 1 |
 | in-progress | 0 |
-| qa | 9 |
+| qa | 10 |
 | done | 28 |
 | cancelled | 3 |
 | fase2 | 0 |
@@ -97,8 +97,8 @@ refinadas de verdade.
   mas deliberadamente deixada por último, decisão do usuário em 20/ago/26)
 
 ### [BEE-12](_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer
-- [ready] bee12-editor-niveis-mao-poker — P3 (issue #1 — refinada 24/ago/26: os 4 campos, todas as
-  12 mãos, aba própria "Edição de Mão de Pôquer", soft-warning provisório de +20)
+- [qa] bee12-editor-niveis-mao-poker — P3 (issue #1 — os 4 campos, todas as mãos, aba própria
+  "Edição de Mão de Pôquer", soft-warning provisório de +20 — implementada 24/ago/26)
 
 ## Ordem sugerida (dependências)
 
