@@ -2,7 +2,7 @@
 id: bee6-restaurar-por-escopo
 title: "Restaurar padrão por escopo (baralhos / mãos de pôquer / geral) + aba de Configurações"
 type: story
-status: ready
+status: in-progress
 owner: ""
 sistema: ui
 domain: BEE-6
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| ready | P2 | [BEE-6](../../_epicas/BEE-6.md) · Backup & Restauração | ui |
+| in-progress | P2 | [BEE-6](../../_epicas/BEE-6.md) · Backup & Restauração | ui |
 
 > Como usuário, quero restaurar só os baralhos ou só as mãos de pôquer pro padrão, sem perder as
 > customizações que já fiz no outro escopo — e configurações (idioma, restaurar geral) numa aba
