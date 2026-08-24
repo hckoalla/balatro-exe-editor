@@ -58,10 +58,10 @@
 - [qa] bee5-tooltip-consumiveis — P3 (pós-MVP, pedida pelo usuário — implementada 20/ago/26)
 - [ready] bee5-edicao-lote — P3 (pós-MVP, issue #1 — refinada 24/ago/26: tela com checkboxes,
   sempre os 4 campos, substitui valores em vez de somar)
-- [ready] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — refinada 24/ago/26, nome real do
-  desafio confirmado: Luxury Tax, não "Inflação")
+- [ready] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — refinada 24/ago/26, desafio real:
+  Luxury Tax / "Imposto de Luxo" no PT-BR, não "Inflação")
 - [ready] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, causa raiz
-  confirmada: alguns desafios sobrescrevem joker_slots via rules.modifiers)
+  confirmada: desafio reportado é Blast Off / "Decolar" (#16), mesma causa em mais 4 desafios)
 - [ready] bee5-testar-limites-seguros — P3 (pós-MVP, issue #1 — spike depende de teste manual do
   usuário)
 

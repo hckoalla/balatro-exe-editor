@@ -30,6 +30,11 @@ do git). Existe também um desafio real chamado "Inflation" no jogo, mas o mecan
 (inflaciona o preço de compras na loja a cada carta comprada — `G.GAME.inflation`,
 `card.lua:1800`), não tem nada a ver com dinheiro inicial ou tamanho de mão.
 
+**Confirmação do usuário (24/ago/26)**: é esse mesmo o desafio que "morre instantaneamente" ao
+editar `dollars` alto no baralho de desafio — bate com o mecanismo confirmado abaixo. No PT-BR do
+jogo (`balatro-exe-source-code/localization/pt_BR.lua`, `c_luxury_1="Imposto de Luxo"`), o nome é
+**"Imposto de Luxo"**.
+
 O mecanismo real do Luxury Tax (`challenges.lua:253-263`):
 ```lua
 {

@@ -42,6 +42,12 @@ Ou seja: o editor já grava o valor certo no `.exe`; é o próprio desafio, ao r
 que está no baralho e força seu próprio valor fixo. Mesma família de problema do Luxury Tax
 (`bee5-aviso-luxury-tax`) — desafios sobrescrevendo config do baralho de desafio.
 
+**Confirmação do usuário (24/ago/26)**: o desafio especificamente reportado com esse problema é o
+**Blast Off** — no PT-BR do jogo (`balatro-exe-source-code/localization/pt_BR.lua`,
+`c_blast_off_1="Decolar"`), é o **"Decolar"**, 16º desafio na lista real (`challenges.lua`,
+contagem confirmada por código). Os outros 4 (Five-Card Draw, Cruelty, Jokerless, Typecast) têm a
+mesma causa raiz confirmada em código, mas não foram os que geraram o report original.
+
 ## Critérios de aceitação
 
 - Ao editar o campo `joker_slot` do baralho `b_challenge` (Challenge Deck) especificamente,
