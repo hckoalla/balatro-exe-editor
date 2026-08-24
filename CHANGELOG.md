@@ -3,6 +3,35 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.2.0] - 2026-08-24
+
+### Added
+
+- Batch deck editing: a new "Batch Deck Editor" tab lets you select multiple decks with
+  checkboxes and apply the same starting money, joker slots, consumable slots, and starting
+  consumables to all of them at once. Values are set as absolutes — they replace whatever each
+  deck already had, rather than adding on top.
+- Poker hand level editor: a new "Poker Hand Editor" tab lets you edit the base chips/mult
+  (level 1) and the per-level growth of every poker hand type, individually.
+- Scoped restore: alongside the existing full restore, a "Restore Decks" button (deck editor and
+  batch editor tabs) and a "Restore Poker Hands" button (poker hand tab) let you undo just one
+  part of your customizations without losing edits made elsewhere.
+- New "Settings" tab: the language switcher moved here (previously tucked behind a small button
+  on the deck list screen), alongside the general "restore everything" button.
+- Informational notes on the Challenge Deck: a note on Starting Money warns that the Luxury Tax
+  challenge shrinks hand size as money accumulates; a note on Joker Slots warns that several
+  challenges (Blast Off, Five-Card Draw, Cruelty, Jokerless, Typecast) force their own value
+  regardless of what's set here.
+- Save and restore confirmations now open in a centered modal dialog instead of expanding inline
+  below the button.
+
+### Fixed
+
+- Editing a poker hand's base chips/mult had no visible effect in-game until that hand was
+  leveled up at least once — the app wasn't syncing those edits to the fields the game actually
+  scores with, which it only recalculates from the base values on level-up. Edits now apply from
+  the start of a fresh run.
+
 ## [1.1.2] - 2026-08-23
 
 _(`v1.1.1` shipped the itch.io publish step below, but it referenced a GitHub Action that doesn't
