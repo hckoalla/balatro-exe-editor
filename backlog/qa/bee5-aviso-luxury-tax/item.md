@@ -2,7 +2,7 @@
 id: bee5-aviso-luxury-tax
 title: "Avisar sobre risco do desafio Luxury Tax ao editar dinheiro do baralho de desafio"
 type: story
-status: in-progress
+status: qa
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| in-progress | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| qa | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Como usuário, quero ser avisado que aumentar o dinheiro inicial do baralho de desafio pode
 > quebrar especificamente o desafio Luxury Tax, antes de eu editar sem saber disso.
