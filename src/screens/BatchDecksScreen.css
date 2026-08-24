@@ -1,0 +1,67 @@
+.batch-decks-screen {
+  padding: 36px 40px;
+}
+
+.batch-decks-screen__header {
+  margin-bottom: 28px;
+}
+
+.batch-decks-screen__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--color-text);
+  margin: 0 0 6px;
+}
+
+.batch-decks-screen__subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.batch-decks-screen__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.batch-deck-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-panel-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.batch-deck-card--selected {
+  border-color: var(--color-accent);
+}
+
+.batch-deck-card__checkbox {
+  cursor: pointer;
+}
+
+.batch-decks-screen__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.batch-decks-screen__continue {
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.batch-decks-screen__continue:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

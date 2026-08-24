@@ -65,4 +65,21 @@ export const en = {
     button: 'Settings',
     language: 'Language',
   },
+  tabs: {
+    deckEditor: 'Deck Editor',
+    batchEdit: 'Batch Deck Editor',
+  },
+  batchEdit: {
+    selectTitle: 'Select decks to edit',
+    selectSubtitle: 'Choose one or more decks to apply the same setup to.',
+    continue: 'Continue',
+    continueWithCount: 'Continue ({{count}} selected)',
+    setupTitle: 'Set up the values to apply',
+    setupSubtitle:
+      'These values will be applied to all {{count}} selected decks, replacing whatever they already have — including Starting Consumables, which is replaced as a whole list.',
+    applyButton: 'Apply to {{count}} decks',
+    confirmBody:
+      "This overwrites Starting Money, Joker Slots, Consumable Slots and Starting Consumables on {{count}} decks, replacing their current values. This writes directly to your balatro.exe. Close Balatro before continuing.",
+    confirmYes: 'Yes, apply to {{count}} decks',
+  },
 } as const

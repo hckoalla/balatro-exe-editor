@@ -63,4 +63,21 @@ export const es: Messages = {
     button: 'Configuración',
     language: 'Idioma',
   },
+  tabs: {
+    deckEditor: 'Editor de Mazo',
+    batchEdit: 'Edición de Mazos por Lote',
+  },
+  batchEdit: {
+    selectTitle: 'Elige los mazos a editar',
+    selectSubtitle: 'Elige uno o más mazos para aplicarles el mismo setup.',
+    continue: 'Continuar',
+    continueWithCount: 'Continuar ({{count}} seleccionados)',
+    setupTitle: 'Configura los valores a aplicar',
+    setupSubtitle:
+      'Estos valores se van a aplicar a los {{count}} mazos seleccionados, reemplazando lo que cada uno ya tenía — incluyendo los Consumibles Iniciales, que se reemplazan como lista completa.',
+    applyButton: 'Aplicar a {{count}} mazos',
+    confirmBody:
+      'Esto sobrescribe Dinero Inicial, Espacios de Joker, Espacios de Consumible y Consumibles Iniciales en {{count}} mazos, reemplazando sus valores actuales. Esto escribe directamente en tu balatro.exe. Cierra Balatro antes de continuar.',
+    confirmYes: 'Sí, aplicar a {{count}} mazos',
+  },
 }

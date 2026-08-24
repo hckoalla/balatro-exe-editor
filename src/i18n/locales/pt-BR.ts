@@ -63,4 +63,21 @@ export const ptBR: Messages = {
     button: 'Configurações',
     language: 'Idioma',
   },
+  tabs: {
+    deckEditor: 'Edição de Baralho',
+    batchEdit: 'Edição de Baralho por Lote',
+  },
+  batchEdit: {
+    selectTitle: 'Selecione os baralhos pra editar',
+    selectSubtitle: 'Escolha um ou mais baralhos pra aplicar o mesmo setup.',
+    continue: 'Continuar',
+    continueWithCount: 'Continuar ({{count}} selecionados)',
+    setupTitle: 'Configure os valores a aplicar',
+    setupSubtitle:
+      'Esses valores serão aplicados aos {{count}} baralhos selecionados, substituindo o que cada um já tinha — incluindo os Consumíveis Iniciais, que são substituídos como lista inteira.',
+    applyButton: 'Aplicar a {{count}} baralhos',
+    confirmBody:
+      'Isso vai sobrescrever Dinheiro Inicial, Slots de Joker, Slots de Consumível e Consumíveis Iniciais em {{count}} baralhos, substituindo os valores atuais deles. Isso vai gravar direto no seu balatro.exe. Feche o Balatro antes de continuar.',
+    confirmYes: 'Sim, aplicar a {{count}} baralhos',
+  },
 }

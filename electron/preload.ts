@@ -17,6 +17,8 @@ const api: BalatroApi = {
   hasBackup: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.hasBackup, filePath),
   restoreDefault: (filePath) => ipcRenderer.invoke(IPC_CHANNELS.restoreDefault, filePath),
   saveDeck: (filePath, deck) => ipcRenderer.invoke(IPC_CHANNELS.saveDeck, filePath, deck),
+  saveDecksBatch: (filePath, decks) =>
+    ipcRenderer.invoke(IPC_CHANNELS.saveDecksBatch, filePath, decks),
 }
 
 contextBridge.exposeInMainWorld('balatro', api)

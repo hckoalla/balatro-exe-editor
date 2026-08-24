@@ -23,3 +23,10 @@
   color: var(--color-text);
   margin-bottom: 24px;
 }
+
+.batch-editor-screen__deck-list {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  margin: -16px 0 24px;
+}

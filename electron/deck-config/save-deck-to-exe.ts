@@ -16,12 +16,12 @@ export interface SaveDeckToExeDeps {
 
 /**
  * Ponto onde tudo se conecta: garante o backup do `game.lua` original (antes de qualquer
- * escrita), serializa o baralho editado de volta no texto do `game.lua`, reinjeta no `.exe` e
- * grava em disco.
+ * escrita), serializa os baralhos editados de volta no texto do `game.lua` — todos numa passada
+ * só, um único ciclo de leitura/escrita do `.exe` — reinjeta e grava em disco.
  */
-export async function saveDeckToExe(
+export async function saveDecksToExe(
   exePath: string,
-  editedDeck: ParsedDeck,
+  editedDecks: ParsedDeck[],
   deps: SaveDeckToExeDeps,
 ): Promise<SaveDeckResult> {
   const currentExe = await deps.readFile(exePath)
@@ -32,9 +32,17 @@ export async function saveDeckToExe(
   const possiblyPreEdited =
     backupCreated && detectPreexistingEdits(currentGameLua, deps.knownDefaults).length > 0
 
-  const newGameLua = serializeDeckBlock(currentGameLua, [editedDeck])
+  const newGameLua = serializeDeckBlock(currentGameLua, editedDecks)
   const updatedExe = updateGameLuaInExe(currentExe, newGameLua)
   await writeExeToDisk(exePath, updatedExe, deps.writeFile)
 
   return { backupCreated, possiblyPreEdited }
+}
+
+export async function saveDeckToExe(
+  exePath: string,
+  editedDeck: ParsedDeck,
+  deps: SaveDeckToExeDeps,
+): Promise<SaveDeckResult> {
+  return saveDecksToExe(exePath, [editedDeck], deps)
 }

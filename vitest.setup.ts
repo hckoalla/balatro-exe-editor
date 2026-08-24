@@ -24,6 +24,9 @@ if (typeof window !== 'undefined') {
       hasBackup: vi.fn().mockResolvedValue(false),
       restoreDefault: vi.fn().mockResolvedValue(undefined),
       saveDeck: vi.fn().mockResolvedValue({ backupCreated: false, possiblyPreEdited: false }),
+      saveDecksBatch: vi
+        .fn()
+        .mockResolvedValue({ backupCreated: false, possiblyPreEdited: false }),
     }
   }
 

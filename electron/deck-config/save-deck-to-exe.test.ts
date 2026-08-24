@@ -5,7 +5,7 @@ import { buildSyntheticBalatroExe } from '../../test/fixtures/build-synthetic-ba
 import { extractGameLua } from '../exe-engine/extract-game-lua'
 import { createBackupService, type BackupStore } from '../backup/backup-service'
 import { parseDeckBlock } from './parse-deck-block'
-import { saveDeckToExe } from './save-deck-to-exe'
+import { saveDeckToExe, saveDecksToExe } from './save-deck-to-exe'
 
 const FIXTURE_GAME_LUA = readFileSync(join(__dirname, '../../test/fixtures/game.lua'), 'utf-8')
 
@@ -143,5 +143,52 @@ describe('saveDeckToExe', () => {
     const result = await saveDeckToExe('C:/games/balatro.exe', bravo, deps)
 
     expect(result).toEqual({ backupCreated: false, possiblyPreEdited: false })
+  })
+})
+
+describe('saveDecksToExe', () => {
+  it('writes multiple decks in a single pass, leaving decks not in the list untouched', async () => {
+    const originalExe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA)
+    let writtenBuffer: Buffer | null = null
+    const backupService = createBackupService(createFakeStore())
+
+    const parsed = parseDeckBlock(FIXTURE_GAME_LUA)
+    const bravo = parsed.find((d) => d.id === 'deck_bravo')!
+    const charlie = parsed.find((d) => d.id === 'deck_charlie')!
+    bravo.config = { dollars: 50 }
+    charlie.config = { dollars: 50 }
+
+    await saveDecksToExe('C:/games/balatro.exe', [bravo, charlie], {
+      readFile: async () => originalExe,
+      writeFile: async (_path, data) => {
+        writtenBuffer = data
+      },
+      backupService,
+    })
+
+    const savedDecks = parseDeckBlock(extractGameLua(writtenBuffer!))
+    expect(savedDecks.find((d) => d.id === 'deck_bravo')!.config).toEqual({ dollars: 50 })
+    expect(savedDecks.find((d) => d.id === 'deck_charlie')!.config).toEqual({ dollars: 50 })
+    // baralho fora da lista permanece intacto
+    expect(savedDecks.find((d) => d.id === 'deck_alpha')!.config).toEqual({})
+  })
+
+  it('creates only one backup for a batch write covering several decks', async () => {
+    const originalExe = buildSyntheticBalatroExe(FIXTURE_GAME_LUA)
+    const backupService = createBackupService(createFakeStore())
+    const parsed = parseDeckBlock(FIXTURE_GAME_LUA)
+    const bravo = parsed.find((d) => d.id === 'deck_bravo')!
+    const charlie = parsed.find((d) => d.id === 'deck_charlie')!
+    bravo.config = { dollars: 50 }
+    charlie.config = { dollars: 50 }
+
+    const result = await saveDecksToExe('C:/games/balatro.exe', [bravo, charlie], {
+      readFile: async () => originalExe,
+      writeFile: async () => {},
+      backupService,
+    })
+
+    expect(result.backupCreated).toBe(true)
+    expect(await backupService.getBackup('C:/games/balatro.exe')).toBe(FIXTURE_GAME_LUA)
   })
 })

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import type { DeckConfig } from '../shared/deck-schema'
+import { NUMERIC_FIELD_LIMITS, type NumericFieldKey } from '../shared/numeric-field-limits'
 import './NumericFieldsForm.css'
 
 export interface NumericFieldsFormProps {
@@ -8,20 +9,9 @@ export interface NumericFieldsFormProps {
   onChange: (config: DeckConfig) => void
 }
 
-type NumericKey = 'dollars' | 'joker_slot' | 'consumable_slot'
+type NumericKey = NumericFieldKey
 
-interface FieldDef {
-  key: NumericKey
-  labelKey: string
-  safeLimit: number
-}
-
-// Limites testados empiricamente pelo usuário — ver backlog/README.md (contexto de domínio).
-const FIELDS: FieldDef[] = [
-  { key: 'dollars', labelKey: 'numericFields.dollars', safeLimit: 230 },
-  { key: 'joker_slot', labelKey: 'numericFields.jokerSlot', safeLimit: 145 },
-  { key: 'consumable_slot', labelKey: 'numericFields.consumableSlot', safeLimit: 90 },
-]
+const FIELDS = NUMERIC_FIELD_LIMITS
 
 export function NumericFieldsForm({ config, deckId, onChange }: NumericFieldsFormProps) {
   const { t } = useTranslation()

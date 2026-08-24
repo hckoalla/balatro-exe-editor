@@ -20,6 +20,7 @@ export const IPC_CHANNELS = {
   hasBackup: 'backup:has',
   restoreDefault: 'backup:restore',
   saveDeck: 'deck:save',
+  saveDecksBatch: 'deck:save-batch',
 } as const
 
 export interface SelectExeFileResult {
@@ -49,4 +50,5 @@ export interface BalatroApi {
   hasBackup: (filePath: string) => Promise<boolean>
   restoreDefault: (filePath: string) => Promise<void>
   saveDeck: (filePath: string, deck: ParsedDeck) => Promise<SaveDeckResult>
+  saveDecksBatch: (filePath: string, decks: ParsedDeck[]) => Promise<SaveDeckResult>
 }
