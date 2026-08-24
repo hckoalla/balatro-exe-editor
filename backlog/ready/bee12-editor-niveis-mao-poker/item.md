@@ -2,7 +2,7 @@
 id: bee12-editor-niveis-mao-poker
 title: "Editar valores base das mãos de pôquer"
 type: story
-status: refining
+status: ready
 owner: ""
 sistema: main
 domain: BEE-12
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| refining | P3 | [BEE-12](../../_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer | main |
+| ready | P3 | [BEE-12](../../_epicas/BEE-12.md) · Editor de Níveis de Mão de Pôquer | main |
 
 > Como usuário, quero editar os valores de chips/mult de cada tipo de mão de pôquer, pra
 > customizar o quanto uma mão vale desde o início da run.
@@ -54,23 +54,37 @@ já usado pro bloco de baralhos (`parse-deck-block.ts` — regex + contagem de c
 parser de Lua completo) reaproveita quase direto, só trocando o marcador de identificação
 (`visible = ` em vez de `set = "Back"`) e o caminho até a tabela dentro do `game.lua`.
 
-**Perguntas em aberto antes de virar `ready`** (Socrático, ainda não perguntado ao usuário):
-1. Quais campos editar: só `s_mult`/`s_chips` (valor base, mais intuitivo), ou também
-   `l_mult`/`l_chips` (quanto cresce por nível)?
-2. Quais mãos: todas as 12, ou só as "normais" (as 10 visíveis, `visible = true` — Flush Five e
-   Flush House são secretas/desbloqueáveis, `visible = false`)?
-3. Editar por mão individual (formulário com 12 entradas) ou um multiplicador global aplicado a
-   todas de uma vez?
-4. Limites seguros: não temos nenhum teste empírico ainda pra esses campos (diferente dos 4 campos
-   do MVP, que já têm limite testado) — precisa de rodada de teste manual do usuário antes de
-   definir um soft-warning, ou lança sem limite conhecido por enquanto (com aviso genérico de
-   "não testado")?
+**Refinamento (24/ago/26)** — decisões do usuário pras 4 perguntas abertas:
 
-## Critérios de aceitação (preliminares — revisar no refinamento)
+1. **Campos**: os 4 juntos — `s_mult`, `s_chips`, `l_mult` e `l_chips`, não só o valor base.
+2. **Mãos**: todas as 12, incluindo Flush Five e Flush House (secretas/desbloqueáveis,
+   `visible = false` no jogo).
+3. **Modo de edição**: por mão individual (formulário com uma entrada editável por tipo de mão),
+   não um multiplicador global. Decisão de navegação junto: a app terá três abas/telas de edição
+   coexistindo — **Edição de Baralho** (MVP), **Edição de Baralho por Lote**
+   ([bee5-edicao-lote](../../ready/bee5-edicao-lote/item.md)) e **Edição de Mão de Pôquer** (esta
+   história) — cada uma seu próprio fluxo, sem se misturar.
+4. **Limite seguro**: nenhum campo aqui tem teste empírico ainda (diferente dos 4 campos do MVP).
+   Lança com um soft-warning **provisório de 20** (acima do valor padrão do jogo, por campo), mas
+   explicitamente marcado na UI como não confirmado — depende de uma rodada de teste manual do
+   usuário depois da implementação pra virar definitivo (mesmo espírito do
+   [bee5-testar-limites-seguros](../../ready/bee5-testar-limites-seguros/item.md), mas pra este
+   grupo de campos — a criação dessa história de teste específica fica pra depois desta história
+   estar implementada, não faz sentido testar campo que ainda não existe no editor).
 
-- Usuário consegue editar o(s) campo(s) definido(s) acima, por tipo de mão.
-- Grava de volta no `game.lua` sem corromper as outras 11 entradas nem o resto do arquivo.
+## Critérios de aceitação
+
+- Nova aba/tela "Edição de Mão de Pôquer", com formulário de 12 entradas (uma por tipo de mão),
+  cada uma editando `s_mult`, `s_chips`, `l_mult` e `l_chips` individualmente.
+- Parser e serializador reaproveitam o padrão de `parse-deck-block.ts` (regex + contagem de
+  chaves), adaptado pro marcador e localização desta tabela no `game.lua`.
+- Soft-warning de +20 por campo, com aviso explícito na UI de que o limite é **provisório, ainda
+  não confirmado por teste manual** — texto diferente do soft-warning já calibrado dos campos do
+  MVP.
+- Grava de volta no `game.lua` sem corromper as outras entradas da tabela nem o resto do arquivo.
 
 ## Fora de escopo
 
-- Definido durante o refinamento.
+- Editar `mult`/`chips` (valor efetivo atual) diretamente — só os campos base/incremento.
+- Criar a história de teste de limite seguro específica pra estes campos — fica pra depois desta
+  história ser implementada.

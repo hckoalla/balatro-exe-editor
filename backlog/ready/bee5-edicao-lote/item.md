@@ -47,6 +47,11 @@ baralhos de uma vez exige repetir esse fluxo manualmente hoje.
    torna o novo delta de cada baralho selecionado, substituindo o anterior. Precisa ficar claro
    na UI que a edição em lote **substitui** valores existentes, não adiciona a eles.
 
+**Refinamento adicional (24/ago/26, decidido durante o refinamento de**
+**[bee12-editor-niveis-mao-poker](../bee12-editor-niveis-mao-poker/item.md))**: a app terá três
+abas/telas de edição coexistindo — **Edição de Baralho** (MVP), **Edição de Baralho por Lote**
+(esta história) e **Edição de Mão de Pôquer** — cada uma seu próprio fluxo, sem se misturar.
+
 ## Critérios de aceitação
 
 - Nova tela (ou modal) de seleção de baralhos, com checkbox por baralho — permite seleção parcial
