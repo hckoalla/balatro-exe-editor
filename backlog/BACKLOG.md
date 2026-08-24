@@ -8,9 +8,9 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 2 |
+| ready | 1 |
 | in-progress | 0 |
-| qa | 0 |
+| qa | 1 |
 | done | 39 |
 | cancelled | 3 |
 | fase2 | 0 |
@@ -64,8 +64,8 @@
   reportado é Blast Off / "Decolar" (#16), mesma causa em mais 4 desafios — implementada 24/ago/26)
 - [ready] bee5-testar-limites-seguros — P3 (pós-MVP, issue #1 — spike depende de teste manual do
   usuário)
-- [ready] bee5-modal-confirmacao — P3 (pedido direto do usuário 24/ago/26 — confirmação de
-  salvar/restaurar vira modal centralizado, não bloco inline)
+- [qa] bee5-modal-confirmacao — P3 (pedido direto do usuário 24/ago/26 — confirmação de
+  salvar/restaurar vira modal centralizado, não bloco inline — implementada mesmo dia)
 
 ### [BEE-6](_epicas/BEE-6.md) · Backup & Restauração
 - [done] bee6-backup-automatico-primeira-edicao — P0 (ver ressalva no item.md sobre o critério 3)
