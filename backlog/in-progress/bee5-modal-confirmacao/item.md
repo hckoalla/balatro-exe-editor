@@ -2,7 +2,7 @@
 id: bee5-modal-confirmacao
 title: "Confirmação de ações destrutivas vira modal, não bloco inline"
 type: story
-status: ready
+status: in-progress
 owner: ""
 sistema: ui
 domain: BEE-5
@@ -16,7 +16,7 @@ updated: "24/ago/26"
 
 | Estado | Prioridade | Épica | Sistema |
 |---|---|---|---|
-| ready | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
+| in-progress | P3 | [BEE-5](../../_epicas/BEE-5.md) · Editor de Baralhos (UI) | ui |
 
 > Como usuário, quero que a confirmação de salvar/restaurar apareça num modal centralizado, não
 > como um bloco que empurra o resto da tela pra baixo.
