@@ -8,9 +8,9 @@
 | Estado | Itens |
 |---|---|
 | refining | 0 |
-| ready | 4 |
+| ready | 3 |
 | in-progress | 0 |
-| qa | 7 |
+| qa | 8 |
 | done | 28 |
 | cancelled | 3 |
 | fase2 | 0 |
@@ -60,8 +60,8 @@
   sempre os 4 campos, substitui valores em vez de somar)
 - [qa] bee5-aviso-luxury-tax — P3 (pós-MVP, issue #1 — desafio real: Luxury Tax / "Imposto de
   Luxo" no PT-BR, não "Inflação" — implementada 24/ago/26)
-- [ready] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, causa raiz
-  confirmada: desafio reportado é Blast Off / "Decolar" (#16), mesma causa em mais 4 desafios)
+- [qa] bee5-aviso-joker-slots-challenge — P3 (pós-MVP, issue #1 — não é bug do app, desafio
+  reportado é Blast Off / "Decolar" (#16), mesma causa em mais 4 desafios — implementada 24/ago/26)
 - [ready] bee5-testar-limites-seguros — P3 (pós-MVP, issue #1 — spike depende de teste manual do
   usuário)
 
