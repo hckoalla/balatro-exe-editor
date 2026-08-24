@@ -1,9 +1,0 @@
-# 1.1.0 - 2026-08-20
-
-- Switched from an installer to a single portable `.exe` — download, run, no install step.
-- New: automatically detect your Balatro install via Steam, as an alternative to browsing for it
-  manually.
-- New: every Tarot, Planet, and Spectral now shows its real in-game artwork in the consumables
-  picker, with a hover tooltip showing a bigger image, its name, and what it does.
-- New: app icon and a banner on the home screen.
-- Fixed: consumable images sometimes failed to load (fell back to text-only).
